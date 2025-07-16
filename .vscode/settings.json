@@ -1,0 +1,6 @@
+{
+    "editor.suggest.showStatusBar": true,
+    "problems.showCurrentInStatus": true,
+    "telemetry.editStats.showStatusBar": false,
+    "notebook.showCellStatusBar": "visible"
+}
