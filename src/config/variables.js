@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config()
 
-export const variables = {
+export const  {
     MONGO_URI,
     PORT
 } = process.env;

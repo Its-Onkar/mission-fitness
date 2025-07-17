@@ -1,6 +1,7 @@
-import db from "../db/connection";
+import db from "../db/connection.js";
 import app from "./app.js"
-import { PORT } from "../config.js";
+import { PORT } from "./config/variables.js";
+import './config/variables.js'; 
 
 
 db.then(() => {
