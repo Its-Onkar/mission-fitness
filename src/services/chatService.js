@@ -11,10 +11,12 @@ export const chatService = async (messages) => {
         },
         {
           role: 'user',
-          content: messages, // << this must be a string
+          content: messages, 
         },
       ],
     });
+
+    console.log("OpenAI response:", response);
     return response.choices[0].message.content;
   } catch (error) {
     console.error("Error in chatService:", error);

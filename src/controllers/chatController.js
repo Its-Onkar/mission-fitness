@@ -9,7 +9,7 @@ export   const chatController = async (req, res) => {
             return res.status(400).json({ error: "Message is required" });
         }
         const response = await chatService(message)
-        res.status(200).json({ response: `You said: ${response}` });
+        res.status(200).json({ response: response});
     } catch (error) {
         console.error("Error in chatController:", error);
         res.status(500).json({ error: "Internal Server Error" });
