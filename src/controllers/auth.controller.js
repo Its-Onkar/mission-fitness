@@ -44,11 +44,6 @@ export const forgotPasswordController = async (req, res) => {
   
   export const resetPasswordController = async (req, res) => {
     try {
-      // await resetPassword({
-      //   email: req.body.email,
-      //   otp: req.body.otp,
-      //   newPassword: req.body.newPassword,
-      // });
       await resetPassword({
         token: req.query.token,
         newPassword: req.body.newPassword,

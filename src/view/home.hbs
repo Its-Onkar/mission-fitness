@@ -1,0 +1,55 @@
+  <body class="bg-gray-100 text-gray-800">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-indigo-600 to-purple-700 text-white text-center px-4">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
+        Welcome to <span class="text-yellow-400">Mission Fitness</span>
+      </h1>
+      <p class="text-lg md:text-xl max-w-2xl mb-6">
+        Your journey to a healthier, stronger, and more confident you starts here.
+      </p>
+      <div class="flex gap-4">
+        <a href="/signup" class="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-3 rounded-md transition duration-300">
+          Get Started
+        </a>
+        <a href="/login" class="border border-white hover:bg-white hover:text-indigo-700 text-white font-semibold px-6 py-3 rounded-md transition duration-300">
+          Member Login
+        </a>
+      </div>
+    </section>
+
+   
+    <section class="py-16 px-6 bg-white">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Why Choose Mission Fitness?</h2>
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-700">Personalized Training</h3>
+          <p>Our certified trainers create customized plans tailored to your fitness level and goals.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-700">Nutrition Guidance</h3>
+          <p>Access meal plans, expert tips, and support to fuel your transformation the right way.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-700">24/7 Gym Access</h3>
+          <p>Train anytime with our secure, state-of-the-art facilities equipped with the latest gear.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call To Action -->
+    <section class="bg-indigo-700 text-white py-14 px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Join the Mission Today</h2>
+      <p class="mb-6 text-lg max-w-2xl mx-auto">No more excuses. No more waiting. Become the best version of yourself with Mission Fitness.</p>
+      <a href="/signup" class="bg-yellow-400 text-black px-8 py-3 font-bold rounded-md hover:bg-yellow-300 transition">Start Your Journey</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-6">
+      <p>&copy; {{year}} Mission Fitness. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Optional dynamic year for the footer
+      document.querySelector("footer p").innerHTML = `&copy; ${new Date().getFullYear()} Mission Fitness. All rights reserved.`;
+    </script>
+  </body>
