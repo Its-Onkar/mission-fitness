@@ -12,4 +12,5 @@ import { forgotPasswordController, loginController, resetPasswordController, sig
  authRouter.post("/auth/forgot-password", forgotPasswordController);
 authRouter.post("/auth/reset-password", resetPasswordController);
 
+
   export default authRouter

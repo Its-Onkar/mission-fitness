@@ -66,13 +66,13 @@ export const forgotPassword = async (email) => {
     if (!user) {
         throw new Error("User Not Found");
     }
-    const token = generateToken({ email, tokenType: "forgotPassword" }, "10m");
+    const token = generateToken({ email, tokenType: "forgotPassword" }, "1h");
 
     await sendEmail({
         subject: "Your password reset link",
         body: `
       <p>Click the link below to reset your password:</p>
-      <a href="http://localhost:6000/reset-password?token=${token}>
+      <a href="http://localhost:6001/reset-password?token=${token}>
         Reset Password 
       </a>
       `,

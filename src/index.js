@@ -6,7 +6,7 @@ import './config/variables.js';
 
 db.then(() => {
     app.listen(PORT,()=>{
-      console.log(`Server is running on port ${PORT}`);
+      console.log("Server is running port  http://localhost:"+PORT)
     })
 }).catch(err => {
   console.error('MongoDB connection error:', err);
