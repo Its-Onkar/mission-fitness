@@ -1,3 +1,5 @@
+
+import { BASE_URL } from "../config/variables.js"
 import User from "../Schema/user.schema.js"
 import { comparePassword, createPasswordHash, generateToken, verifyToken } from "../utils/auth.utils.js"
 import { sendEmail } from "../utils/sendEmail.js"
@@ -6,21 +8,21 @@ import { createUser, getUserByUserName } from "./user.service.js"
 export const signup = async (userData) => {
     try {
         const password = userData.password
-
         const hashedPassword = await createPasswordHash(password)
         userData.password = hashedPassword
-
         const newUser = await createUser(userData)
 
+        const token=generateToken({
+            userName:newUser.userName,
+            email:newUser.email
+        },'10m')
+        const verifyLink = `${BASE_URL}/auth/verify-email?token=${token}`;
         const to = userData.email
         const subject = "Welcome to  missionFitness " + userData.userName
-        const body = `Hello ${userData.userName},\n\nWelcome to missionFitness! We're excited to have you on board.\n\nBest regards,\nThe missionFitness Team`
+        const body = `Hello ${userData.userName},\n\nWelcome to missionFitness! We're excited to have you on board.\n\nBest regards,\nThe missionFitness Team\n<h3>Verify your email</h3><p>Click below to verify your email:</p><a href="${verifyLink}">${verifyLink}</a>`
         const cc = null
 
         await sendEmail({ to, subject, cc, body })
-
-
-
         return newUser
 
     } catch (error) {
@@ -66,7 +68,7 @@ export const forgotPassword = async (email) => {
     if (!user) {
         throw new Error("User Not Found");
     }
-    const token = generateToken({ email, tokenType: "forgotPassword" }, "1h");
+    const token = generateToken({ email, tokenType: "forgotPassword" }, "10m");
 
     await sendEmail({
         subject: "Your password reset link",
