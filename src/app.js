@@ -27,7 +27,7 @@ app.set("views", path.join(__dirname, "view"));
 console.log("Views directory:", path.join(__dirname, "view"));
 app.use("/api", chatRouter);
 app.use("/api", userRouter)
-app.use("/", authRouter)
+app.use("/auth", authRouter)
 app.use("/",viewRouter)
 
 
