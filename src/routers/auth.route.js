@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { forgotPasswordController, loginController, resetPasswordController, signupController } from "../controllers/auth.controller.js";
+import { forgotPasswordController, loginController, resetPasswordController, signupController, verificationController } from "../controllers/auth.controller.js";
 
  
 
@@ -7,9 +7,11 @@ import { forgotPasswordController, loginController, resetPasswordController, sig
 
  const  authRouter= Router()
 
- authRouter.post("/auth/log-in",loginController)
- authRouter.post("/auth/sign-up",signupController)
- authRouter.post("/auth/forgot-password", forgotPasswordController);
-authRouter.post("/auth/reset-password", resetPasswordController);
+ authRouter.post("/log-in",loginController)
+ authRouter.post("/sign-up",signupController)
+ authRouter.post("/forgot-password", forgotPasswordController);
+authRouter.post("/reset-password", resetPasswordController);
+authRouter.get("/verify-email",verificationController)
+
 
   export default authRouter
