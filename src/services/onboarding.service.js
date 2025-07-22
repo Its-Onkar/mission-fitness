@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Onboarding from "../Schema/onboarding.schema";
+import Onboarding from "../Schema/onboarding.schema.js";
 
 
 export const getOnboardingDataByUserId = async (userId) => {
