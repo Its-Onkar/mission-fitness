@@ -1,43 +1,60 @@
   
-import mongoose, { Schema } from 'mongoose';
-const userschema = new Schema({
-    userName: {
-        unique:true,
-        type: String,
-        required: true,
-        trim: true
-    },
-    email: {
-        unique:false,
-        type: String,
-        required: true,
-        trim: true
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6
-    },
-    role: {
-        type: String,
-        enum: ['admin', 'user'],
-        default: "user"
-    },
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
-    status: {
-        type: String,
-        enum: ['active', 'inactive'],
-        default: 'active'
-    }
+import mongoose from 'mongoose';
 
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role:{
+     type:String,
+       enum: ['user', 'trainer', 'expert'],
+  },
+  DOB:{
+    type: Date,
+    required: true,
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', 'other'],
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  isActive:{
+    type:Boolean,
+    default: true,
+  },
+ 
+ isVerified:{
+    type: Boolean,
+    default: false,
+  },
 
-}, {
-    timestamps: true
-})
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-const User = mongoose.model('User', userschema);
+const User = mongoose.model('User', userSchema);
 
 export default User;
