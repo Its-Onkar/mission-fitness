@@ -12,10 +12,10 @@ export const signup = async (userData) => {
         userData.password = hashedPassword
         const newUser = await createUser(userData)
 
-        const token=generateToken({
-            userName:newUser.userName,
-            email:newUser.email
-        },'10m')
+        const token = generateToken({
+            userName: newUser.userName,
+            email: newUser.email
+        }, '10m')
         const verifyLink = `${BASE_URL}/auth/verify-email?token=${token}`;
         const to = userData.email
         const subject = "Welcome to  missionFitness " + userData.userName
@@ -26,7 +26,8 @@ export const signup = async (userData) => {
         return newUser
 
     } catch (error) {
-        throw new Error("Failed to create user", error.message);
+        throw new Error({ error: "Failed to create user", message: error.message },);
+        console.log("Error in signup service:", error.message);
     }
 }
 
@@ -46,7 +47,7 @@ export const login = async (logindata) => {
         }
 
 
-        const token = generateToken(user)
+        const token = generateToken(user, "1d")
         if (!token) {
             throw new Error("token not generated")
         }
