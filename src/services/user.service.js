@@ -5,12 +5,13 @@ import User from "../Schema/user.schema.js"
 
 export const createUser = async (userData) => {
     const user = await (await User.create(userData)).save()
+
     if (!user) {
         throw new Error("user not created")
     }
+
     return user
 }
-
 
 export const getUserByUserName = async (userName) => {
     const user = await User.findOne({ userName })

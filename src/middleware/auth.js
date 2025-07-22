@@ -3,9 +3,10 @@ import { verifyToken } from "../utils/auth.utils.js";
 const performAuthorization = async (req, res, next) => {
   try {
     const authHeader = req.headers.auth;
-    const cookieToken = req.cookies.access_token;
 
-    const token = cookieToken || authHeader;
+
+    const token =  authHeader;
+    console.log("Token:", token);
     if (!token) {
       if (req.path.includes("/api")) {
         return res.status(403).send({
@@ -23,8 +24,21 @@ const performAuthorization = async (req, res, next) => {
         res.status(403).send({
           message: "user not authorized",
         });
+
       } else {
         res.status(403).render("404");
+      }
+    }
+    if (data.isVerified === false) {
+      if (req.path.includes("/api")) {
+        return res.status(403).send({
+          message: "user is not  verified",
+        });
+      } else {
+
+        return res.status(403).render("404", {
+          message: 'user is not verified',
+        });
       }
     }
 
