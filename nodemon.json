@@ -1,0 +1,4 @@
+{
+    "watch":["index.js","swagger.js","swagger.yaml","src"],
+    "ext":"js,yaml,hbs"
+}
