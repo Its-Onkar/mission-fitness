@@ -2,14 +2,15 @@ import express from "express";
 import chatRouter from "./routers/chat.route.js";
 import userRouter from "./routers/user.route.js";
 import authRouter from "./routers/auth.route.js";
-import { fileURLToPath } from "url";
-import path from "path";
+import onboardingRouter from "./routers/onboarding.route.js"
 import { create } from "express-handlebars";
+import path from "path";
 import viewRouter from "./routers/view.route.js";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const app = express();
+import { fileURLToPath } from "url";
 
+const app = express();
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +29,7 @@ console.log("Views directory:", path.join(__dirname, "view"));
 app.use("/api", chatRouter);
 app.use("/api", userRouter)
 app.use("/auth", authRouter)
-app.use("/",viewRouter)
+app.use("/", viewRouter)
 
 
 
