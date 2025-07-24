@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import User from "../Schema/user.schema.js"
+import User from "../Schema/user.schema.js";
 
 
 
