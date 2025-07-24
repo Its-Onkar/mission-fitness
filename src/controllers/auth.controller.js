@@ -7,6 +7,7 @@ export const signupController = async (req, res) => {
 
     try {
         const userData = req.body
+      
         const user = await signup(userData)
         res.status(201).json({ message: "User created successfully", user });
     } catch (error) {
