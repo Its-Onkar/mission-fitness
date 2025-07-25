@@ -30,6 +30,7 @@ app.use("/api", chatRouter);
 app.use("/api", userRouter)
 app.use("/auth", authRouter)
 app.use("/", viewRouter)
+app.use("/onboarding", onboardingRouter)
 
 
 
