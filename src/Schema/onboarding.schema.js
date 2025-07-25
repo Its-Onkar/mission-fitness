@@ -50,7 +50,11 @@ const onboardingSchema = new mongoose.Schema({
     default: 'home'
   },
   availableEquipment: [String],
-  workoutTime: String, // e.g., "morning", "evening"
+workoutTime: {
+  type: String,
+  enum: ['morning', 'afternoon', 'evening', 'night'],
+  default: 'morning'
+},
 
   // New Field: Exercise Routine
   exerciseFrequency: {
@@ -62,6 +66,8 @@ const onboardingSchema = new mongoose.Schema({
     },
     preferredDays: [String] // ["Monday", "Wednesday", "Friday"]
   },
+  
+
 
   // AI Plan
   plan: {

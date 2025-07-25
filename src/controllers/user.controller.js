@@ -20,7 +20,7 @@ export const getUserByUserNameController=async(req,res)=>{
         res.status(200).json({ user });
         
     } catch (error) {
-        
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
 
@@ -31,7 +31,7 @@ export const getUserByIdController = async (req, res) => {
         const user = await getUserById(id);
         res.status(200).json({ user });
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error",message: error.message });
     }
 };
 
@@ -42,7 +42,7 @@ export  const  getAllUsersController= async(req,res)=>{
         res.status(200).json({ users });
     }
     catch(error){
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
 
@@ -53,7 +53,7 @@ export const updateUserByUserNameController = async (req, res) => {
         const updatedUser = await updateUserByUserName(userName, updateData);
         res.status(200).json({ message: "User updated successfully", user: updatedUser });
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 };
 
@@ -63,6 +63,6 @@ export const deleteUserByIdController = async (req, res) => {
         const result = await deleteUserById(id);
         res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 };

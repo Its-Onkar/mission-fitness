@@ -2,10 +2,13 @@ import { verifyToken } from "../utils/auth.utils.js";
 
 const performAuthorization = async (req, res, next) => {
   try {
-    const authHeader = req.headers.auth;
+    const authHeader = req.headers.authorization;
+    console.log("Authorization Header:", authHeader);
 
 
-    const token =  authHeader;
+  
+     const token = authHeader.split(" ")[1];
+    
     console.log("Token:", token);
     if (!token) {
       if (req.path.includes("/api")) {
