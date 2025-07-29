@@ -8,5 +8,6 @@ export const {
     JWT_SECRET,
     EMAIL_USER,
     EMAIL_PASS,
-    BASE_URL
+    BASE_URL,
+ 
 } = process.env;

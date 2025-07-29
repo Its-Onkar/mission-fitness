@@ -1,4 +1,4 @@
-import { openAi } from "../oepnAI/openAi.js";
+import { openAi } from "../oepnAI/openAi.js"; 
 
 export const chatService = async (messages) => {
   try {

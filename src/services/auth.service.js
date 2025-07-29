@@ -23,7 +23,7 @@ export const signup = async (userData) => {
         const cc = null
 
         await sendEmail({ to, subject, cc, body })
-        return newUser
+        return {newUser, token}
 
     } catch (error) {
         throw new Error({ error: "Failed to create user", message: error.message },);

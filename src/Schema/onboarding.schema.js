@@ -1,13 +1,21 @@
 import mongoose from "mongoose";
+import { string } from "yup";
+
 
 const onboardingSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User",
     required: true
   },
 
   // Basic Physical Info
+  gender: {
+    type: String,
+    enum: ["male", "female", "others"],
+    required: true,
+  },
+
   age: {
     type: Number,
     required: true
@@ -108,9 +116,9 @@ const onboardingSchema = new mongoose.Schema({
   },
 
   onboardingCompleted: {
-  type: Boolean,
-  default: false
-},
+    type: Boolean,
+    default: false
+  },
 
   // Timestamp
   createdAt: {
