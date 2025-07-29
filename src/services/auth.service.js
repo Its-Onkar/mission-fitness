@@ -23,7 +23,7 @@ export const signup = async (userData) => {
         const cc = null
 
         await sendEmail({ to, subject, cc, body })
-        return newUser
+        return {newUser, token}
 
     } catch (error) {
         throw new Error({ error: "Failed to create user", message: error.message },);
@@ -50,14 +50,20 @@ export const login = async (logindata) => {
         const token = generateToken(user, "1d")
         if (!token) {
             throw new Error("token not generated")
-        }
 
+        }
+console.log("token:", token);
+        console.log("user:", user);
+        console.log("mydata:",  {
+            user, token
+        });
+       
         return {
             user, token
         }
 
     } catch (error) {
-        throw new Error("Login failed", error.message);
+      throw new Error(`Login failed: ${error.message}`);
     }
 }
 
@@ -101,8 +107,10 @@ export const resetPassword = async ({ token, newPassword }) => {
         },
         {
             new: true,
-        }
+        },
+        
     );
+    
 };
 
 
