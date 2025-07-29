@@ -24,7 +24,7 @@ const dietSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["Active", "Inactive"],
+      enum: ["completed","pending"],
       default: "Active",
     },
   },
