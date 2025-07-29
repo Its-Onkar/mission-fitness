@@ -19,20 +19,19 @@ const dietSchema = new mongoose.Schema(
     },
 
     mealDetails: {
-      type: mongoose.Schema.Types.Mixed, 
+      type: mongoose.Schema.Types.Mixed,
     },
 
     status: {
       type: String,
-      enum: ["completed","pending"],
-      default: "Active",
+      enum: ["completed", "pending", "in-progress", "incomplete"],
+      default: "pending",
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
-
 
 const Diet = mongoose.model("Diet", dietSchema);
 export default Diet;
