@@ -2,10 +2,14 @@ import { verifyToken } from "../utils/auth.utils.js";
 
 const performAuthorization = async (req, res, next) => {
   try {
-    const authHeader = req.headers.auth;
-    const cookieToken = req.cookies.access_token;
+    const authHeader = req.headers.authorization;
+    console.log("Authorization Header:", authHeader);
 
-    const token = cookieToken || authHeader;
+
+  
+     const token = authHeader.split(" ")[1];
+    
+    console.log("Token:", token);
     if (!token) {
       if (req.path.includes("/api")) {
         return res.status(403).send({
