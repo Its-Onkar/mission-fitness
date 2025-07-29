@@ -15,7 +15,8 @@ export const getOnboardingDataController = async (req, res) => {
 export const createOnboardingController = async (req, res) => {
     try {
         const onboardingData = req.body;
-        const newOnboardingData = await createOnboardingData(onboardingData);
+          const userData= req.auth
+        const newOnboardingData = await createOnboardingData(onboardingData,userData);
             const aiResponse = await generatePlanFromAI(onboardingData);
            const { workoutPlan, dietPlan } = aiResponse;
            console.log("AI Generated Workout Plan:", workoutPlan);
