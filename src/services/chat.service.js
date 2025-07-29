@@ -1,5 +1,7 @@
 import { openAi } from "../oepnAI/openAi.js";
 import { fitnessprompt, systemPrompt } from "../utils/prompt.utils.js";
+
+
 export const chatService = async (data,userMessage) => {
       const lowerMessage = userMessage.toLowerCase();
     const allowedKeywords = [
