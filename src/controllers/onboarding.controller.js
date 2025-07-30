@@ -37,6 +37,39 @@ export const createOnboardingController = async (req, res) => {
     }
 }
 
+export const updateOnboardingController = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        if (!userId) throw new Error("User ID not provided");
+        const updateData = req.body;
+        const updatedOnboardingData = await updateOnboardingData(userId, updateData);
+        res.status(200).json(updatedOnboardingData);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+
+>>>>>>>>> Temporary merge branch 2
+
+export const createOnboardingController = async (req, res) => {
+  try {
+    const onboardingData = req.body;
+    const newOnboardingData = await createOnboardingData(onboardingData);
+    if (!newOnboardingData) {
+      throw new Error("Failed to create onboarding data");
+    }
+
+    const aiResponse = await generatePlanFromAI(onboardingData);
+    const { workoutPlan, dietPlan } = aiResponse;
+    console.log("AI Generated Workout Plan:", workoutPlan);
+    console.log("AI Generated Diet Plan:", dietPlan);
+
+    res.status(201).json(newOnboardingData);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 export const updateOnboardingController = async (req, res) => {
   try {
