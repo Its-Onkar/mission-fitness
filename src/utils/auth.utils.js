@@ -36,7 +36,8 @@ export const generateToken = (data, expiry) => {
 
 export const verifyToken = (token) => {
     try {
-        const secretKey = process.env.JWT_SECRET;
+        const secretKey = JWT_SECRET;
+        console.log("Secret Key:", secretKey);
         const data = jwt.verify(token, secretKey);
         return data;
     } catch (error) {

@@ -5,12 +5,13 @@ import {
     updateOnboardingController,
     markOnboardingCompleteController
 } from "../controllers/onboarding.controller.js";
+import performAuthorization from "../middleware/auth.js";
 
 const onboardingRouter = Router();
 
-onboardingRouter.post("/onboarding", createOnboardingController);
-onboardingRouter.get("/onboarding/:userId", getOnboardingDataController);
-onboardingRouter.put("/onboarding/:userId", updateOnboardingController);
-onboardingRouter.patch("/onboarding/:userId/complete", markOnboardingCompleteController);
+onboardingRouter.post("/onboarding",performAuthorization, createOnboardingController);
+onboardingRouter.get("/onboarding/:userId", performAuthorization,getOnboardingDataController);
+onboardingRouter.put("/onboarding/:userId", performAuthorization,updateOnboardingController);
+onboardingRouter.patch("/onboarding/:userId/complete", performAuthorization,markOnboardingCompleteController);
 
 export default onboardingRouter;

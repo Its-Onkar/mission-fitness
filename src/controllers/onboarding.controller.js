@@ -1,4 +1,5 @@
 import { getOnboardingDataByUserId, updateOnboardingData, createOnboardingData, markOnboardingComplete } from "../services/onboarding.service.js";
+import { generatePlanFromAI } from "../services/workoutPlan.service.js";
 
 export const getOnboardingDataController = async (req, res) => {
     try {
@@ -14,7 +15,12 @@ export const getOnboardingDataController = async (req, res) => {
 export const createOnboardingController = async (req, res) => {
     try {
         const onboardingData = req.body;
-        const newOnboardingData = await createOnboardingData(onboardingData);
+          const userData= req.auth
+        const newOnboardingData = await createOnboardingData(onboardingData,userData);
+            const aiResponse = await generatePlanFromAI(onboardingData);
+           const { workoutPlan, dietPlan } = aiResponse;
+           console.log("AI Generated Workout Plan:", workoutPlan);
+           console.log("AI Generated Diet Plan:", dietPlan);
         res.status(201).json(newOnboardingData);
     } catch (error) {
         res.status(400).json({ message: error.message });

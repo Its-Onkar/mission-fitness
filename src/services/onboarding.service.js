@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Onboarding from "../Schema/onboarding.schema.js";
+import { generateToken } from "../utils/auth.utils.js";
 
 
 export const getOnboardingDataByUserId = async (userId) => {
@@ -11,8 +12,14 @@ export const getOnboardingDataByUserId = async (userId) => {
   
 }
 
-export const createOnboardingData = async (onboardingData) => {
-    const newOnboardingData = (await Onboarding.create(onboardingData));
+export const createOnboardingData = async (onboardingData,userData) => {
+     console.log("Creating onboarding data for user:", userData);
+    const { _id } = userData;
+    const newOnboardingData = (await Onboarding.create({
+        ...onboardingData,
+        userId: _id,
+        onboardingCompleted: false
+    }));
     if (!newOnboardingData) {
         throw new Error("Onboarding data not created");
     }
@@ -27,6 +34,8 @@ export const updateOnboardingData = async (userId, updateData) => {
     if (!onboardingData) {
         throw new Error("Onboarding data not found or not updated");
     }
+
+    
     return onboardingData;
 }
 
