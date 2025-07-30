@@ -1,7 +1,10 @@
 import { chatService } from "../services/chat.service.js";
 export const chatController = async (req, res) => {
   try {
-    const { userData, message } = req.body;
+    const { message } = req.body;
+    const userData = req.auth
+    console.log(userData)
+
 
     if (!message || !userData) {
       return res.status(400).json({ error: "Both message and userData are required" });
@@ -12,8 +15,9 @@ export const chatController = async (req, res) => {
     res.status(200).json({ response });
   } catch (error) {
     console.error("Error in chatController:", error);
-    res.status(500).json({ error: "Internal Server Error" ,
+    res.status(500).json({
+      error: "Internal Server Error",
       message: error.message
-     });
+    });
   }
 };
