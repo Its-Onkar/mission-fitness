@@ -39,17 +39,4 @@ export const updateOnboardingData = async (userId, updateData) => {
     return onboardingData;
 }
 
-export const markOnboardingComplete = async (userId) => {
-  const updated = await Onboarding.findOneAndUpdate(
-    { userId },
-    { onboardingCompleted: true },
-    { new: true }
-  );
-
-  if (!updated) {
-    throw new Error("Failed to mark onboarding as complete");
-  }
-
-  return updated;
-};
 

@@ -1,4 +1,5 @@
-import { getOnboardingDataByUserId, updateOnboardingData, createOnboardingData, markOnboardingComplete } from "../services/onboarding.service.js";
+import { getOnboardingDataByUserId, updateOnboardingData, createOnboardingData, } from "../services/onboarding.service.js";
+import { markOnboardingComplete } from "../services/user.service.js";
 import { generatePlanFromAI } from "../services/workoutPlan.service.js";
 
 export const getOnboardingDataController = async (req, res) => {
@@ -15,13 +16,22 @@ export const getOnboardingDataController = async (req, res) => {
 export const createOnboardingController = async (req, res) => {
     try {
         const onboardingData = req.body;
-          const userData= req.auth
-        const newOnboardingData = await createOnboardingData(onboardingData,userData);
-            const aiResponse = await generatePlanFromAI(onboardingData);
-           const { workoutPlan, dietPlan } = aiResponse;
-           console.log("AI Generated Workout Plan:", workoutPlan);
-           console.log("AI Generated Diet Plan:", dietPlan);
-        res.status(201).json(newOnboardingData);
+        const userData = req.auth
+        const newOnboardingData = await createOnboardingData(onboardingData, userData);
+        const aiResponse = await generatePlanFromAI(onboardingData);
+        const { workoutPlan, dietPlan } = aiResponse;
+        await markOnboardingComplete(newOnboardingData.userId);
+        console.log("AI Generated Workout Plan:", workoutPlan);
+        console.log("AI Generated Diet Plan:", dietPlan);
+        res.status(201).json({
+            message: "Onboarding completed, plan generated",
+            onboarding: newOnboardingData,
+            plan: {
+                workoutPlan,
+                dietPlan
+            }
+        });
+
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -40,14 +50,5 @@ export const updateOnboardingController = async (req, res) => {
 }
 
 
-export const markOnboardingCompleteController = async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const updatedData = await markOnboardingComplete(userId);
-        res.status(200).json({ message: "Onboarding marked as complete", data: updatedData });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
 
 
