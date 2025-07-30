@@ -1,4 +1,4 @@
-import { createUser, deleteUserById, getUserByUserName, updateUserByUserName } from "../services/user.service.js";
+import { createUser, deleteUserById, getUserByUserName, updateUserByUserName,markOnboardingComplete } from "../services/user.service.js";
 
 export  const  createUserController=async(req,res)=>{
     try {
@@ -56,6 +56,8 @@ export const updateUserByUserNameController = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 };
+
+
 
 export const deleteUserByIdController = async (req, res) => {
     try {

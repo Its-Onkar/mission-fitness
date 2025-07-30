@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import User from "../Schema/user.schema.js";
+import Onboarding from "../Schema/onboarding.schema.js";
 
 
 
@@ -51,6 +52,20 @@ export const updateUserByUserName = async (username, updateData) => {
     })
 
 }
+export const markOnboardingComplete = async (userId) => {
+    const updated = await Onboarding.findOneAndUpdate(
+        { userId },
+        { onboardingCompleted: true },
+        { new: true }
+    );
+
+    if (!updated) {
+        throw new Error("Failed to mark onboarding as complete");
+    }
+
+    return updated;
+};
+
 
 
 export const deleteUserById = async (id) => {
