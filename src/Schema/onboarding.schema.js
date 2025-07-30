@@ -9,7 +9,7 @@ const onboardingSchema = new mongoose.Schema({
     required: true
   },
 
-  // Basic Physical Info
+
   gender: {
     type: String,
     enum: ["male", "female", "others"],
