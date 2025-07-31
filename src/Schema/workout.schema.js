@@ -12,20 +12,20 @@ const exerciseSchema = new mongoose.Schema({
   estimatedCalories: { type: Number },
   createdByAI: { type: Boolean, default: true },
 
-  // 👇 New: Status tracking per exercise
+
   status: {
     type: String,
     enum: ["not-started", "in-progress", "completed", "skipped", "too-hard", "too-easy"],
     default: "not-started"
   },
 
-  // Optional: User-specific feedback (for AI adaptation)
+ 
   userFeedback: {
     type: String,
     enum: ["too-easy", "just-right", "too-hard"],
   },
 
-  performedAt: { type: Date }  // When the exercise was completed/skipped
+  performedAt: { type: Date } 
 
 }, { timestamps: true });
 
