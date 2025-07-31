@@ -1,4 +1,4 @@
-import { createUser, deleteUserById, getUserByUserName, updateUserByUserName,markOnboardingComplete } from "../services/user.service.js";
+import { createUser, deleteUserById, getUserByUserName, updateUserByUserName,markOnboardingComplete } from "../services/user.services.js";
 
 export  const  createUserController=async(req,res)=>{
     try {

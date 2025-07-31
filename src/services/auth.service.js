@@ -1,9 +1,10 @@
 
 import { BASE_URL } from "../config/variables.js"
 import User from "../Schema/user.schema.js"
+
 import { comparePassword, createPasswordHash, generateToken, verifyToken } from "../utils/auth.utils.js"
 import { sendEmail } from "../utils/sendEmail.js"
-import { createUser, getUserByUserName } from "./user.service.js"
+import { createUser, getUserByUserName } from "./user.services.js"
 
 export const signup = async (userData) => {
     try {

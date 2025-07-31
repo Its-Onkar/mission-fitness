@@ -1,14 +1,11 @@
 import mongoose from "mongoose";
-import { string } from "yup";
-
 
 const onboardingSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
-    required: true
+    required: true,
   },
-
 
   gender: {
     type: String,
@@ -18,51 +15,57 @@ const onboardingSchema = new mongoose.Schema({
 
   age: {
     type: Number,
-    required: true
+    required: true,
   },
   height: {
     type: Number,
-    required: true
+    required: true,
   },
   weight: {
     type: Number,
-    required: true
+    required: true,
   },
 
   // Fitness Settings
   fitnessGoal: {
     type: String,
-    required: true
+    required: true,
   },
   fitnessLevel: {
     type: String,
-    enum: ['beginner', 'intermediate', 'advanced'],
-    default: 'beginner'
+    enum: ["beginner", "intermediate", "advanced"],
+    default: "beginner",
   },
   activityLevel: {
     type: String,
-    enum: ['mostly sitting', 'lightly active', 'moderately active', 'very active', 'super active'],
-    default: 'mostly sitting'
+    enum: [
+      "mostly sitting",
+      "lightly active",
+      "moderately active",
+      "very active",
+      "super active",
+    ],
+    default: "mostly sitting",
   },
 
   // Health & Preferences
   medicalConditions: [String],
   dietPreference: {
     type: String,
-    enum: ['vegetarian', 'vegan', 'keto', 'paleo', 'gluten-free', 'none'],
-    default: 'none'
+    enum: ["vegetarian", "vegan", "keto", "paleo", "gluten-free", "none"],
+    default: "none",
   },
   workoutPreference: {
     type: String,
-    enum: ['home', 'gym', 'outdoor', 'mixed'],
-    default: 'home'
+    enum: ["home", "gym", "outdoor", "mixed"],
+    default: "home",
   },
   availableEquipment: [String],
-workoutTime: {
-  type: String,
-  enum: ['morning', 'afternoon', 'evening', 'night'],
-  default: 'morning'
-},
+  workoutTime: {
+    type: String,
+    enum: ["morning", "afternoon", "evening", "night"],
+    default: "morning",
+  },
 
   // New Field: Exercise Routine
   exerciseFrequency: {
@@ -70,12 +73,10 @@ workoutTime: {
       type: Number,
       min: 1,
       max: 7,
-      default: 3
+      default: 3,
     },
-    preferredDays: [String] // ["Monday", "Wednesday", "Friday"]
+    preferredDays: [String], // ["Monday", "Wednesday", "Friday"]
   },
-  
-
 
   // AI Plan
   plan: {
@@ -84,51 +85,62 @@ workoutTime: {
     duration: {
       type: Number,
       default: 30,
-      min: 1
-    }
+      min: 1,
+    },
   },
 
   // App Permissions
   permissions: {
     emailUpdates: {
       type: Boolean,
-      default: false
+      default: false,
     },
     location: {
       type: Boolean,
-      default: false
+      default: false,
     },
     healthTracking: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   // First Goal & points System
   firstGoal: String,
   points: {
     type: Number,
-    default: 0
+    default: 0,
   },
 
   // Tracking Onboarding Progress
   onboardingStep: {
     type: Number,
-    default: 1
+    default: 1,
   },
   isComplete: {
     type: Boolean,
-    default: false
+    default: false,
   },
-
-  
+  userGoal: {
+    type: String,
+    type: String,
+    enum: [
+      "weight loss",
+      "muscle gain",
+      "maintenance",
+      "balanced",
+      "weight gain",
+    ],
+    default: "balanced",
+    required: true,
+  },
 
   // Timestamp
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-const Onboarding = mongoose.model('Onboarding', onboardingSchema);
+const Onboarding = mongoose.model("Onboarding", onboardingSchema);
 export default Onboarding;
