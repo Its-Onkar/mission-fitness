@@ -1,5 +1,6 @@
 import { JWT_SECRET } from "../config/variables.js";
 import User from "../Schema/user.schema.js";
+
 import { forgotPassword, login, resetPassword, signup } from "../services/auth.service.js";
 import { verifyToken } from "../utils/auth.utils.js";
 

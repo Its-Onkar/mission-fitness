@@ -1,5 +1,6 @@
+import { createDietPlan } from "../services/diet.services.js";
 import { getOnboardingDataByUserId, updateOnboardingData, createOnboardingData, } from "../services/onboarding.service.js";
-import { markOnboardingComplete } from "../services/user.service.js";
+import { markOnboardingComplete } from "../services/user.services.js";
 import { generatePlanFromAI } from "../services/workoutPlan.service.js";
 
 export const getOnboardingDataController = async (req, res) => {
@@ -18,8 +19,10 @@ export const createOnboardingController = async (req, res) => {
         const onboardingData = req.body;
         const userData = req.auth
         const newOnboardingData = await createOnboardingData(onboardingData, userData);
+          await createDietPlan(newOnboardingData,userData)
         const aiResponse = await generatePlanFromAI(onboardingData);
-        const { workoutPlan, dietPlan } = aiResponse;
+        const { workoutPlan } = aiResponse;
+        const {dietPlan}= aiResponse;
         await markOnboardingComplete(newOnboardingData.userId);
         console.log("AI Generated Workout Plan:", workoutPlan);
         console.log("AI Generated Diet Plan:", dietPlan);

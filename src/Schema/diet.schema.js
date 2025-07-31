@@ -9,7 +9,7 @@ const dietSchema = new mongoose.Schema(
 
     dietPlan: {
       type: String,
-      enum: ["weight loss", "muscle gain", "maintenance", "balanced"],
+      enum: ["weight loss", "muscle gain", "maintenance", "balanced","weight gain"],
       default: "balanced",
     },
 
@@ -21,7 +21,6 @@ const dietSchema = new mongoose.Schema(
     mealDetails: {
       type: mongoose.Schema.Types.Mixed,
     },
-
     status: {
       type: String,
       enum: ["completed", "pending", "in-progress", "incomplete"],
