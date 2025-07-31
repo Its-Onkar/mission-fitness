@@ -12,8 +12,14 @@ export const getOnboardingDataByUserId = async (userId) => {
   
 }
 
-export const createOnboardingData = async (onboardingData) => {
-    const newOnboardingData = (await Onboarding.create(onboardingData));
+export const createOnboardingData = async (onboardingData,userData) => {
+     console.log("Creating onboarding data for user:", userData);
+    const { _id } = userData;
+    const newOnboardingData = (await Onboarding.create({
+        ...onboardingData,
+        userId: _id,
+        onboardingCompleted: false
+    }));
     if (!newOnboardingData) {
         throw new Error("Onboarding data not created");
     }
@@ -33,17 +39,4 @@ export const updateOnboardingData = async (userId, updateData) => {
     return onboardingData;
 }
 
-export const markOnboardingComplete = async (userId) => {
-  const updated = await Onboarding.findOneAndUpdate(
-    { userId },
-    { onboardingCompleted: true },
-    { new: true }
-  );
-
-  if (!updated) {
-    throw new Error("Failed to mark onboarding as complete");
-  }
-
-  return updated;
-};
 

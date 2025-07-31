@@ -121,10 +121,7 @@ workoutTime: {
     default: false
   },
 
-  onboardingCompleted: {
-    type: Boolean,
-    default: false
-  },
+  
 
   // Timestamp
   createdAt: {

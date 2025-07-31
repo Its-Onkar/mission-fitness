@@ -1,14 +1,14 @@
-  
+
 import mongoose, { Schema } from 'mongoose';
 const userschema = new Schema({
     userName: {
-        unique:true,
+        unique: true,
         type: String,
         required: true,
         trim: true
     },
     email: {
-        unique:false,
+        unique: false,
         type: String,
         required: true,
         trim: true
@@ -31,7 +31,11 @@ const userschema = new Schema({
         type: String,
         enum: ['active', 'inactive'],
         default: 'active'
-    }
+    },
+    onboardingCompleted: {
+        type: Boolean,
+        default: false
+    },
 
 
 }, {
