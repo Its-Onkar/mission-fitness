@@ -1,4 +1,5 @@
 import Diet from "../Schema/diet.schema.js";
+import { generateDietPlanFromAI } from "./aiPlans.service.js";
 
 export const createDietPlan = async (dietData, userData) => {
   const { _id } = userData;
@@ -12,13 +13,13 @@ export const createDietPlan = async (dietData, userData) => {
     status: "pending",
   });
 
-  const aiResponse = await generatePlanFromAI(dietData);
+  const aiResponse = await generateDietPlanFromAI(dietData);
   const { dietPlan } = aiResponse;
   const mealDetails = {
     data: dietPlan,
   };
 
-  diet.mealDetails = mealDetails;
+ diet.mealDetails = mealDetails;
   diet.status = "in-progress";
   await diet.save();
   return diet;
