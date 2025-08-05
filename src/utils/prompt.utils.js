@@ -1,7 +1,8 @@
-export const fitnessprompt =(data,userMessage)=>{
-    return `
+export const fitnessprompt = (data, userMessage) => {
+  return `
     User Info:
     userId: ${data.userId}
+    gender: ${data.gender}
     age: ${data.age}
     height: ${data.height}
     weight: ${data.weight}
@@ -13,9 +14,15 @@ export const fitnessprompt =(data,userMessage)=>{
     workoutPreference: ${data.workoutPreference}
     availableEquipment: ${data.availableEquipment}
     workoutTime: ${data.workoutTime}
-    exerciseFrequency: ${data.exerciseFrequency}
-    User Message: ${userMessage}`
-}
+    exerciseFrequency: ${JSON.stringify(data.exerciseFrequency)}
+    plan: ${JSON.stringify(data.plan)}
+    permissions: ${JSON.stringify(data.permissions)}
+    firstGoal: ${data.firstGoal}
+    points: ${data.points}
+    onboardingStep: ${data.onboardingStep}
+    isComplete: ${data.isComplete}
+    User Message: ${userMessage}`;
+};
 export const systemPrompt = `
 You are a smart, motivating AI fitness assistant. Help users with:
 - Personalized workouts

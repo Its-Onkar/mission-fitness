@@ -1,35 +1,10 @@
-import e from "express";
-import mongoose from "mongoose";
-
-const exerciseSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String },
-  category: { type: String },
-  difficulty: { type: String, enum: ["easy", "medium", "hard"] },
-  musclesTargeted: [String],
-  equipment: { type: String },
-  duration: { type: Number },
-  estimatedCalories: { type: Number },
+const workoutPlanSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  title: { type: String, default: "7-Day AI Workout Plan" },
+  goal: { type: String }, // e.g. "Weight Loss"
+  startDate: { type: Date, default: Date.now },
   createdByAI: { type: Boolean, default: true },
-
-
-  status: {
-    type: String,
-    enum: ["not-started", "in-progress", "completed", "skipped", "too-hard", "too-easy"],
-    default: "not-started"
-  },
-
- 
-  userFeedback: {
-    type: String,
-    enum: ["too-easy", "just-right", "too-hard"],
-  },
-
-  performedAt: { type: Date } 
-
 }, { timestamps: true });
 
-
-
-const Exercise= mongoose.model("Exercise", exerciseSchema);
-export default Exercise;
+const WorkoutPlan = mongoose.model("WorkoutPlan", workoutPlanSchema);
+export default WorkoutPlan;

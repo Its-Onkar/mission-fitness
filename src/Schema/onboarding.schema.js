@@ -29,6 +29,13 @@ const onboardingSchema = new mongoose.Schema({
   // Fitness Settings
   fitnessGoal: {
     type: String,
+    enum: [
+      "weight loss",
+      "muscle gain",
+      "maintenance",
+      "balanced",
+      "weight gain",
+    ],
     required: true,
   },
   fitnessLevel: {
@@ -121,19 +128,7 @@ const onboardingSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  userGoal: {
-    type: String,
-    type: String,
-    enum: [
-      "weight loss",
-      "muscle gain",
-      "maintenance",
-      "balanced",
-      "weight gain",
-    ],
-    default: "balanced",
-    required: true,
-  },
+  
 
   // Timestamp
   createdAt: {
