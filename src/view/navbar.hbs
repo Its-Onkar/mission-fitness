@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mission Fitness</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      background-color: #f5f5f5;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #333;
+      color: white;
+      padding-top: 80px;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar div {
+      padding: 15px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .sidebar div i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .sidebar div::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #ccc;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar div:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 0;
+      padding: 40px;
+      transition: margin-left 0.3s ease;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #fff;
+      border-radius: 8px;
+      margin: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content.shifted {
+      margin-left: 270px;
+    }
+
+    /* Toggle button */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: #222;
+    }
+
+    .toggle-btn.active::before {
+      content: '✖';
+    }
+
+    .toggle-btn::before {
+      content: '☰';
+    }
+
+    /* Header styling */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="toggle-btn" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar" id="sidebar">
+    <div><i class="fas fa-utensils"></i> Diet</div>
+    <div><i class="fas fa-dumbbell"></i> Exercise</div>
+    <div><i class="fas fa-chart-line"></i> Progress</div>
+    <div><i class="fas fa-star"></i> Points</div>
+  </div>
+
+
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const toggleBtn = document.querySelector('.toggle-btn');
+      sidebar.classList.toggle('active');
+      toggleBtn.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
