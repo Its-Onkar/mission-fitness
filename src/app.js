@@ -9,7 +9,6 @@ import viewRouter from "./routers/view.route.js";
 import { create } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
-import dietRouter from "./routers/dietplain.route.js";
 import workoutRouter from "./routers/workout.route.js";
 
 const app = express();
