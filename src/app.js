@@ -8,6 +8,7 @@ import path from "path";
 import viewRouter from "./routers/view.route.js";
 import { fileURLToPath } from "url";
 import dietRouter from "./routers/dietplain.route.js";
+import workoutRouter from "./routers/workout.route.js";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url)
@@ -32,8 +33,8 @@ app.use("/api", userRouter)
 app.use("/auth", authRouter)
 app.use("/", viewRouter)
 app.use("/api", onboardingRouter);
-app.use("diet",dietRouter)
-
+app.use("/api",dietRouter)
+app.use("/api", workoutRouter);
 
 
 export default app;

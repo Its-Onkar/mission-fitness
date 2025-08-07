@@ -14,7 +14,7 @@ const dietSchema = new mongoose.Schema(
     },
 
     dietDuration: {
-      type: Number,
+      type: String,
       required: true,
     },
 

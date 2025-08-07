@@ -3,7 +3,7 @@ import { generateDietPlanFromAI } from "./aiPlans.service.js";
 
 export const createDietPlan = async (dietData, userData) => {
   const { _id } = userData;
-  const dietGoal = dietData.userGoal || "balanced";
+  const dietGoal = dietData.fitnessGoal || "balanced";
   const dietDuration = dietData.dietDuration || "week";
 
   const diet = await Diet.create({
@@ -14,6 +14,7 @@ export const createDietPlan = async (dietData, userData) => {
   });
 
   const aiResponse = await generateDietPlanFromAI(dietData);
+  console.log("AI Diet Plan Response:", aiResponse);
   const { dietPlan } = aiResponse;
   const mealDetails = {
     data: dietPlan,
