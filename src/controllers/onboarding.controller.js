@@ -1,6 +1,7 @@
 import { createDietPlan } from "../services/diet.services.js";
 import { getOnboardingDataByUserId, updateOnboardingData, createOnboardingData, } from "../services/onboarding.service.js";
 import { markOnboardingComplete } from "../services/user.services.js";
+import { createWorkoutPlan } from "../services/workoutPlan.service.js";
 
 
 export const getOnboardingDataController = async (req, res) => {
@@ -19,7 +20,8 @@ export const createOnboardingController = async (req, res) => {
         const onboardingData = req.body;
         const userData = req.auth
         const newOnboardingData = await createOnboardingData(onboardingData, userData);
-        await createDietPlan(newOnboardingData, userData)
+        const dietPlan = await createDietPlan(newOnboardingData, userData);
+        const workoutPlan = await createWorkoutPlan(newOnboardingData, userData);
         await markOnboardingComplete(newOnboardingData.userId);
 
         res.status(201).json({

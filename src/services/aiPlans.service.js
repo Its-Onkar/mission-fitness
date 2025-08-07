@@ -16,7 +16,7 @@ Create a 7-day workout plan for the following user:
 - Workout Preference: ${onboardingData.workoutPreference}
 - Available Equipment: ${onboardingData.availableEquipment?.length > 0 ? onboardingData.availableEquipment.join(', ') : 'None'}
 - Preferred Workout Time: ${onboardingData.workoutTime}
-- Exercise Frequency: ${onboardingData.exerciseFrequency.timesPerWeek} days/week (${onboardingData.exerciseFrequency.preferredDays?.join(', ') || "no specific days"})
+- Exercise Frequency: ${onboardingData.exerciseFrequency?.timesPerWeek || ''} days/week (${onboardingData.exerciseFrequency?.preferredDays?.join(', ') || "no specific days"})
 - Medical Conditions: ${onboardingData.medicalConditions?.length > 0 ? onboardingData.medicalConditions.join(', ') : 'None'}
 
 Guidelines:
@@ -28,29 +28,53 @@ Guidelines:
 
 Respond ONLY with valid JSON inside a \`\`\`json code block like this:
 
+Instructions:
+- Create a workout plan for 7 days. Each day includes:
+  - day (e.g., "Monday")
+  - focus (e.g., "Upper Body", "Cardio", etc.)
+  - exercises: A list of 2–5 exercises with the following fields:
+    - name (string)
+    - description (short, 1–2 sentences)
+    - category (e.g., "strength", "cardio", "core", "mobility")
+    - difficulty ("easy", "medium", "hard")
+    - musclesTargeted (array of strings)
+    - equipment (e.g., "dumbbells", "resistance bands", "bodyweight")
+    - sets (e.g., "3")
+    - reps (e.g., "12–15")
+    - rest (e.g., "60 seconds")
+    - notes (optional)
+    - duration (in minutes)
+    - estimatedCalories (kcal)
+
+⚠️ Make sure exercises are safe considering medical conditions. Avoid duplicates across days.
+
+Return ONLY valid JSON inside a markdown code block like this:
+
 \`\`\`json
 {
   "workoutPlan": [
     {
-      "day": "Day 1",
+      "day": "Monday",
       "focus": "Full Body",
       "exercises": [
         {
-          "name": "Bodyweight Squats",
-          "sets": "3",
-          "reps": "15",
-          "rest": "60 seconds",
-          "notes": "Engage your core and keep your back straight."
-        },
-        {
           "name": "Push-ups",
+          "description": "A bodyweight exercise targeting chest, shoulders, and triceps.",
+          "category": "strength",
+          "difficulty": "medium",
+          "musclesTargeted": ["chest", "shoulders", "triceps"],
+          "equipment": "bodyweight",
           "sets": "3",
           "reps": "12",
-          "rest": "60 seconds"
+          "rest": "60 seconds",
+          "notes": "Keep your core tight.",
+          "duration": 10,
+          "estimatedCalories": 50
         }
+        // more exercises...
       ]
     }
-    // Continue for 7 days
+    // Repeat for all 7 days
   ]
 }
 \`\`\`
