@@ -1,4 +1,4 @@
-import {createDietPlan ,  getDietplanByUserId ,getAllDietPlans, updateDietPlanByUserName} from "../services/diet.services.js";
+import {createDietPlan ,  getDietplanByUserId , updateDietPlanByUserName} from "../services/diet.services.js";
 
 export const createDietPlanController = async (req, res) => {
     try {
@@ -18,14 +18,6 @@ export const getDietPlanByUserIdController = async (req, res) => {
         res.status(200).json(dietPlan);
     } catch (error) {
         res.status(404).json({ message: error.message });
-    }
-};
-export const getAllDietPlansController = async (req, res) => {
-    try {
-        const dietPlans = await getAllDietPlans();
-        res.status(200).json(dietPlans);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
     }
 };
 
