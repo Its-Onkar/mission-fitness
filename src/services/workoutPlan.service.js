@@ -54,14 +54,6 @@ export const createWorkoutPlan = async (workoutData, userData) => {
      return workoutPlan;
 };
 
-export const getAllWorkoutPlans = async () => {
-    const workoutPlans = await WorkoutPlan.find({}).populate("user", "name email");
-
-    if (!workoutPlans || workoutPlans.length === 0) {
-        throw new Error("No workout plans found");
-    }
-    return workoutPlans;
-}
 
 export const getWorkoutPlanByUserId = async (userId) => {
     const workoutPlan = await WorkoutPlan.findOne({ user: userId }).populate("user", "name email");

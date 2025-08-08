@@ -26,14 +26,7 @@ export const createDietPlan = async (dietData, userData) => {
   return diet;
 };
 
-export const getAllDietPlans = async () => {
-  const diets = await Diet.find({});
 
-  if (!diets) {
-    throw new Error("No diets found");
-  }
-    return diets;
-};
 
  export const getDietplanByUserId = async (userId) => {
   const dietPlan = await Diet.findOne({ userId });

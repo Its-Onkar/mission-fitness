@@ -1,4 +1,4 @@
-import { createWorkoutPlan,getAllWorkoutPlans,getWorkoutPlanByUserId,updateWorkoutPlanByUserName } from "../services/workoutPlan.service.js";
+import { createWorkoutPlan,getWorkoutPlanByUserId,updateWorkoutPlanByUserName } from "../services/workoutPlan.service.js";
 
 export const createWorkoutPlanController = async (req, res) => {
     try {
@@ -17,18 +17,6 @@ export const createWorkoutPlanController = async (req, res) => {
     }
 }
 
-export const getAllWorkoutPlansController = async (req, res) => {
-    try {
-        // only admin can access all workout plans
-        if (!req.auth.isAdmin) {
-            return res.status(403).json({ message: "Access denied" });
-        }
-        const workoutPlans = await getAllWorkoutPlans();
-        res.status(200).json(workoutPlans);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}   
 
 
 export const getWorkoutPlanByUserIdController = async (req, res) => {
