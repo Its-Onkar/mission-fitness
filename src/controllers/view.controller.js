@@ -28,3 +28,9 @@ export const signupviewController = async (req, res) => {
         title: "Signup",
     });
 };
+
+export const loginviewController = async (req, res) => {
+    res.render("signin", {
+        title: "Login",
+    });
+};
