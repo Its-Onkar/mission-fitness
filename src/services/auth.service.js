@@ -27,8 +27,8 @@ export const signup = async (userData) => {
         return {newUser, token}
 
     } catch (error) {
-        throw new Error({ error: "Failed to create user", message: error.message },);
-        console.log("Error in signup service:", error.message);
+        console.error("Error in signup service:", error.message);
+        throw new Error(`Failed to create user: ${error.message}`);
     }
 }
 
