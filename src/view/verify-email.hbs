@@ -146,7 +146,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen relative overflow-hidden geometric-bg">
+<body class=" relative overflow-hidden geometric-bg">
     <!-- Floating Squares Background -->
     <div class="floating-squares">
         <div class="square"></div>
@@ -157,13 +157,13 @@
     </div>
     
     <!-- Main Container -->
-    <div class="flex justify-center items-center min-h-screen p-4  relative z-10">
-        <div class="glass-card rounded-2xl shadow-2xl max-w-lg w-full  card-enter glow-effect">
+    <div class="flex justify-center items-center min-h-screen p-2 relative z-10">
+        <div class="glass-card rounded-2xl shadow-2xl max-w-md w-full  card-enter glow-effect">
             
             <!-- Header Section -->
-            <div class="text-center px-8 pt-8 pb-6">
+            <div class="text-center px-4 pt-4 pb-2">
                 <div class="mb-8">
-                    <h1 class="text-4xl font-black text-white mb-2">
+                    <h1 class="text-3xl font-black text-white mb-2">
                         <span class="text-white">MISSION</span>
                         <span class="text-gray-400">FITNESS</span>
                     </h1>
@@ -173,9 +173,9 @@
             
             <!-- Success State -->
             {{#if success}}
-            <div class="px-8 pb-8">
+            <div class="px-4 pb-4">
                 <!-- Success Icon -->
-                <div class="flex justify-center mb-8">
+                <div class="flex justify-center mb-4">
                     <div class="success-icon bg-white text-black rounded-full p-6 pulse-glow">
                         <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
@@ -184,39 +184,39 @@
                 </div>
                 
                 <!-- Success Content -->
-                <div class="text-center mb-8">
-                    <div class="status-badge bg-white text-black mx-auto mb-6">
+                <div class="text-center mb-4">
+                    <div class="status-badge bg-white text-black mx-auto mb-3">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
                         VERIFIED
                     </div>
-                    <h2 class="text-3xl font-black text-white mb-4">
+                    <h2 class="text-3xl font-black text-white mb-2">
                         <span class="text-gradient">WELCOME TO</span><br>
                         <span class="text-white">THE MISSION</span>
                     </h2>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        Your email verification is complete. You now have full access to elite training programs, personalized workouts, and our exclusive fitness community.
+                    <p class="text-gray-300 leading-relaxed text-md">
+                       Email Verified. Elite Access Unlocked.
                     </p>
                 </div>
                 
                 <!-- Action Buttons -->
-                <div class="space-y-4">
+                <div class="space-y-2">
                     <a href="/dashboard" class="block w-full bg-white text-black py-4 px-6 rounded-xl font-bold text-center button-hover text-lg">
-                        <div class="flex items-center justify-center gap-3">
+                        <div class="flex items-center justify-center gap-2">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
                             START YOUR MISSION
                         </div>
                     </a>
-                    <a href="/profile" class="block w-full bg-transparent text-white py-3 px-6 rounded-xl font-semibold text-center border-2 border-white button-hover">
+                    <a href="/profile" class="block w-full bg-transparent text-white py-2 px-4 rounded-xl font-semibold text-center border-2 border-white button-hover">
                         COMPLETE PROFILE SETUP
                     </a>
                 </div>
                 
                 <!-- Additional Info -->
-                <div class="mt-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+                <div class="mt-4 p-3 bg-gray-800/50 rounded-xl border border-gray-700">
                     <div class="flex items-start">
                         <div class="bg-white text-black rounded-full p-2 mr-4 flex-shrink-0">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -224,7 +224,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-bold text-white mb-2">WHAT'S NEXT?</h4>
+                            <h4 class="text-md font-bold text-white mb-2">WHAT'S NEXT?</h4>
                             <p class="text-gray-300 text-sm leading-relaxed">
                                 Set your fitness goals, explore our AI-powered training programs, and connect with elite trainers to maximize your potential.
                             </p>
@@ -237,8 +237,8 @@
             <!-- Error State -->
             <div class="px-8 pb-8">
                 <!-- Error Icon -->
-                <div class="flex justify-center mb-8">
-                    <div class="error-shake bg-gray-800 border-2 border-white text-white rounded-full p-6">
+                <div class="flex justify-center mb-4">
+                    <div class="error-shake bg-gray-800 border-2 border-white text-white rounded-full p-4">
                         <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -246,33 +246,33 @@
                 </div>
                 
                 <!-- Error Content -->
-                <div class="text-center mb-8">
-                    <div class="status-badge bg-gray-800 text-white border border-gray-600 mx-auto mb-6">
+                <div class="text-center mb-4">
+                    <div class="status-badge bg-gray-800 text-white border border-gray-600 mx-auto mb-3">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
                         </svg>
                         FAILED
                     </div>
-                    <h2 class="text-3xl font-black text-white mb-4">
+                    <h2 class="text-3xl font-black text-white mb-8">
                         <span class="text-gradient">VERIFICATION</span><br>
                         <span class="text-white">FAILED</span>
                     </h2>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        The verification link has expired or is invalid. Don't worry - we can send you a fresh verification link to get you back on track.
+                    <p class="text-gray-300 leading-relaxed text-md">
+                        Expired link—fresh one on its way.
                     </p>
                 </div>
                 
                 <!-- Action Buttons -->
-                <div class="space-y-4">
+                <div class="space-y-2">
                     <button onclick="resendVerification()" class="w-full bg-white text-black py-4 px-6 rounded-xl font-bold button-hover text-lg" id="resendBtn">
-                        <div class="flex items-center justify-center gap-3">
+                        <div class="flex items-center justify-center gap-2">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
                             SEND NEW VERIFICATION
                         </div>
                     </button>
-                    <a href="/login" class="block w-full bg-transparent text-white py-3 px-6 rounded-xl font-semibold text-center border-2 border-white button-hover">
+                    <a href="/login" class="block w-full bg-transparent text-white py-3 px-4 rounded-xl font-semibold text-center border-2 border-white button-hover">
                         BACK TO LOGIN
                     </a>
                 </div>
@@ -286,9 +286,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-bold text-white mb-2">NEED ASSISTANCE?</h4>
+                            <h4 class="text-md font-bold text-white mb-2">NEED ASSISTANCE?</h4>
                             <p class="text-gray-300 text-sm leading-relaxed">
-                                Check your spam folder or contact our support team at 
+                               Need help? Check spam or email .
                                 <a href="mailto:support@missionfitness.com" class="text-white underline font-semibold">support@missionfitness.com</a>
                             </p>
                         </div>
@@ -303,7 +303,7 @@
                     <p class="text-gray-400 mb-4 font-medium">
                         Questions? <a href="/support" class="text-white hover:text-gray-300 font-bold underline">CONTACT SUPPORT</a>
                     </p>
-                    <div class="flex justify-center items-center gap-4 text-xs text-gray-500 font-medium uppercase tracking-wide">
+                    <div class="flex justify-center items-center gap-2 text-xs text-gray-500 font-medium uppercase tracking-wide">
                         <a href="/privacy" class="hover:text-white transition-colors">Privacy</a>
                         <span>•</span>
                         <a href="/terms" class="hover:text-white transition-colors">Terms</a>
@@ -323,7 +323,7 @@
             
             // Show loading state
             btn.innerHTML = `
-                <div class="flex items-center justify-center gap-3">
+                <div class="flex items-center justify-center gap-2">
                     <svg class="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -340,7 +340,7 @@
                 
                 // Success state
                 btn.innerHTML = `
-                    <div class="flex items-center justify-center gap-3">
+                    <div class="flex items-center justify-center gap-2">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
@@ -369,7 +369,7 @@
             setTimeout(() => {
                 btn.innerHTML = originalContent;
                 btn.disabled = false;
-                btn.className = 'w-full bg-white text-black py-4 px-6 rounded-xl font-bold button-hover text-lg';
+                btn.className = 'w-full bg-white text-black py-4 px-6 rounded-xl font-bold button-hover text-md';
             }, 4000);
         }
         
