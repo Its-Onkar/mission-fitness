@@ -13,7 +13,8 @@ export const signupController = async (req, res) => {
         res.status(201).json({ message: "User created successfully", user });
     } catch (error) {
         console.error("Error in signupController:", error.message);
-        res.status(500).json({ error: "Internal Server Error", message: error.message  });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
+  
     }
 
 }
