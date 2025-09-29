@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Fitness Onboarding</title>
+  <meta name="csrf-token" content="your-csrf-token-here">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #8b5cf6;
+      --text-color: #ffffff;
+      --bg-dark: rgba(255, 255, 255, 0.08);
+      --border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      background-color: #0a0a0a;
+      background-image: 
+        linear-gradient(45deg, rgba(30, 30, 30, 0.1) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(30, 30, 30, 0.1) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(30, 30, 30, 0.1) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(30, 30, 30, 0.1) 75%);
+      background-size: 50px 50px;
+      animation: shiftPattern 15s linear infinite;
+    }
+
+    @keyframes shiftPattern {
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: 120px 120px, 120px 120px, 120px 120px, 120px 120px; }
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(100, 100, 100, 0.08), rgba(50, 50, 50, 0.15), rgba(100, 100, 100, 0.08), transparent);
+      background-size: 400%;
+      animation: rotateGradient 20s ease-in-out infinite;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    @keyframes rotateGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 400% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.2;
+      pointer-events: none;
+      animation: floatParticles 25s linear infinite;
+    }
+
+    @keyframes floatParticles {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 200px; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 20px 24px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1024px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #ffffff, #e0e0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .SubmitButton {
+      font-size: 18px;
+      font-weight: 600;
+      background: linear-gradient(135deg,#ffffff, #e0e0e0 );
+      background-color: #1a202c;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .step-indicator {
+      font-size: 14px;
+      color: #f5f5f5;
+      font-weight: 500;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 5px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #f9f8f8, #b3b2b2);
+      border-radius: 6px;
+      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent);
+      border-radius: 6px;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+    }
+
+    .step-container {
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .step-container:not(#step-1 .step-container) {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 25px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 10px;
+      padding-bottom: 40px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.07em;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0 auto;
+      animation: typing 2s steps(25, end);
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .step-subtitle {
+      font-size: 18px;
+      color: rgba(191, 219, 254, 0.8);
+      margin-bottom: 32px;
+      line-height: 1.4;
+    }
+
+    /* Gender Cards (Original Styling with Same Height) */
+    .gender-img {
+      width: 100%;
+      max-width: 220px;
+      height: 300px; /* Same height as previous version */
+      object-fit: cover; /* Ensure image scales properly */
+      margin-bottom: 10px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+
+    .card-step-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      width: 90%;
+    }
+
+    .card-step-container .card-grid {
+      margin-bottom: 0;
+    }
+
+    .gender-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--bg-dark);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 400px; /* Same height as previous version */
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card.selected {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
+      border: 1px solid var(--primary-color);
+      box-shadow: 0 0 24px rgba(59, 130, 246, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .card:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .card-description {
+      font-size: 12px;
+      color: rgba(191, 219, 254, 0.7);
+      line-height: 1.3;
+      padding-bottom: 24px;
+    }
+
+    /* New Card Styles for Steps 2-16 */
+    .step-card {
+      background: var(--bg-dark);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 0 auto;
+      max-width: 500px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      animation: cardFadeIn 0.5s ease-out;
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .input-container {
+      max-width: 400px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 18px 20px;
+      font-size: 18px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #ffffff;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .input-field::placeholder {
+      color: rgba(191, 219, 254, 0.5);
+    }
+
+    .input-field:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-color);
+      pointer-events: none;
+    }
+
+    .input-field.with-icon {
+      padding-left: 60px;
+    }
+
+    .slider-container {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    .slider-display {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f9f8f8, #b3b2b2);
+      background-clip: text;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .slider {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 28px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 28px;
+      height: 10px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: rgba(191, 219, 254, 0.5);
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 5px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 180px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-primary:hover:not(:disabled) .icon-arrow-right::before {
+      transform: translateX(4px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      backdrop-filter: blur(20px);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .select-field {
+      width: 100%;
+      max-width: 400px;
+      padding: 18px 20px;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      outline: none;
+      margin: 0 auto 40px;
+      display: block;
+    }
+
+    .select-field:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .select-field option {
+      background: #1a202c;
+      color: #ffffff;
+      padding: 10px;
+    }
+
+    .checkbox-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+      font-size: 16px;
+    }
+
+    .days-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .day-label {
+      background: var(--bg-dark);
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    .day-checkbox:checked + .day-label {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
+      border: 1px solid var(--primary-color);
+    }
+
+    .summary-container {
+      text-align: left;
+      color: #ffffff;
+      margin-bottom: 32px;
+    }
+
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid var(--primary-color);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 12px;
+      }
+
+      .step-title {
+        font-size: 2rem;
+        padding-bottom: 30px;
+      }
+
+      .step-card {
+        padding: 24px;
+        max-width: 350px;
+      }
+
+      .card {
+        padding: 20px 12px;
+        min-height: 380px; /* Same as previous version */
+      }
+
+      .card-grid {
+        gap: 12px;
+      }
+
+      .gender-grid {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+      }
+
+      .button-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 16px;
+      }
+
+      .step-title {
+        font-size: 1.8rem;
+      }
+
+      .step-subtitle {
+        font-size: 1rem;
+      }
+
+      .step-card {
+        padding: 16px;
+      }
+
+      .card {
+        padding: 16px 10px;
+        min-height: 360px; /* Same as previous version */
+      }
+
+      .gender-img {
+        height: 280px; /* Same as previous version */
+      }
+
+      .input-field,
+      .select-field {
+        font-size: 16px;
+        padding: 14px 18px;
+      }
+
+      .slider-display {
+        font-size: 2rem;
+      }
+    }
+
+    .icon-calendar::before { content: '📅'; font-size: 24px; }
+    .icon-ruler::before { content: '📏'; font-size: 24px; }
+    .icon-arrow-right::before { content: '→'; font-size: 22px; transition: transform 0.3s ease; }
+    .icon-arrow-left::before { content: '←'; font-size: 22px; }
+
+    /* Add icons for goals */
+    .icon-weight-loss::before { content: '🏃'; font-size: 40px; }
+    .icon-muscle-gain::before { content: '💪'; font-size: 40px; }
+    .icon-maintenance::before { content: '⚖️'; font-size: 40px; }
+    .icon-endurance::before { content: '🏃‍♂️'; font-size: 40px; }
+    .icon-strength::before { content: '🏋️'; font-size: 40px; }
+    .icon-balanced::before { content: '🧘'; font-size: 40px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <div class="header-title">
+          <div class="text-2xl font-black">
+            <span class="text-white">MISSION</span>
+            <span class="text-gray-400">FITNESS</span>
+          </div>
+        </div>
+        <span class="step-indicator text-white" id="step-indicator">Step 1 of 16</span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar" style="width: 6.25%"></div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- Step 1: Gender Selection -->
+      <div class="step active" id="step-1">
+        <div class="step-container">
+          <h2 class="step-title">Welcome! Let's get started</h2>
+          <div class="card-step-container">
+            <div class="card-grid gender-grid">
+              <div class="card" data-gender="male" role="button" tabindex="0" onclick="selectGender('male')" onkeypress="if(event.key === 'Enter') selectGender('male')" aria-label="Select Male Gender">
+                <img class="gender-img" src="./images/male.png" alt="Male gender option" loading="lazy">
+                <h3 class="card-title">Male</h3>
+                <p class="card-description">Select your gender identity</p>
+              </div>
+              <div class="card" data-gender="female" role="button" tabindex="0" onclick="selectGender('female')" onkeypress="if(event.key === 'Enter') selectGender('female')" aria-label="Select Female Gender">
+                <img class="gender-img" src="./images/female.png" alt="Female gender option" loading="lazy">
+                <h3 class="card-title">Female</h3>
+                <p class="card-description">Select your gender identity</p>
+              </div>
+            </div>
+          </div>
+          <div class="button-container">
+            <button class="btn btn-primary" id="next-button-1" disabled onclick="nextStep()" aria-label="Proceed to next step">
+              <span>Next</span>
+              <span class="icon-arrow-right"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Age -->
+      <div class="step" id="step-2">
+        <div class="step-container">
+          <div class="step-card" id="age-card">
+            <h2 class="step-title">How old are you?</h2>
+            <p class="step-subtitle text-white">Age helps us create the perfect workout plan tailored to your needs</p>
+            <div class="input-container">
+              <span class="input-icon icon-calendar"></span>
+              <input type="number" class="input-field with-icon" id="age-input" placeholder="Enter your age" min="13" max="120" aria-label="Enter your age">
+            </div>
+            <div id="age-feedback" style="color: rgba(191, 219, 254, 0.8); margin-bottom: 32px; font-size: 16px;"></div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-2" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-2" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Height -->
+      <div class="step" id="step-3">
+        <div class="step-container">
+          <div class="step-card" id="height-card">
+            <h2 class="step-title">How tall are you?</h2>
+            <p class="step-subtitle">Height helps us calculate your ideal metrics and exercises</p>
+            <div class="input-container">
+              <span class="input-icon icon-ruler"></span>
+              <input type="number" class="input-field with-icon" id="height-input" placeholder="Height in cm" min="100" max="250" aria-label="Enter your height in cm">
+            </div>
+            <div id="height-feedback" style="color: rgba(191, 219, 254, 0.8); margin-bottom: 32px; font-size: 18px; font-weight: 500;"></div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-3" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-3" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Weight -->
+      <div class="step" id="step-4">
+        <div class="step-container">
+          <div class="step-card" id="weight-card">
+            <h2 class="step-title">What's your current weight?</h2>
+            <p class="step-subtitle">Use the slider to set your weight - we'll track your progress from here</p>
+            <div class="slider-container">
+              <div class="slider-display" id="weight-display">70 kg</div>
+              <input type="range" class="slider" id="weight-slider" min="30" max="200" value="70" aria-label="Select your weight">
+              <div class="slider-labels">
+                <span>30 kg</span>
+                <span>200 kg</span>
+              </div>
+              <div id="weight-feedback" style="color: rgba(191, 219, 254, 0.8); margin-top: 16px; font-size: 16px;"></div>
+            </div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-4" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-4" onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Fitness Goal -->
+      <div class="step" id="step-5">
+        <div class="step-container">
+          <h2 class="step-title">What's your fitness goal?</h2>
+          <p class="step-subtitle">Choose your primary objective - we'll customize everything around this</p>
+          <div class="card-step-container">
+            <div class="card-grid goal-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 800px; margin: 0 auto;">
+              <div class="card" data-goal="weight_loss" role="button" tabindex="0" onclick="selectGoal('weight_loss')" onkeypress="if(event.key === 'Enter') selectGoal('weight_loss')" aria-label="Select Weight Loss Goal">
+                <div class="card-icon">
+                  <span class="icon-weight-loss"></span>
+                </div>
+                <h3 class="card-title">Weight Loss</h3>
+                <p class="card-description">Shed pounds and feel lighter</p>
+              </div>
+              <div class="card" data-goal="muscle_gain" role="button" tabindex="0" onclick="selectGoal('muscle_gain')" onkeypress="if(event.key === 'Enter') selectGoal('muscle_gain')" aria-label="Select Muscle Gain Goal">
+                <div class="card-icon">
+                  <span class="icon-muscle-gain"></span>
+                </div>
+                <h3 class="card-title">Muscle Gain</h3>
+                <p class="card-description">Build strength and definition</p>
+              </div>
+              <div class="card" data-goal="maintenance" role="button" tabindex="0" onclick="selectGoal('maintenance')" onkeypress="if(event.key === 'Enter') selectGoal('maintenance')" aria-label="Select Maintenance Goal">
+                <div class="card-icon">
+                  <span class="icon-maintenance"></span>
+                </div>
+                <h3 class="card-title">Maintenance</h3>
+                <p class="card-description">Stay fit and healthy</p>
+              </div>
+              <div class="card" data-goal="endurance" role="button" tabindex="0" onclick="selectGoal('endurance')" onkeypress="if(event.key === 'Enter') selectGoal('endurance')" aria-label="Select Endurance Goal">
+                <div class="card-icon">
+                  <span class="icon-endurance"></span>
+                </div>
+                <h3 class="card-title">Endurance</h3>
+                <p class="card-description">Boost stamina and energy</p>
+              </div>
+              <div class="card" data-goal="strength" role="button" tabindex="0" onclick="selectGoal('strength')" onkeypress="if(event.key === 'Enter') selectGoal('strength')" aria-label="Select Strength Goal">
+                <div class="card-icon">
+                  <span class="icon-strength"></span>
+                </div>
+                <h3 class="card-title">Strength</h3>
+                <p class="card-description">Increase power and performance</p>
+              </div>
+              <div class="card" data-goal="balanced" role="button" tabindex="0" onclick="selectGoal('balanced')" onkeypress="if(event.key === 'Enter') selectGoal('balanced')" aria-label="Select Overall Health Goal">
+                <div class="card-icon">
+                  <span class="icon-balanced"></span>
+                </div>
+                <h3 class="card-title">Overall Health</h3>
+                <p class="card-description">Comprehensive wellness</p>
+              </div>
+            </div>
+          </div>
+          <div class="button-container">
+            <button class="btn btn-secondary" id="back-button-5" onclick="prevStep()" aria-label="Go back to previous step">
+              <span class="icon-arrow-left"></span>
+              <span>Back</span>
+            </button>
+            <button class="btn btn-primary" id="next-button-5" disabled onclick="nextStep()" aria-label="Continue to next step">
+              <span>Continue</span>
+              <span class="icon-arrow-right"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Fitness Level -->
+      <div class="step" id="step-6">
+        <div class="step-container">
+          <div class="step-card" id="fitness-level-card">
+            <h2 class="step-title">What's your fitness level?</h2>
+            <p class="step-subtitle">Be honest - we'll adapt to your level</p>
+            <select id="fitness-level" class="select-field" aria-label="Select your fitness level">
+              <option value="">Select your fitness level</option>
+              <option value="beginner">Beginner - Just starting out</option>
+              <option value="intermediate">Intermediate - Some experience</option>
+              <option value="advanced">Advanced - Very experienced</option>
+            </select>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-6" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-6" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7: Activity Level -->
+      <div class="step" id="step-7">
+        <div class="step-container">
+          <div class="step-card" id="activity-level-card">
+            <h2 class="step-title">What's your activity level?</h2>
+            <p class="step-subtitle">Outside of planned workouts</p>
+            <select id="activity-level" class="select-field" aria-label="Select your activity level">
+              <option value="">Select your activity level</option>
+              <option value="mostly_sitting">Mostly Sitting - Desk job, minimal activity</option>
+              <option value="lightly_active">Lightly Active - Light exercise 1-3 days/week</option>
+              <option value="moderately_active">Moderately Active - Moderate exercise 3-5 days/week</option>
+              <option value="very_active">Very Active - Hard exercise 6-7 days/week</option>
+              <option value="super_active">Super Active - Very hard exercise, physical job</option>
+            </select>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-7" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-7" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8: Medical Conditions -->
+      <div class="step" id="step-8">
+        <div class="step-container">
+          <div class="step-card" id="medical-conditions-card">
+            <h2 class="step-title">Any medical conditions?</h2>
+            <p class="step-subtitle">This helps us create a safe workout plan for you</p>
+            <div class="input-container">
+              <input type="text" class="input-field" id="medical-conditions" placeholder="e.g., diabetes, asthma (optional)" list="medical-conditions-list" aria-label="Enter any medical conditions">
+              <datalist id="medical-conditions-list">
+                <option value="Diabetes">
+                <option value="Asthma">
+                <option value="Hypertension">
+                <option value="Arthritis">
+              </datalist>
+            </div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-8" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-8" onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 9: Diet Preference -->
+      <div class="step" id="step-9">
+        <div class="step-container">
+          <div class="step-card" id="diet-preference-card">
+            <h2 class="step-title">Diet preference?</h2>
+            <p class="step-subtitle">We'll personalize nutrition advice</p>
+            <select id="diet-preference" class="select-field" aria-label="Select your diet preference">
+              <option value="">Select your diet preference</option>
+              <option value="none">No Restrictions</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="keto">Keto</option>
+              <option value="paleo">Paleo</option>
+              <option value="gluten_free">Gluten-Free</option>
+            </select>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-9" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-9" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 10: Workout Preference -->
+      <div class="step" id="step-10">
+        <div class="step-container">
+          <div class="step-card" id="workout-preference-card">
+            <h2 class="step-title">Workout preference?</h2>
+            <p class="step-subtitle">Where do you prefer to exercise?</p>
+            <select id="workout-preference" class="select-field" aria-label="Select workout preference">
+              <option value="">Select workout preference</option>
+              <option value="home">Home - Workout from home</option>
+              <option value="gym">Gym - Prefer gym equipment</option>
+              <option value="outdoor">Outdoor - Love fresh air workouts</option>
+              <option value="mixed">Mixed - Variety is key</option>
+            </select>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-10" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-10" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 11: Available Equipment -->
+      <div class="step" id="step-11">
+        <div class="step-container">
+          <div class="step-card" id="equipment-card">
+            <h2 class="step-title">Available equipment?</h2>
+            <p class="step-subtitle">List equipment you have access to</p>
+            <div class="input-container">
+              <input type="text" class="input-field" id="available-equipment" placeholder="e.g., dumbbells, yoga mat, resistance bands" list="equipment-list" aria-label="Enter available equipment">
+              <datalist id="equipment-list">
+                <option value="Dumbbells">
+                <option value="Yoga Mat">
+                <option value="Resistance Bands">
+                <option value="Treadmill">
+              </datalist>
+            </div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-11" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-11" onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 12: Workout Time -->
+      <div class="step" id="step-12">
+        <div class="step-container">
+          <div class="step-card" id="workout-time-card">
+            <h2 class="step-title">Preferred workout time?</h2>
+            <p class="step-subtitle">When do you have the most energy?</p>
+            <select id="workout-time" class="select-field" aria-label="Select preferred workout time">
+              <option value="">Select preferred time</option>
+              <option value="morning">Morning (6-10 AM) - Start the day strong</option>
+              <option value="afternoon">Afternoon (12-4 PM) - Midday energy boost</option>
+              <option value="evening">Evening (5-8 PM) - After work relief</option>
+              <option value="night">Night (8-11 PM) - Wind down workout</option>
+            </select>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-12" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-12" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 13: Exercise Frequency -->
+      <div class="step" id="step-13">
+        <div class="step-container">
+          <div class="step-card" id="exercise-frequency-card">
+            <h2 class="step-title">How often do you want to exercise?</h2>
+            <p class="step-subtitle">Select frequency and preferred days</p>
+            <div class="slider-container">
+              <div class="slider-display" id="frequency-display">3 times/week</div>
+              <input type="range" class="slider" id="frequency-slider" min="1" max="7" value="3" aria-label="Select exercise frequency per week">
+              <div class="slider-labels">
+                <span>1 time/week</span>
+                <span>7 times/week</span>
+              </div>
+            </div>
+            <div class="days-container">
+              <input type="checkbox" id="day-mon" class="day-checkbox" hidden>
+              <label for="day-mon" class="day-label">Mon</label>
+              <input type="checkbox" id="day-tue" class="day-checkbox" hidden>
+              <label for="day-tue" class="day-label">Tue</label>
+              <input type="checkbox" id="day-wed" class="day-checkbox" hidden>
+              <label for="day-wed" class="day-label">Wed</label>
+              <input type="checkbox" id="day-thu" class="day-checkbox" hidden>
+              <label for="day-thu" class="day-label">Thu</label>
+              <input type="checkbox" id="day-fri" class="day-checkbox" hidden>
+              <label for="day-fri" class="day-label">Fri</label>
+              <input type="checkbox" id="day-sat" class="day-checkbox" hidden>
+              <label for="day-sat" class="day-label">Sat</label>
+              <input type="checkbox" id="day-sun" class="day-checkbox" hidden>
+              <label for="day-sun" class="day-label">Sun</label>
+            </div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-13" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-13" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 14: First Goal -->
+      <div class="step" id="step-14">
+        <div class="step-container">
+          <div class="step-card" id="first-goal-card">
+            <h2 class="step-title">What's your first specific goal?</h2>
+            <p class="step-subtitle">E.g., lose 10kg, run a 5k, etc.</p>
+            <div class="input-container">
+              <input type="text" class="input-field" id="first-goal" placeholder="Enter your first goal" aria-label="Enter your first specific goal">
+            </div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-14" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-14" disabled onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 15: Permissions -->
+      <div class="step" id="step-15">
+        <div class="step-container">
+          <div class="step-card" id="permissions-card">
+            <h2 class="step-title">App permissions</h2>
+            <p class="step-subtitle">Enable features for better experience</p>
+            <div class="checkbox-container">
+              <label class="checkbox-label" for="email-updates">
+                <input type="checkbox" id="email-updates" aria-label="Receive email updates">
+                Receive email updates
+              </label>
+              <label class="checkbox-label" for="location">
+                <input type="checkbox" id="location" aria-label="Allow location access">
+                Allow location access
+              </label>
+              <label class="checkbox-label" for="health-tracking">
+                <input type="checkbox" id="health-tracking" aria-label="Enable health tracking">
+                Enable health tracking
+              </label>
+            </div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-15" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="next-button-15" onclick="nextStep()" aria-label="Continue to next step">
+                <span>Continue</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 16: Review and Submit -->
+      <div class="step" id="step-16">
+        <div class="step-container">
+          <div class="step-card" id="review-card">
+            <h2 class="step-title">Review your information</h2>
+            <p class="step-subtitle">Make sure everything is correct</p>
+            <div class="summary-container" id="form-summary"></div>
+            <div class="button-container">
+              <button class="btn btn-secondary" id="back-button-16" onclick="prevStep()" aria-label="Go back to previous step">
+                <span class="icon-arrow-left"></span>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary" id="submit-button" onclick="submitForm()" aria-label="Submit form">
+                <span>Submit</span>
+                <span class="icon-arrow-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const formData = {
+      gender: '',
+      age: null,
+      height: null,
+      weight: 70,
+      fitnessGoal: '',
+      fitnessLevel: '',
+      activityLevel: '',
+      medicalConditions: [],
+      dietPreference: '',
+      workoutPreference: '',
+      availableEquipment: [],
+      workoutTime: '',
+      exerciseFrequency: {
+        timesPerWeek: 3,
+        preferredDays: []
+      },
+      permissions: {
+        emailUpdates: false,
+        location: false,
+        healthTracking: false
+      },
+      firstGoal: '',
+      onboardingStep: 1,
+      isComplete: false
+    };
+
+    let currentStep = 1;
+    const totalSteps = 16;
+
+    const debounce = (func, wait) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+      };
+    };
+
+    const saveFormData = () => {
+      localStorage.setItem('formData', JSON.stringify(formData));
+      saveProgress();
+    };
+
+    const loadFormData = () => {
+      const savedData = localStorage.getItem('formData');
+      if (savedData) {
+        Object.assign(formData, JSON.parse(savedData));
+        currentStep = formData.onboardingStep;
+        showStep(currentStep);
+        updateFormUI();
+      }
+    };
+
+    const updateFormUI = () => {
+      if (formData.gender) selectGender(formData.gender);
+      if (formData.age) {
+        document.getElementById('age-input').value = formData.age;
+        handleAgeInput({ target: document.getElementById('age-input') });
+      }
+      if (formData.height) {
+        document.getElementById('height-input').value = formData.height;
+        handleHeightInput({ target: document.getElementById('height-input') });
+      }
+      if (formData.weight) {
+        document.getElementById('weight-slider').value = formData.weight;
+        updateWeight();
+      }
+      if (formData.fitnessGoal) selectGoal(formData.fitnessGoal);
+      if (formData.fitnessLevel) document.getElementById('fitness-level').value = formData.fitnessLevel;
+      if (formData.activityLevel) document.getElementById('activity-level').value = formData.activityLevel;
+      if (formData.medicalConditions.length) document.getElementById('medical-conditions').value = formData.medicalConditions.join(', ');
+      if (formData.dietPreference) document.getElementById('diet-preference').value = formData.dietPreference;
+      if (formData.workoutPreference) document.getElementById('workout-preference').value = formData.workoutPreference;
+      if (formData.availableEquipment.length) document.getElementById('available-equipment').value = formData.availableEquipment.join(', ');
+      if (formData.workoutTime) document.getElementById('workout-time').value = formData.workoutTime;
+      if (formData.exerciseFrequency.timesPerWeek) {
+        document.getElementById('frequency-slider').value = formData.exerciseFrequency.timesPerWeek;
+        updateFrequency();
+      }
+      if (formData.exerciseFrequency.preferredDays.length) {
+        formData.exerciseFrequency.preferredDays.forEach(day => {
+          document.getElementById(`day-${day.toLowerCase()}`).checked = true;
+        });
+      }
+      if (formData.firstGoal) document.getElementById('first-goal').value = formData.firstGoal;
+      document.getElementById('email-updates').checked = formData.permissions.emailUpdates;
+      document.getElementById('location').checked = formData.permissions.location;
+      document.getElementById('health-tracking').checked = formData.permissions.healthTracking;
+      updateButtons();
+      if (currentStep === 16) updateSummary();
+    };
+
+    const updateProgress = () => {
+      const progressBar = document.getElementById('progress-bar');
+      const stepIndicator = document.getElementById('step-indicator');
+      const percentage = (currentStep / totalSteps) * 100;
+      progressBar.style.width = `${percentage}%`;
+      stepIndicator.textContent = `Step ${currentStep} of ${totalSteps}`;
+    };
+
+    const showStep = (step) => {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step-${step}`).classList.add('active');
+      updateProgress();
+      if (step === 16) updateSummary();
+    };
+
+    const validateStep = (step) => {
+      switch (step) {
+        case 1: return !!formData.gender;
+        case 2: return formData.age >= 13 && formData.age <= 120;
+        case 3: return formData.height >= 100 && formData.height <= 250;
+        case 4: return formData.weight >= 30 && formData.weight <= 200;
+        case 5: return !!formData.fitnessGoal;
+        case 6: return !!formData.fitnessLevel;
+        case 7: return !!formData.activityLevel;
+        case 9: return !!formData.dietPreference;
+        case 10: return !!formData.workoutPreference;
+        case 12: return !!formData.workoutTime;
+        case 13: return formData.exerciseFrequency.timesPerWeek > 0 && formData.exerciseFrequency.preferredDays.length >= formData.exerciseFrequency.timesPerWeek;
+        case 14: return !!formData.firstGoal;
+        case 15: return true; // Optional
+        case 16: return true;
+        default: return true;
+      }
+    };
+
+    const nextStep = () => {
+      if (!validateStep(currentStep)) {
+        alert('Please complete the current step correctly.');
+        return;
+      }
+      if (currentStep < totalSteps) {
+        currentStep++;
+        formData.onboardingStep = currentStep;
+        showStep(currentStep);
+        saveFormData();
+      }
+    };
+
+    const prevStep = () => {
+      if (currentStep > 1) {
+        currentStep--;
+        formData.onboardingStep = currentStep;
+        showStep(currentStep);
+        saveFormData();
+      }
+    };
+
+    const selectGender = (gender) => {
+      formData.gender = gender;
+      document.querySelectorAll('.card[data-gender]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.gender === gender);
+      });
+      document.getElementById('next-button-1').disabled = false;
+      saveFormData();
+    };
+
+    const handleAgeInput = (e) => {
+      const age = parseInt(e.target.value);
+      formData.age = age || null;
+      const feedback = document.getElementById('age-feedback');
+      if (age && age > 0) {
+        if (age < 18) {
+          feedback.textContent = "Youth fitness programs available";
+        } else if (age < 30) {
+          feedback.textContent = "Perfect age to build lifelong habits";
+        } else if (age < 50) {
+          feedback.textContent = "Great time to maintain peak fitness";
+        } else {
+          feedback.textContent = "Wisdom meets wellness - let's do this!";
+        }
+      } else {
+        feedback.textContent = "";
+      }
+      document.getElementById('next-button-2').disabled = !validateStep(2);
+    };
+
+    const handleHeightInput = (e) => {
+      const height = parseFloat(e.target.value);
+      formData.height = height || null;
+      const feedback = document.getElementById('height-feedback');
+      if (height && height > 0) {
+        const feet = Math.floor(height / 30.48);
+        const inches = Math.round((height % 30.48) / 2.54);
+        feedback.textContent = `${feet}'${inches}" (${height}cm)`;
+      } else {
+        feedback.textContent = "";
+      }
+      document.getElementById('next-button-3').disabled = !validateStep(3);
+    };
+
+    const updateWeight = () => {
+      const slider = document.getElementById('weight-slider');
+      const display = document.getElementById('weight-display');
+      const feedback = document.getElementById('weight-feedback');
+      formData.weight = parseInt(slider.value);
+      display.textContent = `${formData.weight} kg`;
+      if (formData.weight < 50) {
+        feedback.textContent = "Light and agile";
+      } else if (formData.weight < 70) {
+        feedback.textContent = "Healthy range";
+      } else if (formData.weight < 90) {
+        feedback.textContent = "Strong foundation";
+      } else {
+        feedback.textContent = "Powerful build";
+      }
+      const percentage = ((formData.weight - 30) / 170) * 100;
+      slider.style.background = `linear-gradient(to right, var(--primary-color) 0%, var(--secondary-color) ${percentage}%, rgba(255,255,255,0.2) ${percentage}%, rgba(255,255,255,0.2) 100%)`;
+      document.getElementById('next-button-4').disabled = !validateStep(4);
+      saveFormData();
+    };
+
+    const selectGoal = (goal) => {
+      formData.fitnessGoal = goal;
+      document.querySelectorAll('.card[data-goal]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.goal === goal);
+      });
+      document.getElementById('next-button-5').disabled = !validateStep(5);
+      saveFormData();
+    };
+
+    const handleMedicalConditions = (e) => {
+      formData.medicalConditions = e.target.value.split(',').map(s => s.trim()).filter(Boolean);
+      saveFormData();
+    };
+
+    const handleAvailableEquipment = (e) => {
+      formData.availableEquipment = e.target.value.split(',').map(s => s.trim()).filter(Boolean);
+      saveFormData();
+    };
+
+    const updateFrequency = () => {
+      const slider = document.getElementById('frequency-slider');
+      const display = document.getElementById('frequency-display');
+      formData.exerciseFrequency.timesPerWeek = parseInt(slider.value);
+      display.textContent = `${formData.exerciseFrequency.timesPerWeek} times/week`;
+      const percentage = ((formData.exerciseFrequency.timesPerWeek - 1) / 6) * 100;
+      slider.style.background = `linear-gradient(to right, var(--primary-color) 0%, var(--secondary-color) ${percentage}%, rgba(255,255,255,0.2) ${percentage}%, rgba(255,255,255,0.2) 100%)`;
+      updatePreferredDays();
+      document.getElementById('next-button-13').disabled = !validateStep(13);
+      saveFormData();
+    };
+
+    const updatePreferredDays = () => {
+      formData.exerciseFrequency.preferredDays = [];
+      ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(day => {
+        const checkbox = document.getElementById(`day-${day}`);
+        if (checkbox.checked) formData.exerciseFrequency.preferredDays.push(day.toUpperCase());
+      });
+      document.getElementById('next-button-13').disabled = !validateStep(13);
+      saveFormData();
+    };
+
+    const handleFirstGoal = (e) => {
+      formData.firstGoal = e.target.value.trim();
+      document.getElementById('next-button-14').disabled = !validateStep(14);
+      saveFormData();
+    };
+
+    const updatePermissions = () => {
+      formData.permissions.emailUpdates = document.getElementById('email-updates').checked;
+      formData.permissions.location = document.getElementById('location').checked;
+      formData.permissions.healthTracking = document.getElementById('health-tracking').checked;
+      saveFormData();
+    };
+
+    const updateSummary = () => {
+      const summary = document.getElementById('form-summary');
+      summary.innerHTML = `
+        <p><strong>Gender:</strong> ${formData.gender}</p>
+        <p><strong>Age:</strong> ${formData.age}</p>
+        <p><strong>Height:</strong> ${formData.height} cm</p>
+        <p><strong>Weight:</strong> ${formData.weight} kg</p>
+        <p><strong>Fitness Goal:</strong> ${formData.fitnessGoal}</p>
+        <p><strong>Fitness Level:</strong> ${formData.fitnessLevel}</p>
+        <p><strong>Activity Level:</strong> ${formData.activityLevel}</p>
+        <p><strong>Medical Conditions:</strong> ${formData.medicalConditions.join(', ') || 'None'}</p>
+        <p><strong>Diet Preference:</strong> ${formData.dietPreference}</p>
+        <p><strong>Workout Preference:</strong> ${formData.workoutPreference}</p>
+        <p><strong>Available Equipment:</strong> ${formData.availableEquipment.join(', ') || 'None'}</p>
+        <p><strong>Workout Time:</strong> ${formData.workoutTime}</p>
+        <p><strong>Exercise Frequency:</strong> ${formData.exerciseFrequency.timesPerWeek} times/week on ${formData.exerciseFrequency.preferredDays.join(', ')}</p>
+        <p><strong>First Goal:</strong> ${formData.firstGoal}</p>
+        <p><strong>Permissions:</strong> Email: ${formData.permissions.emailUpdates ? 'Yes' : 'No'}, Location: ${formData.permissions.location ? 'Yes' : 'No'}, Health Tracking: ${formData.permissions.healthTracking ? 'Yes' : 'No'}</p>
+      `;
+    };
+
+    const updateButtons = () => {
+      for (let i = 1; i <= totalSteps; i++) {
+        const nextBtn = document.getElementById(`next-button-${i}`);
+        if (nextBtn) nextBtn.disabled = !validateStep(i);
+      }
+    };
+
+    const saveProgress = async () => {
+      try {
+        await axios.post('/api/onboarding', formData, {
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
+        });
+      } catch (error) {
+        console.error('Error saving progress:', error);
+      }
+    };
+
+    const init = () => {
+      loadFormData();
+      document.getElementById('age-input').addEventListener('input', debounce((e) => { handleAgeInput(e); saveFormData(); }, 300));
+      document.getElementById('height-input').addEventListener('input', debounce((e) => { handleHeightInput(e); saveFormData(); }, 300));
+      document.getElementById('weight-slider').addEventListener('input', updateWeight);
+      document.getElementById('medical-conditions').addEventListener('input', debounce((e) => { handleMedicalConditions(e); saveFormData(); }, 300));
+      document.getElementById('available-equipment').addEventListener('input', debounce((e) => { handleAvailableEquipment(e); saveFormData(); }, 300));
+      document.getElementById('frequency-slider').addEventListener('input', updateFrequency);
+      ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(day => {
+        document.getElementById(`day-${day}`).addEventListener('change', updatePreferredDays);
+      });
+      document.getElementById('first-goal').addEventListener('input', debounce((e) => { handleFirstGoal(e); }, 300));
+      document.getElementById('email-updates').addEventListener('change', updatePermissions);
+      document.getElementById('location').addEventListener('change', updatePermissions);
+      document.getElementById('health-tracking').addEventListener('change', updatePermissions);
+      document.getElementById('fitness-level').addEventListener('change', (e) => {
+        formData.fitnessLevel = e.target.value;
+        document.getElementById('next-button-6').disabled = !validateStep(6);
+        saveFormData();
+      });
+      document.getElementById('activity-level').addEventListener('change', (e) => {
+        formData.activityLevel = e.target.value;
+        document.getElementById('next-button-7').disabled = !validateStep(7);
+        saveFormData();
+      });
+      document.getElementById('diet-preference').addEventListener('change', (e) => {
+        formData.dietPreference = e.target.value;
+        document.getElementById('next-button-9').disabled = !validateStep(9);
+        saveFormData();
+      });
+      document.getElementById('workout-preference').addEventListener('change', (e) => {
+        formData.workoutPreference = e.target.value;
+        document.getElementById('next-button-10').disabled = !validateStep(10);
+        saveFormData();
+      });
+      document.getElementById('workout-time').addEventListener('change', (e) => {
+        formData.workoutTime = e.target.value;
+        document.getElementById('next-button-12').disabled = !validateStep(12);
+        saveFormData();
+      });
+      updateProgress();
+      updateWeight();
+      updateFrequency();
+    };
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    async function submitForm() {
+      const submitButton = document.getElementById('submit-button');
+      if (!submitButton) return;
+
+      if (!validateStep(16)) {
+        alert('Please review and complete all required fields.');
+        return;
+      }
+
+      const maxRetries = 3;
+      let attempts = 0;
+
+      while (attempts < maxRetries) {
+        try {
+          submitButton.disabled = true;
+          submitButton.innerHTML = '<div class="loader"></div>';
+
+          const response = await axios.post('/api/onboarding', formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            }
+          });
+
+          if (response.status === 200) {
+            alert('Form submitted successfully! Redirecting to your fitness plan...');
+            window.location.href = '/dashboard';
+            localStorage.removeItem('formData');
+            return;
+          }
+        } catch (error) {
+          attempts++;
+          if (attempts === maxRetries) {
+            console.error('Submission error:', error);
+            alert(`Error submitting form: ${error.response?.data?.message || 'Please try again later.'}`);
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<span>Submit</span><span class="icon-arrow-right"></span>';
+            return;
+          }
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,47 +1,19 @@
+import mongoose, { Schema } from "mongoose";
 
-import mongoose, { Schema } from 'mongoose';
-const userschema = new Schema({
-    userName: {
-        unique: true,
-        type: String,
-        required: true,
-        trim: true
-    },
-    email: {
-        unique: false,
-        type: String,
-        required: true,
-        trim: true
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6
-    },
-    role: {
-        type: String,
-        enum: ['admin', 'user'],
-        default: "user"
-    },
-    isVerified: {   
-        type: Boolean,
-        default: false
-    },
-    status: {
-        type: String,
-        enum: ['active', 'inactive'],
-        default: 'active'
-    },
-    onboardingCompleted: {
-        type: Boolean,
-        default: false
-    },
+const userSchema = new Schema(
+  {
+    userName: { type: String, required: true, unique: true, trim: true },
+    email: { type: String, required: true, unique: true, trim: true },
+    password: { type: String, required: true, minlength: 6 },
 
+    role: { type: String, enum: ["admin", "user"], default: "user" },
+    isVerified: { type: Boolean, default: false },
+    status: { type: String, enum: ["active", "inactive"], default: "active" },
 
-}, {
-    timestamps: true
-})
+    onboardingCompleted: { type: Boolean, default: false },
+  },
+  { timestamps: true }
+);
 
-const User = mongoose.model('User', userschema)
-
+const User = mongoose.model("User", userSchema);
 export default User;

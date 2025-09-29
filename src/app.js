@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api", chatRouter);
 app.use("/api", userRouter);
 app.use("/auth", authRouter);
-app.use("/api", onboardingRouter);
+app.use("/api/onboarding", onboardingRouter);
 app.use("/api",dietRouter)
 app.use("/api", workoutRouter);
 app.use("/", viewRouter); // should come last for general rendering

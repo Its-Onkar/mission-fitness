@@ -84,10 +84,11 @@ Return ONLY valid JSON inside a markdown code block like this:
     const completion = await openAi.chat.completions.create({
       model: "gpt-4o",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.7,
+      temperature: 1,
     });
 
     const aiResponse = completion.choices[0].message.content.trim();
+    console.log("AI Workout Plan Response:", aiResponse);
     const match = aiResponse.match(/```json\s*([\s\S]*?)```/);
     const rawJson = match ? match[1].trim() : aiResponse;
 

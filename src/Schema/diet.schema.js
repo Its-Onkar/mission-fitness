@@ -26,6 +26,10 @@ const dietSchema = new mongoose.Schema(
       enum: ["completed", "pending", "in-progress", "incomplete"],
       default: "pending",
     },
+    followDietPlan:{
+      
+    }
+
   },
   {
     timestamps: true,

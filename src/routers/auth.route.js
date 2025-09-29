@@ -10,8 +10,8 @@ import { forgotPasswordController, loginController, resetPasswordController, sig
  authRouter.post("/log-in",loginController)
  authRouter.post("/sign-up",signupController)
  authRouter.post("/forgot-password", forgotPasswordController);
-authRouter.post("/reset-password", resetPasswordController);
-authRouter.get("/verify-email",verificationController)
+ authRouter.post("/reset-password", resetPasswordController);
+ authRouter.get("/verify-email",verificationController)
 
 
   export default authRouter

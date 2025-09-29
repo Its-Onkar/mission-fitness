@@ -5,18 +5,27 @@ import { forgotPassword, login, resetPassword, signup } from "../services/auth.s
 import { verifyToken } from "../utils/auth.utils.js";
 
 export const signupController = async (req, res) => {
+  try {
+    const userData = req.body;
+    console.log("userData:", userData);
 
-    try {
-        const userData = req.body
-        
-        const user = await signup(userData)
-        res.status(201).json({ message: "User created successfully", user });
-    } catch (error) {
-        console.error("Error in signupController:", error.message);
-        res.status(500).json({ error: "Internal Server Error", message: error.message  });
-    }
+    const user = await signup(userData);
 
-}
+    res.status(200).json({
+      message: "User created successfully",
+      user,
+    });
+
+    console.log("user:", user);
+  } catch (error) {
+    console.error("Signup error:", error); 
+    res.status(500).json({
+      error: "Internal Server Error",
+      message: error.message || JSON.stringify(error),
+    });
+  }
+};
+
 
 export const loginController = async (req, res) => {
 
@@ -27,7 +36,7 @@ export const loginController = async (req, res) => {
         
         res.status(200).json({ message: "User logged in successfully", user });
     } catch (error) {
-        console.error("Error in loginController:", error.message);
+     
         res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 

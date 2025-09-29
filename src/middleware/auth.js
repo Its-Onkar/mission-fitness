@@ -2,6 +2,7 @@ import { verifyToken } from "../utils/auth.utils.js";
 
 const performAuthorization = async (req, res, next) => {
   try {
+    console.log('Authorization Header:', req.headers.authorization);
     const authHeader = req.headers.authorization;
     const token = authHeader.split(" ")[1];
     if (!token) {
