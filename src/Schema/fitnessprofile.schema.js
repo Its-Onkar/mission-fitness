@@ -1,28 +1,52 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const FitnessProfileSchema = new Schema(
-  {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+const fitnessProfileSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
-    gender: { type:  Schema.Types.String, enum: ["male", "female", "other"], required: true },
-    age: { type:  Schema.Types.Number, required: true },
-    heightCm: { type:  Schema.Types.Number, required: true },
-    weightKg: { type:  Schema.Types.Number, required: true },
+  // Personal Info
+  gender: { type: String, enum: ["male", "female", "other"], required: true },
+  age: { type: Number, required: true },
+  heightCm: { type: Number, required: true },
+  weightKg: { type: Number, required: true },
 
-    fitnessSettings: { type: mongoose.Schema.Types.ObjectId, ref: "FitnessSettings" },
-    exerciseRoutine: { type: mongoose.Schema.Types.ObjectId, ref: "ExerciseRoutine" },
-    healthDiet: { type: mongoose.Schema.Types.ObjectId, ref: "HealthDiet" },
-    permissions: { type: mongoose.Schema.Types.ObjectId, ref: "Permission" },
-    aiPlan: { type: mongoose.Schema.Types.ObjectId, ref: "AIPlan" },
+  // Fitness Goals & Preferences
+  goal: { type: String, enum: ["weight loss","muscle gain","maintenance","balanced","weight gain"], required: true },
+  fitnessLevel: { type: String, enum: ["beginner","intermediate","advanced"], default: "beginner" },
+  activityLevel: { type: String, enum: ["mostly sitting","lightly active","moderately active","very active","super active"], default: "mostly sitting" },
+  workoutPreference: { type: String, enum: ["home","gym","outdoor","mixed"], default: "home" },
+  availableEquipment: [{ type: String }],
+  preferredWorkoutTime: { type: String, enum: ["morning","afternoon","evening","night"], default: "morning" },
 
-    firstGoal: { type: Schema.Types.String, required: true }, 
-    points: { type:  Schema.Types.Number, default: 0 },
+  // Health & Diet
+  medicalConditions: [{ type: String }],
+  dietPreference: { type: String, enum: ["vegetarian","vegan","keto","paleo","gluten-free","none"], default: "none" },
 
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  // Exercise Frequency
+  exerciseFrequency: {
+    timesPerWeek: { type: Number, min: 1, max: 7, default: 3 },
+    preferredDays: [{ type: String, enum: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] }]
   },
-  { timestamps: true }
-);
 
-const FitnessProfile = mongoose.model("FitnessProfile", FitnessProfileSchema);
-export default FitnessProfile;
+  // AI Plan Reference
+  workoutPlan: { type: mongoose.Schema.Types.ObjectId, ref: "WorkoutPlan" },
+  dietPlan: { type: mongoose.Schema.Types.ObjectId, ref: "DietPlan" },
+
+  // App Permissions
+  permissions: {
+    emailUpdates: { type: Boolean, default: false },
+    locationAccess: { type: Boolean, default: false },
+    healthTracking: { type: Boolean, default: false },
+  },
+
+  // Points & Tracking
+
+  points: { type: Number, default: 0 },
+  onboardingStep: { type: Number, default: 1 },
+  isComplete: { type: Boolean, default: false },
+
+  // Created / Updated By
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+}, { timestamps: true });
+
+export default mongoose.model("FitnessProfile", fitnessProfileSchema);

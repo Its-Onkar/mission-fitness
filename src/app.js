@@ -10,6 +10,7 @@ import { create } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
 import workoutRouter from "./routers/workout.route.js";
+import fitnessRouter from "./routers/fitness.route.js";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -32,12 +33,19 @@ app.set("views", path.join(__dirname, "view"));
 
 // Static files (if needed)
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use((err, req, res, next) => {
+ 
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Something went wrong",
+    error: err.stack
+  });
+});
 // Routes
 app.use("/api", chatRouter);
 app.use("/api", userRouter);
 app.use("/auth", authRouter);
-app.use("/api/onboarding", onboardingRouter);
+app.use("/api", fitnessRouter);
 app.use("/api",dietRouter)
 app.use("/api", workoutRouter);
 app.use("/", viewRouter); // should come last for general rendering

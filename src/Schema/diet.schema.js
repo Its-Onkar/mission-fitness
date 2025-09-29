@@ -1,40 +1,18 @@
 import mongoose from "mongoose";
 
-const dietSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
+const dietPlanSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  fitnessProfile: { type: mongoose.Schema.Types.ObjectId, ref: "FitnessProfile" },
 
-    dietPlan: {
-      type: String,
-      enum: ["weight loss", "muscle gain", "maintenance", "balanced","weight gain"],
-      default: "balanced",
-    },
-
-    dietDuration: {
-      type: String,
-      required: true,
-    },
-
-    mealDetails: {
-      type: mongoose.Schema.Types.Mixed,
-    },
-    status: {
-      type: String,
-      enum: ["completed", "pending", "in-progress", "incomplete"],
-      default: "pending",
-    },
-    followDietPlan:{
-      
+  goal: { type: String }, 
+  meals: [
+    {
+      name: { type: String,enum:["Breakfast","Lunch","Dinner"] }, 
+      items: [
+        { food: String, calories: Number, protein: Number, carbs: Number, fats: Number }
+      ]
     }
+  ]
+}, { timestamps: true });
 
-  },
-  {
-    timestamps: true,
-  }
-);
-
-const Diet = mongoose.model("Diet", dietSchema);
-export default Diet;
+export default mongoose.model("DietPlan", dietPlanSchema);
