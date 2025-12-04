@@ -26,11 +26,7 @@ export const generateToken = (data, expiry) => {
             throw new Error("Data must be an object");
         }
         const token = jwt.sign(data, JWT_SECRET, {
-<<<<<<< Updated upstream
-            expiresIn: expiry || "1h",
-=======
             expiresIn: expiry || "10h",
->>>>>>> Stashed changes
         });
         if (!token) {
             throw new Error("Token generation failed");

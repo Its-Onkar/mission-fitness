@@ -1,33 +1,10 @@
-<<<<<<< Updated upstream
-  import { Router } from "express";
-import {
-  homePageController,
-  resetPasswordController,
-  dashboardController,
-  navbarcontroller,
-  loginviewController,
-  signupviewController,
-} from "../controllers/view.controller.js";
- 
-=======
 import { Router } from "express";
 import { homePageController, resetPasswordController,dashboardController, navbarcontroller, signupviewController, onboardingviewController,loginviewController, planResponseController,maindashboardController,verifyemailcontroller,verifiedemailcontroller,dailyActivityViewController} from "../controllers/view.controller.js";
 import { authenticateToken, optionalAuth } from "../middleware/tokenAuth.js";
 import checkOnboarding from "../middleware/checkonboarding.js";
->>>>>>> Stashed changes
 
 const viewRouter = Router();
 
-<<<<<<< Updated upstream
-  viewRouter.get("/",homePageController)
-  viewRouter.get("/reset-password",resetPasswordController)
-  viewRouter.get("/dashboard", dashboardController);
-  viewRouter.get("/navbar",navbarcontroller);
- 
-  viewRouter.get("/signup",signupviewController)
-  viewRouter.get("/login", loginviewController);
-  export default viewRouter;
-=======
 viewRouter.get("/",homePageController);
 viewRouter.get("/reset-password",resetPasswordController);
 viewRouter.get("/dashboard", dashboardController);
@@ -49,4 +26,3 @@ viewRouter.get("/verify-email",verifyemailcontroller);
 viewRouter.get("/verified-email",verifiedemailcontroller);
 
 export default viewRouter;
->>>>>>> Stashed changes
