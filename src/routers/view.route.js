@@ -10,10 +10,16 @@ viewRouter.get("/reset-password",resetPasswordController);
 viewRouter.get("/dashboard", dashboardController);
 viewRouter.get("/navbar",navbarcontroller);
 viewRouter.get("/signup",signupviewController);
-viewRouter.get("/onboarding", authenticateToken, onboardingviewController);
+viewRouter.get("/onboarding", authenticateToken, (req, res) => {
+    const token = req.token || req.query.token;
+    res.render("onboarding", { token, layout: false });
+});
 viewRouter.get("/login",loginviewController);
 viewRouter.get("/plan-response", planResponseController);
-viewRouter.get("/main-dashboard", authenticateToken, checkOnboarding, maindashboardController);
+viewRouter.get("/main-dashboard", authenticateToken, (req, res) => {
+    const token = req.token || req.query.token;
+    res.render("maindashboard", { token, layout: false });
+});
 viewRouter.get("/daily-activity", authenticateToken, checkOnboarding, dailyActivityViewController);
 viewRouter.get("/profile", authenticateToken, (req, res) => {
     res.render("profile", { layout: false });
