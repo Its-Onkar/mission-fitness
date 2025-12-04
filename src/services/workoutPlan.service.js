@@ -9,6 +9,7 @@ export const createWorkoutPlan = async (workoutData, userData) => {
     // Step 1: Create WorkoutPlan
     const workoutPlan = await WorkoutPlan.create({
         user: _id,
+        fitnessProfile: workoutData.fitnessProfile?._id || workoutData._id,
         goal: workoutGoal,
         startDate: new Date(),
         title: "7-Day AI Workout Plan",
@@ -28,6 +29,10 @@ export const createWorkoutPlan = async (workoutData, userData) => {
     const exercisesToCreate = [];
 
     for (const day of aiWorkoutPlan) {
+        if (!day.exercises || !Array.isArray(day.exercises)) {
+            console.warn(`Day ${day.day} has no exercises or exercises is not an array:`, day);
+            continue;
+        }
         for (const exercise of day.exercises) {
             exercisesToCreate.push({
                 planId: workoutPlan._id,
@@ -51,7 +56,12 @@ export const createWorkoutPlan = async (workoutData, userData) => {
     await Exercise.insertMany(exercisesToCreate);
     workoutPlan.status = "in-progress";
     await workoutPlan.save();
-     return workoutPlan;
+    
+    // Return both the database object and the AI-generated plan
+    return {
+        dbPlan: workoutPlan,
+        aiPlan: aiWorkoutPlan
+    };
 };
 
 export const getAllWorkoutPlans = async () => {

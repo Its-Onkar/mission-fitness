@@ -3,145 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission Fitness AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <title>Mission Fitness AI - Your Personal Fitness Assistant</title>
+    <meta name="description" content="Transform your fitness journey with AI-powered workout plans, nutrition guidance, and personalized coaching. Get started with Mission Fitness AI today.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
+<<<<<<< Updated upstream
             font-family: 'Inter', sans-serif;
             background-color: black;
+=======
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-image: linear-gradient(to bottom, rgba(66, 38, 19, 0.7), rgba(11, 11, 11)), url('images/image.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #ffffff;
+            overflow-x: hidden;
+           
+>>>>>>> Stashed changes
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .input-glow {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        #input-container {
-            position: relative;
+        /* Header Styles */
+        .header {
+            width: 100%;
+            padding: 1.5rem 2rem;
             display: flex;
             align-items: center;
-        }
-
-        .submit-svg {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-svg:hover {
-            transform: translateY(-50%) scale(1.1);
-            opacity: 0.8;
-        }
-
-        .fitness-icons {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 8px;
-        }
-
-        .fitness-icon {
-            width: 40px;
-            height: 40px;
-            fill: #ffffff;
-            border-radius: 50%;
-            padding: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .fitness-icon:hover {
-            transform: scale(1.1);
+            justify-content: space-between;
+            animation: fadeInUp 0.8s ease-out;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            background: none;
+            gap: 0.75rem;
         }
 
-        .logo-svg {
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: #ffffff;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .logo-text-gray {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: #8c8c8c;
+        }
+
+        .cta-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background-color: rgba(26, 26, 26, 0.5);
+            border: 1px solid rgba(51, 51, 51, 1);
+            border-radius: 0.5rem;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
             transition: all 0.3s ease;
-            padding-top: 5px;
-            background: none !important;
         }
 
-        .logo-svg:hover {
+        .cta-button:hover {
+            background-color: rgba(38, 38, 38, 1);
             transform: scale(1.05);
-            opacity: 0.9;
         }
 
-        .geometric-bg {
-            background-color: #000000;
+        .cta-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Main Container */
+        .main-container {
+            flex: 1;
+           
             position: relative;
             overflow: hidden;
-            background-image: 
-                linear-gradient(45deg, rgba(44, 44, 44, 0.1) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(44, 44, 44, 0.1) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(44, 44, 44, 0.1) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(44, 44, 44, 0.1) 75%);
-            background-size: 60px 60px, 60px 60px, 60px 60px, 60px 60px;
-            animation: shiftPattern 20s linear infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 3rem 1.5rem;
         }
 
-        @keyframes shiftPattern {
-            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-            100% { background-position: 120px 120px, 120px 120px, 120px 120px, 120px 120px; }
-        }
-
-        .geometric-bg::before {
+        .main-container::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+          
             background: linear-gradient(45deg, rgba(100, 100, 100, 0.1), rgba(50, 50, 50, 0.2), rgba(100, 100, 100, 0.1), transparent);
             background-size: 400%;
             animation: rotateGradient 25s ease-in-out infinite;
@@ -149,19 +119,13 @@
             opacity: 0.4;
         }
 
-        @keyframes rotateGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 400% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .geometric-bg::after {
+        .main-container::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+           
             background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
             background-size: 100px 100px;
             opacity: 0.3;
@@ -169,11 +133,17 @@
             animation: floatParticles 30s linear infinite;
         }
 
-        @keyframes floatParticles {
-            0% { background-position: 0 0; }
-            100% { background-position: 200px 200px; }
+        /* Hero Title */
+        .hero-title {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 1s ease-out forwards;
+            z-index: 10;
+            position: relative;
         }
 
+<<<<<<< Updated upstream
         .input-glow::placeholder {
             color: gray;
             opacity: 50%;
@@ -211,73 +181,107 @@
         }
 
         .loader {
+=======
+        .hero-title::before {
+            content: '';
+>>>>>>> Stashed changes
             position: absolute;
-            width: 0.8em;
-            height: 9em;
-            border-radius: 40px;
-            background: white;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+            z-index: -1;
         }
 
-        .loader:after {
+        .hero-title h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+        }
+
+        .title-welcome {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .title-mission {
+            color: #ffffff;
+        }
+
+        .title-fitness {
+            color: rgba(255, 102, 0, 0.5);
+        }
+
+        /* Fitness Loader */
+        .loader-container {
+            position: relative;
+            width: 16rem;
+            height: 16rem;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 1s ease-out 0.3s forwards, float 3s ease-in-out infinite 1.3s;
+            z-index: 10;
+        }
+
+        .loader-bars,
+        .loader-balls {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-bar {
+            position: absolute;
+            width: 0.5rem;
+            height: 16rem;
+            border-radius: 40px;
+            background: #ffffff;
+        }
+
+        .loader-bar::after,
+        .loader-bar::before {
             content: "";
             position: absolute;
+            width: 0.87em;
+            border-radius: 40px;
+            background: #e0e0e0;
+            border: 1px solid #e2e2e2;
+            box-shadow:
+                inset 4px 4px 12px rgba(211, 210, 210, 0.67),
+                inset -4px -4px 12px rgba(233, 233, 233, 0.67);
+        }
+
+        .loader-bar::after {
             left: 0;
             top: 0;
-            width: 0.85em;
-            height: 3.5em;
-            background: #e0e0e0;
-            border-radius: 40px;
-            border: 1px solid #e2e2e2;
-            box-shadow:
-                inset 4px 4px 12px #d3d2d2ab,
-                inset -4px -4px 12px #e9e9e9ab;
-            mask-image: linear-gradient(
-                to bottom,
-                black calc(100% - 32px),
-                transparent 100%
-            );
+            height: 6em;
+            mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%);
         }
 
-        .loader::before {
-            content: "";
-            position: absolute;
+        .loader-bar::before {
             bottom: 0;
             right: 0;
-            width: 0.85em;
-            height: 3em;
-            background: #e0e0e0;
-            border-radius: 40px;
-            border: 1px solid #e2e2e2;
-            box-shadow:
-                inset 4px 4px 12px #d3d2d2ab,
-                inset -4px -4px 12px #e9e9e9ab;
-            mask-image: linear-gradient(
-                to top,
-                black calc(100% - 32px),
-                transparent 100%
-            );
+            height: 4.8em;
+            mask-image: linear-gradient(to top, black calc(100% - 48px), transparent 100%);
         }
 
-        .loaderA {
+        .loader-ball-track {
             position: absolute;
-            width: 0.82em;
-            height: 8em;
-            border-radius: 40px;
-            background: transparent;
+            width: 0.6rem;
+            height: 15rem;
         }
 
-        .ball0,
-        .ball1,
-        .ball2,
-        .ball3,
-        .ball4,
-        .ball5,
-        .ball6,
-        .ball7,
-        .ball8,
-        .ball9 {
+        .loader-ball {
             width: 0.85em;
             height: 0.85em;
+            border-radius: 50%;
+            background-color: transparent;
             box-shadow:
                 rgba(0, 0, 0, 0.17) 0px -8px 8px 0px inset,
                 rgba(0, 0, 0, 0.15) 0px -12px 12px 0px inset,
@@ -288,129 +292,333 @@
                 rgba(0, 0, 0, 0.09) 0px 16px 8px,
                 rgba(0, 0, 0, 0.09) 0px 32px 16px,
                 0px -1px 12px -6px rgba(0, 0, 0, 0.09);
+            animation: ballMove 3.63s ease-in-out infinite;
+        }
+
+        /* Input Section */
+        .input-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            z-index: 10;
+           
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 48rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon-left {
+            position: absolute;
+            left: 1rem;
+            z-index: 10;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 60%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-icon-left svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #000000;
+        }
+
+        .fitness-input {
+            width: 100%;
+            height: 4rem;
+            padding-left: 5rem;
+            padding-right: 5rem;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid rgba(51, 51, 51, 1);
+            border-radius: 9999px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 20px 25px -5px rgba(51, 51, 51, 0.4);
+            transition: all 0.3s ease;
+            outline: none;
+            clip-path: inset(0 0 0 100%);
+            animation: revealInput 3.63s ease-in-out 1.3s forwards;
+        }
+
+        .fitness-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .fitness-input:focus {
+            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.15);
+            border-color: rgba(140, 140, 140, 1);
+        }
+
+        @keyframes revealInput {
+            from {
+                clip-path: inset(0 0 0 100%);
+            }
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        .submit-button {
+            position: absolute;
+            right: 0.75rem;
+            width: 2.5rem;
+            height: 2.5rem;
             border-radius: 50%;
-            transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
-            background-color: transparent;
-            animation: 3.63s move ease-in-out infinite;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: bounceSlow 2s infinite 1.3s;
+            opacity: 0;
+            transform: scale(0);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
-        .loader:nth-child(2) {
-            transform: rotate(20deg);
-        }
-        .loader:nth-child(3) {
-            transform: rotate(40deg);
-        }
-        .loader:nth-child(4) {
-            transform: rotate(60deg);
-        }
-        .loader:nth-child(5) {
-            transform: rotate(80deg);
-        }
-        .loader:nth-child(6) {
-            transform: rotate(100deg);
-        }
-        .loader:nth-child(7) {
-            transform: rotate(120deg);
-        }
-        .loader:nth-child(8) {
-            transform: rotate(140deg);
-        }
-        .loader:nth-child(9) {
-            transform: rotate(160deg);
+        .submit-button.revealed {
+            opacity: 1;
+            transform: scale(1);
+            animation: bounceSlow 2s infinite;
         }
 
-        .loaderA:nth-child(2) {
-            transform: rotate(20deg);
-        }
-        .loaderA:nth-child(3) {
-            transform: rotate(40deg);
-        }
-        .loaderA:nth-child(4) {
-            transform: rotate(60deg);
-        }
-        .loaderA:nth-child(5) {
-            transform: rotate(80deg);
-        }
-        .loaderA:nth-child(6) {
-            transform: rotate(100deg);
-        }
-        .loaderA:nth-child(7) {
-            transform: rotate(120deg);
-        }
-        .loaderA:nth-child(8) {
-            transform: rotate(140deg);
-        }
-        .loaderA:nth-child(9) {
-            transform: rotate(160deg);
+        .submit-button:hover {
+            transform: scale(1.1);
+            animation: none;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
         }
 
-        .ball1 {
-            animation-delay: 0.2s;
-        }
-        .ball2 {
-            animation-delay: 0.4s;
-        }
-        .ball3 {
-            animation-delay: 0.6s;
-        }
-        .ball4 {
-            animation-delay: 0.8s;
-        }
-        .ball5 {
-            animation-delay: 1s;
-        }
-        .ball6 {
-            animation-delay: 1.2s;
-        }
-        .ball7 {
-            animation-delay: 1.4s;
-        }
-        .ball8 {
-            animation-delay: 1.6s;
-        }
-        .ball9 {
-            animation-delay: 1.8s;
+        .submit-icon {
+            width: 1.25rem;
+            height: 1.25rem;
         }
 
-        @keyframes move {
+        /* Feature Marquee */
+        .marquee-container {
+            width: 100%;
+            max-width: 72rem;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 3rem;
+            animation: marqueeScroll 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .feature-card {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 10rem;
+            height: 10rem;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: rgba(18, 18, 18, 1);
+            border: 1px solid rgba(51, 51, 51, 1);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+            background-color: rgba(38, 38, 38, 1);
+        }
+
+        .feature-text {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            max-width: 24rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            color: #ffffff;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        .notification.success {
+            background-color: rgba(34, 197, 94, 0.9);
+            border: 1px solid rgba(34, 197, 94, 1);
+        }
+        
+        .notification.error {
+            background-color: rgba(239, 68, 68, 0.9);
+            border: 1px solid rgba(239, 68, 68, 1);
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes bounceSlow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10%);
+            }
+        }
+
+        @keyframes rotateGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 400% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes floatParticles {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 200px 200px;
+            }
+        }
+
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes ballMove {
             0% {
                 transform: translateY(0em);
             }
             50% {
-                transform: translateY(8em);
+                transform: translateY(13em);
             }
             100% {
                 transform: translateY(0em);
             }
         }
 
-        .elegant-button {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-            color: white;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            transition: all 0.3s ease;
+        /* New Effects */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
         }
 
-        .elegant-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, #3c3c3c 0%, #2c2c2c 100%);
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
 
-        .elegant-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+        /* Responsive */
+        @media (max-width: 640px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .main-container {
+                gap: 1rem;
+                padding: 2rem 1rem;
+            }
+
+            .input-wrapper {
+                padding: 0 1rem;
+            }
+
+            .fitness-input {
+                font-size: 0.875rem;
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+
+            .feature-card {
+                min-width: 8rem;
+                height: 8rem;
+                font-size: 0.875rem;
+            }
         }
     </style>
 </head>
 <body>
+<<<<<<< Updated upstream
     <div class="logo-container">
         <div class="flex items-center pl-5">
             <!-- SVG logo with no background -->
@@ -420,15 +628,16 @@
             <!-- Logo Text -->
             <span class=" logo-text  text-2xl text-white font-bold">MISSION</span>
             <span class=" logo-text  text-2xl text-gray-400 font-bold ml-1">FITNESS</span>
+=======
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <span class="logo-text">MISSION</span>
+            <span class="logo-text-gray">FITNESS</span>
+>>>>>>> Stashed changes
         </div>
-        <button class="elegant-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 4a8 8 0 0 1 8 8c0 1.06-.21 2.08-.6 3.03l-1.42-1.42A6 6 0 0 0 18 12a6 6 0 0 0-6-6c-1.06 0-2.08.21-3.03.6L7.56 5.18A8 8 0 0 1 12 4zm9.66 3.34-1.42 1.42C20.79 9.81 21 10.88 21 12c0 4.97-4.03 9-9 9-1.12 0-2.19-.21-3.24-.66l-1.42 1.42C8.88 22.79 10.44 23 12 23c6.63 0 12-5.37 12-12 0-1.56-.29-3.06-.84-4.44zM3.34 7.34l1.42 1.42A8.96 8.96 0 0 0 3 12c0 4.97 4.03 9 9 9 1.06 0 2.08-.21 3.03-.6l1.42 1.42A10.96 10.96 0 0 1 12 23C5.37 23 0 17.63 0 12c0-1.56.29-3.06.84-4.44z"/>
-            </svg>
-            Try Mission Fitness
-        </button>
-    </div>
 
+<<<<<<< Updated upstream
     <div class="min-h-screen text-white geometric-bg gap-10 flex flex-col items-center justify-center">
         <h1 class="text-center gap-20 text-5xl sm:text-6xl md:text-7xl font-extrabold pt-10 leading-tight tracking-tight bg-transparent">
             <span class="text2 block text-white">Welcome To</span>
@@ -478,129 +687,208 @@
                     </div>
                 </div>
             </div>
+=======
+        <button class="cta-button" onclick="alert('Try Mission Fitness!')">
+            <svg class="cta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+            <span>Try Mission Fitness</span>
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Hero Title -->
+        <div class="hero-title">
+            <h1>
+                <span class="title-welcome">Welcome To</span>
+                <span class="title-mission">Mission </span>
+                <span class="title-fitness">Fitness</span>
+            </h1>
+>>>>>>> Stashed changes
         </div>
-        <div class="flex flex-col items-center justify-center gap-10 relative">
-            <div id="input-container">
-                <div class="fitness-icons">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="fitness-icon" viewBox="0 0 16 16">
+
+        <!-- Fitness Loader -->
+        <div class="loader-container">
+            <div class="loader-bars" id="loader-bars"></div>
+            <div class="loader-balls" id="loader-balls"></div>
+        </div>
+
+        <!-- Notification Area -->
+        <div id="notification" class="notification" style="display: none;"></div>
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <form class="input-wrapper" onsubmit="handleSubmit(event)">
+                <div class="input-icon-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                         <path d="M8.5 1.866a1 1 0 0 0-1 0L2.866 4.5a1 1 0 0 0-.5.866V10.5a1 1 0 0 0 .5.866l4.634 2.634a1 1 0 0 0 1 0l4.634-2.634a1 1 0 0 0 .5-.866V5.366a1 1 0 0 0-.5-.866L8.5 1.866z"/>
                     </svg>
                 </div>
-                <input type="text" id="message" placeholder="Ask me anything about fitness, diet, exercise, nutrition..." class="input-glow p-2 pl-24 pr-12 rounded-lg border border-gray-300 focus:outline-gray-700 focus:ring-0 focus:ring-gray-500 transition duration-300 w-[100vh] h-[15vh] text-gray-100/60 bg-black shadow-lg shadow-gray-500/40" />
-              <button id="send"  >  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="submit-svg text-black bg-white rounded-full p-1 animate-bounce" viewBox="0 0 16 16">
-                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                </svg> </button>
-            </div>
-        </div>
-        <div class="marquee">
-            <div class="marquee-track space-x-4 gap-20 text-xl">
-                <div class="w-40 h-40 rounded-xl shadow-lg flex items-center justify-center text-center p-4 card-hover">
-                    Custom Workout Plans
-                </div>
-                <div class="w-40 h-40 rounded-xl shadow-lg flex items-center justify-center text-center p-4 card-hover">
-                    Nutrition Guidance
-                </div>
-                <div class="w-40 h-40 rounded-xl shadow-lg flex items-center justify-center text-center p-4 card-hover">
-                    Exercise Library
-                </div>
-                <div class="w-40 h-40 rounded-xl shadow-lg flex items-center justify-center text-center p-4 card-hover">
-                    Progress Tracking
-                </div>
-                <div class="w-40 h-40 rounded-xl shadow-lg flex items-center justify-center text-center p-4 card-hover">
-                    Goal Setting
-                </div>
-                <div class="w-40 h-40 rounded-xl shadow-lg flex items-center justify-center text-center p-4 card-hover">
-                    AI Chat Assistant
+
+                <input 
+                    type="text" 
+                    id="fitness-message"
+                    class="fitness-input" 
+                    placeholder="Update your fitness plan: 'Change my diet to vegetarian', 'Add more cardio', 'Switch to morning workouts'..."
+                />
+
+                <button type="submit" class="submit-button" id="submit-btn">
+                    <svg class="submit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Feature Marquee -->
+            <div class="marquee-container">
+                <div class="marquee-track" id="marquee-track">
+                    <!-- Features will be duplicated by JavaScript -->
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        gsap.from("h1", {
-            duration: 2,
-            y: -100,
-            opacity: 0,
-            ease: "bounce.out"
-        });
+        // Create loader bars
+        const loaderBarsContainer = document.getElementById('loader-bars');
+        for (let i = 0; i < 10; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'loader-bar';
+            bar.style.transform = `rotate(${i * 20}deg)`;
+            loaderBarsContainer.appendChild(bar);
+        }
 
-        gsap.from(".main", {
-            duration: 1.5,
-            opacity: 0,
-            scale: 0.8,
-            ease: "power2.out",
-            delay: 0.5
-        });
-
-        gsap.from(".logo-svg", {
-            duration: 1.5,
-            y: -50,
-            opacity: 0,
-            ease: "power2.out",
-            delay: 0.2
-        });
-
-       
-         gsap.from(".logo-text",{
-            duration: 1.5,
-            y: -50,
-            opacity: 0,
-            ease: "power2.out",
-            delay: 0.6
-         })
-
-          gsap.from(".elegant-button", {
-           duration: 1.5,
-            x: -50,
+        // Create loader balls
+        const loaderBallsContainer = document.getElementById('loader-balls');
+        for (let i = 0; i < 9; i++) {
+            const track = document.createElement('div');
+            track.className = 'loader-ball-track';
+            track.style.transform = `rotate(${i * 20}deg)`;
             
-            ease: "power2.out",
-            delay: 0.4
+            const ball = document.createElement('div');
+            ball.className = 'loader-ball';
+            ball.style.animationDelay = `${i * 0.2}s`;
+            
+            track.appendChild(ball);
+            loaderBallsContainer.appendChild(track);
+        }
+
+        // Create marquee features
+        const features = [
+            "Custom Workout Plans",
+            "Nutrition Guidance",
+            "Exercise Library",
+            "Progress Tracking",
+            "Goal Setting",
+            "AI Chat Assistant"
+        ];
+
+        const marqueeTrack = document.getElementById('marquee-track');
+        
+        // Duplicate features for seamless scrolling
+        [...features, ...features].forEach(feature => {
+            const card = document.createElement('div');
+            card.className = 'feature-card';
+            
+            const text = document.createElement('span');
+            text.className = 'feature-text';
+            text.textContent = feature;
+            
+            card.appendChild(text);
+            marqueeTrack.appendChild(card);
         });
 
+        // Animate submit button reveal midway through input reveal
+        const submitBtn = document.getElementById('submit-btn');
+        setTimeout(() => {
+            submitBtn.classList.add('revealed');
+        }, 2900); // Roughly half way through 3.63s animation (1.815s + 1.3s delay)
 
-       
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Handle form submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById('fitness-message');
+            const message = input.value.trim();
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (message) {
+                // Show loading state
+                submitBtn.innerHTML = '<div style="width: 1.25rem; height: 1.25rem; border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>';
+                submitBtn.disabled = true;
+                
+                try {
+                    const token = localStorage.getItem('token');
+                    console.log('Using token:', token);
+                    if (!token) {
+                        showNotification('Please login to update your fitness plan', 'error');
+                        return;
+                    }
+                    
+                    const response = await fetch('/api/update-plan', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ message })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        input.value = '';
+                        // Redirect to response page with AI response
+                        const aiResponse = encodeURIComponent(data.response || 'Your fitness plan has been updated successfully!');
+                        window.location.href = `/plan-response?response=${aiResponse}`;
+                    } else {
+                        showNotification(`❌ ${data.error || 'Failed to update plan'}`, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error updating plan:', error);
+                    showNotification('❌ Network error. Please try again.', 'error');
+                } finally {
+                    // Restore button
+                    submitBtn.innerHTML = `
+                        <svg class="submit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    `;
+                    submitBtn.disabled = false;
+                }
+            }
+        }
+
+        // Add spin animation for loading
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Optional: Add smooth scroll on page load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
     </script>
-  <script   type="module">
-  
-  document.getElementById("send").addEventListener("click", async function (e) {
-    e.preventDefault();
-
-    const message = document.getElementById("message").value;
-    console.log("User Message:", message);
-
- const token= 
-
-    // Clear input field
-    document.getElementById("message").value = "";
-
-    try {
-      const res = await fetch("http://localhost:6001/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}` 
-
-
-        },
-        body: JSON.stringify({ message }),
-      });
-
-      const data = await res.json();
-      console.log("AI Response:", data);
-
-   
-      localStorage.setItem('chatResponse', data.reply);
-
-
-    } catch (error) {
-      console.error("Error communicating with chat API:", error);
-      alert("Something went wrong. Please try again.");
-    }
-  });
-
-
-  
-  </script>
-
+    {{> footer}}
 </body>
 </html>

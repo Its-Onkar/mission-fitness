@@ -6,6 +6,24 @@ const workoutPlanSchema = new mongoose.Schema({
   goal: { type: String }, // e.g. "Weight Loss"
   startDate: { type: Date, default: Date.now },
   createdByAI: { type: Boolean, default: true },
+<<<<<<< Updated upstream
+=======
+
+  routines: [
+    {
+      day: { type: String, enum: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] },
+      exercises: [
+        {
+          name: { type: String },
+          sets: { type: Number, default: 3 },
+          reps: { type: mongoose.Schema.Types.Mixed, default: 12 }, // Can be Number or String for time-based exercises
+          duration: { type: Number }, // in minutes
+          caloriesBurn: { type: Number }
+        }
+      ]
+    }
+  ]
+>>>>>>> Stashed changes
 }, { timestamps: true });
 
 const WorkoutPlan = mongoose.model("WorkoutPlan", workoutPlanSchema);

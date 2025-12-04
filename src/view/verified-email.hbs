@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - Mission Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #3a3a3a 100%);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Radial gradient circles with orange glows */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            left: -300px;
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            right: -200px;
+            pointer-events: none;
+            animation: pulse 10s ease-in-out infinite reverse;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+        }
+
+        .verification-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .verification-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 60px 50px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            box-sizing: border-box;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 
+                        0 0 0 1px rgba(249, 115, 22, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            animation: cardEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .verification-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header-section {
+            text-align: center;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-section::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #f97316, #fb923c);
+            border-radius: 2px;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.8px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-section h1 span:first-child {
+            color: #f97316;
+        }
+
+        /* Success State */
+        #success-section {
+            display: none;
+        }
+
+        .success-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .success-icon svg {
+            width: 80px;
+            height: 80px;
+            color: #f97316;
+            animation: successScale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.3));
+        }
+
+        @keyframes successScale {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            color: #ffffff;
+            margin: 0 auto 24px;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
+        }
+
+        .success-content h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .success-content h2 span {
+            background: linear-gradient(135deg, #f97316 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .success-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .action-buttons a {
+            display: block;
+            padding: 18px 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            border: none;
+            cursor: pointer;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(249, 115, 22, 0.3);
+            text-align: center;
+        }
+
+        .action-buttons a:hover {
+            background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+            box-shadow: 0 18px 45px rgba(249, 115, 22, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #f97316;
+        }
+
+        .secondary-btn:hover {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            color: #1a1a1a;
+        }
+
+        .info-box {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .info-box h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #f97316;
+            color: #1a1a1a;
+            border-radius: 50%;
+            margin-right: 16px;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .info-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        /* Error State */
+        #error-section {
+            display: none;
+        }
+
+        .error-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .error-icon svg {
+            width: 80px;
+            height: 80px;
+            color: #ef4444;
+            animation: errorShake 0.6s ease-in-out;
+            filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.3));
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+
+        .error-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            margin: 0 auto 24px;
+        }
+
+        .error-content h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .error-content h2 span {
+            background: linear-gradient(135deg, #ef4444 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .error-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        #resendBtn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #resendBtn span {
+            position: absolute;
+            display: block;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #resendBtn span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            animation: btn-anim1 1.5s linear infinite;
+        }
+
+        @keyframes btn-anim1 {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        #resendBtn span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            animation: btn-anim2 1.5s linear infinite;
+            animation-delay: 0.375s;
+        }
+
+        @keyframes btn-anim2 {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
+        }
+
+        #resendBtn span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            animation: btn-anim3 1.5s linear infinite;
+            animation-delay: 0.75s;
+        }
+
+        @keyframes btn-anim3 {
+            0% { right: -100%; }
+            50%, 100% { right: 100%; }
+        }
+
+        #resendBtn span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            animation: btn-anim4 1.5s linear infinite;
+            animation-delay: 1.125s;
+        }
+
+        @keyframes btn-anim4 {
+            0% { bottom: -100%; }
+            50%, 100% { bottom: 100%; }
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .loading span {
+            display: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .troubleshoot-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .troubleshoot-box h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .troubleshoot-box p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .troubleshoot-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #ef4444;
+            color: #1a1a1a;
+            border-radius: 50%;
+            margin-right: 16px;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .troubleshoot-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .troubleshoot-box a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .troubleshoot-box a:hover {
+            color: #ea580c;
+            text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+        }
+
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .footer a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #ea580c;
+            text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #f97316;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .verification-card {
+                padding: 40px 30px;
+                max-width: 90%;
+            }
+
+            .header-section h1 {
+                font-size: 2rem;
+            }
+
+            .success-content h2,
+            .error-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .action-buttons {
+                gap: 12px;
+            }
+
+            .action-buttons a {
+                padding: 16px 20px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <div class="verification-card">
+            <!-- Header Section -->
+            <div class="header-section">
+                <h1><span>MISSION</span> FITNESS</h1>
+            </div>
+            
+            <!-- Success Section (Initially Hidden) -->
+            <div id="success-section">
+                <!-- Success Icon -->
+                <div class="success-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                
+                <!-- Success Content -->
+                <div class="success-content">
+                    <div class="status-badge">
+                        <i class="fas fa-check"></i>
+                        VERIFIED
+                    </div>
+                    <h2><span>WELCOME TO</span> THE MISSION</h2>
+                    <p>Your email verification is complete. You now have full access to elite training programs, personalized workouts, and our exclusive fitness community.</p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="/onboarding">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-rocket"></i>
+                            START YOUR MISSION
+                        </div>
+                    </a>
+                    <a href="/profile" class="secondary-btn">
+                        COMPLETE PROFILE SETUP
+                    </a>
+                </div>
+                
+                <!-- Additional Info -->
+                <div class="info-box">
+                    <div class="info-content">
+                        <div class="info-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h4>WHAT'S NEXT?</h4>
+                            <p>Set your fitness goals, explore our AI-powered training programs, and connect with elite trainers to maximize your potential.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Section (Initially Hidden) -->
+            <div id="error-section">
+                <!-- Error Icon -->
+                <div class="error-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                
+                <!-- Error Content -->
+                <div class="error-content">
+                    <div class="error-badge">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        FAILED
+                    </div>
+                    <h2><span>VERIFICATION</span> FAILED</h2>
+                    <p>The verification link has expired or is invalid. Don't worry - we can send you a fresh verification link to get you back on track.</p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button onclick="resendVerification()" id="resendBtn" class="login-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-paper-plane"></i>
+                            SEND NEW VERIFICATION
+                        </div>
+                    </button>
+                    <a href="/login" class="secondary-btn">
+                        BACK TO LOGIN
+                    </a>
+                </div>
+                
+                <!-- Troubleshooting -->
+                <div class="troubleshoot-box">
+                    <div class="troubleshoot-content">
+                        <div class="troubleshoot-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div>
+                            <h4>NEED ASSISTANCE?</h4>
+                            <p>Check your spam folder or contact our support team at 
+                                <a href="mailto:support@missionfitness.com">support@missionfitness.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <p>Questions? <a href="/support">CONTACT SUPPORT</a></p>
+                <div class="footer-links">
+                    <a href="/privacy">Privacy</a>
+                    <span>•</span>
+                    <a href="/terms">Terms</a>
+                    <span>•</span>
+                    <span>&copy; 2024 Mission Fitness</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show success or error section
+        function showSection(isSuccess) {
+            document.getElementById('success-section').style.display = isSuccess ? 'block' : 'none';
+            document.getElementById('error-section').style.display = isSuccess ? 'none' : 'block';
+            
+            // Trigger animations if needed
+            if (isSuccess) {
+                const icon = document.querySelector('.success-icon svg');
+                if (icon) icon.style.animation = 'none'; // Reset
+                setTimeout(() => {
+                    icon.style.animation = 'successScale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                }, 100);
+            } else {
+                const icon = document.querySelector('.error-icon svg');
+                if (icon) icon.style.animation = 'none'; // Reset
+                setTimeout(() => {
+                    icon.style.animation = 'errorShake 0.6s ease-in-out';
+                }, 100);
+            }
+        }
+
+        // Check for token in URL and verify automatically
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            
+            if (token) {
+                // Call verification API
+                fetch(`/auth/verify-email?token=${token}`, {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showSection(true);
+                    } else {
+                        showSection(false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Verification error:', error);
+                    showSection(false);
+                });
+            } else {
+                // If no token, show invalid (error) state
+                showSection(false);
+            }
+        });
+
+        // Resend verification function
+        async function resendVerification() {
+            const btn = document.getElementById('resendBtn');
+            const originalContent = btn.innerHTML;
+            
+            // Show loading state
+            btn.classList.add('loading');
+            btn.innerHTML = `
+                <div class="flex items-center justify-center gap-3">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    SENDING...
+                </div>
+            `;
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/resend-verification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: 'user@example.com' })
+                });
+                
+                if (response.ok) {
+                    btn.innerHTML = `
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-check"></i>
+                            EMAIL SENT!
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Failed to send');
+                }
+                
+            } catch (error) {
+                btn.innerHTML = `
+                    <div class="flex items-center justify-center gap-3">
+                        <i class="fas fa-times"></i>
+                        FAILED TO SEND
+                    </div>
+                `;
+            }
+            
+            btn.classList.remove('loading');
+            
+            // Reset button after 4 seconds
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 4000);
+        }
+
+        // Enhanced button interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.action-buttons a').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.boxShadow = '0 18px 45px rgba(249, 115, 22, 0.4)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 12px 35px rgba(249, 115, 22, 0.3)';
+                });
+            });
+        });
+
+        // Add subtle glow effect on card hover
+        const card = document.querySelector('.verification-card');
+        card.addEventListener('mouseenter', () => {
+            card.style.boxShadow = '0 0 50px rgba(249, 115, 22, 0.15)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(249, 115, 22, 0.1)';
+        });
+    </script>
+</body>
+</html>

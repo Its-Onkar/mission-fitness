@@ -15,12 +15,16 @@ export const createUser = async (userData) => {
 }
 
 export const getUserByUserName = async (userName) => {
-    const user = await User.findOne({ userName })
-
-    if (!user) {
-        throw new Error("User not found")
+    try {
+        // Case-insensitive search for better user experience
+        const user = await User.findOne({ 
+            userName: { $regex: new RegExp(`^${userName}$`, 'i') } 
+        });
+        return user;
+    } catch (error) {
+        console.error('Error finding user by username:', error);
+        return null;
     }
-    return user
 }
 
 export const getUserById = async (id) => {
@@ -53,8 +57,8 @@ export const updateUserByUserName = async (username, updateData) => {
 
 }
 export const markOnboardingComplete = async (userId) => {
-    const updated = await Onboarding.findOneAndUpdate(
-        { userId },
+    const updated = await User.findByIdAndUpdate(
+        userId,
         { onboardingCompleted: true },
         { new: true }
     );

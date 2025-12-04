@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< Updated upstream:src/view/signin.hbs
     <title>Fitness Signin - Welcome Back</title>
+=======
+    <title>Login - Mission Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+>>>>>>> Stashed changes:src/view/login.hbs
     <style>
         * {
             margin: 0;
@@ -12,17 +20,21 @@
         }
 
         body {
+<<<<<<< Updated upstream:src/view/signin.hbs
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 60%, #000000 100%);
             color: #f1f1f1;
             font-family: 'Segoe UI', Arial, sans-serif;
+=======
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #3a3a3a 100%);
+>>>>>>> Stashed changes:src/view/login.hbs
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             overflow: hidden;
             position: relative;
+            min-height: 100vh;
         }
 
+<<<<<<< Updated upstream:src/view/signin.hbs
         .fitness-bg {
             position: absolute;
             top: 0;
@@ -167,10 +179,60 @@
             height: 60px;
             margin: 0 auto 16px;
             background: linear-gradient(135deg, #444 0%, #222 100%);
+=======
+        /* Radial gradient circles with orange glows */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+>>>>>>> Stashed changes:src/view/login.hbs
             border-radius: 50%;
+            top: -300px;
+            left: -300px;
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            right: -200px;
+            pointer-events: none;
+            animation: pulse 10s ease-in-out infinite reverse;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+        }
+
+        .split-container {
             display: flex;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left Side - Enhanced Illustration with Orange Accents */
+        .left-side {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(10, 10, 10, 0.8) 50%, rgba(20, 20, 20, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&h=2000&fit=crop') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+<<<<<<< Updated upstream:src/view/signin.hbs
             font-size: 24px;
             color: #fff;
             animation: logoPulse 2s ease-in-out infinite;
@@ -185,11 +247,73 @@
             letter-spacing: 1px;
             background: linear-gradient(135deg, #fff 0%, #bbb 100%);
             background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleGlow 3s ease-in-out infinite;
+=======
+            padding: 80px;
+            position: relative;
+            overflow: hidden;
         }
 
+        .left-side::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: glow 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.3); }
+        }
+
+        .illustration {
+            max-width: 450px;
+            text-align: center;
+            animation: floatIllustration 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes floatIllustration {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .fitness-illustration {
+            font-size: 200px;
+            margin-bottom: 30px;
+            display: block;
+            filter: drop-shadow(0 20px 50px rgba(249, 115, 22, 0.3));
+            animation: bounce 2s ease-in-out infinite;
+            color: #f97316;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .illustration h2 {
+            font-size: 60px;
+            background: linear-gradient(135deg, #f97316 0%, #ffffff 100%);
+>>>>>>> Stashed changes:src/view/login.hbs
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+            text-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+        }
+
+<<<<<<< Updated upstream:src/view/signin.hbs
         .subtitle {
             text-align: center;
             color: #888;
@@ -213,10 +337,163 @@
             transform: translateY(-50%);
             color: #444;
             font-size: 18px;
+=======
+        .illustration p {
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: 400;
+            line-height: 1.7;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Enhanced Decorative Elements with Orange Icons */
+        .decoration {
+            position: absolute;
+            opacity: 0.3;
+            z-index: 1;
+            color: #f97316;
+        }
+
+        .decoration:nth-child(1) {
+            top: 15%;
+            left: 10%;
+            font-size: 40px;
+            animation: rotate 12s linear infinite;
+        }
+
+        .decoration:nth-child(2) {
+            top: 25%;
+            right: 10%;
+            font-size: 35px;
+            animation: rotate 18s linear infinite reverse;
+        }
+
+        .decoration:nth-child(3) {
+            bottom: 20%;
+            left: 10%;
+            font-size: 38px;
+            animation: rotate 14s linear infinite;
+        }
+
+        .decoration:nth-child(4) {
+            bottom: 15%;
+            right: 10%;
+            font-size: 42px;
+            animation: rotate 10s linear infinite reverse;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Modern Wavy Divider with Orange Tint */
+        .wave-divider {
+            position: absolute;
+            right: -1px;
+            top: 0;
+            height: 100%;
+            width: 120px;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .wave-divider svg {
+            height: 100%;
+            width: 100%;
+            fill: rgba(249, 115, 22, 0.05);
+        }
+
+        /* Right Side - Enhanced Login Form with Orange Accents */
+        .right-side {
+            flex: 1;
+            background: linear-gradient(135deg, #1a1a1a 0%, #141414 50%, #202020 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 90px;
+            position: relative;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+>>>>>>> Stashed changes:src/view/login.hbs
             z-index: 2;
+        }
+
+        .login-box {
+            position: static;
+            width: 100%;
+            padding: 60px 50px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            box-sizing: border-box;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 
+                        0 0 0 1px rgba(249, 115, 22, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(249, 115, 22, 0.1);
+        }
+
+        .login-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
+        }
+
+        .login-box p:first-child {
+            margin: 0 0 50px;
+            padding: 0;
+            color: #ffffff;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .login-box p:first-child::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #f97316, #fb923c);
+            border-radius: 2px;
+        }
+
+        .login-box .user-box {
+            position: relative;
+            margin-bottom: 45px;
+        }
+
+        .login-box .user-box input {
+            width: 100%;
+            padding: 16px 0 16px 0;
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 0;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            outline: none;
+            background: transparent;
             transition: all 0.3s ease;
         }
 
+<<<<<<< Updated upstream:src/view/signin.hbs
         .signin-container input {
             background: linear-gradient(145deg, #000000 0%, #0a0a0a 100%);
             border: 1px solid #1c1c1c;
@@ -265,10 +542,65 @@
 
         .signin-container button::before {
             content: '';
+=======
+        .login-box .user-box input:focus {
+            border-bottom-color: #f97316;
+            box-shadow: 0 2px 10px rgba(249, 115, 22, 0.1);
+        }
+
+        .login-box .user-box label {
+>>>>>>> Stashed changes:src/view/login.hbs
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
+            padding: 16px 0;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-box .user-box input:focus ~ label,
+        .login-box .user-box input:valid ~ label,
+        .login-box .user-box.filled label {
+            top: -28px;
+            left: 0;
+            color: #f97316;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-box .user-box label i {
+            margin-right: 8px;
+            opacity: 0.6;
+        }
+
+        .login-box .user-box input:focus ~ label i {
+            opacity: 1;
+        }
+
+        /* Password Toggle */
+        .password-toggle {
+            position: absolute;
+            right: 0;
+            top: 16px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.4);
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #f97316;
+        }
+
+        /* Enhanced Button with Orange Gradient */
+        .login-box form .login-btn {
+            position: relative;
+            display: block;
             width: 100%;
+<<<<<<< Updated upstream:src/view/signin.hbs
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.20), transparent);
 chemicals            transition: left 0.5s;
@@ -293,42 +625,285 @@ chemicals            transition: left 0.5s;
             font-size: 14px;
             color: #888;
             animation: fadeInUp 1s ease-out 1s both;
+=======
+            padding: 18px 24px;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-top: 60px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            border: none;
+            cursor: pointer;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(249, 115, 22, 0.3);
         }
 
-        .signup-link a {
-            color: #bbb;
+        .login-box .login-btn:hover {
+            background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+            box-shadow: 0 18px 45px rgba(249, 115, 22, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .login-box .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .login-box .login-btn span {
+            position: absolute;
+            display: block;
+            background: rgba(255, 255, 255, 0.2);
+>>>>>>> Stashed changes:src/view/login.hbs
+        }
+
+        .login-box .login-btn span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            animation: btn-anim1 1.5s linear infinite;
+        }
+
+        @keyframes btn-anim1 {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .login-box .login-btn span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            animation: btn-anim2 1.5s linear infinite;
+            animation-delay: 0.375s;
+        }
+
+        @keyframes btn-anim2 {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
+        }
+
+        .login-box .login-btn span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            animation: btn-anim3 1.5s linear infinite;
+            animation-delay: 0.75s;
+        }
+
+        @keyframes btn-anim3 {
+            0% { right: -100%; }
+            50%, 100% { right: 100%; }
+        }
+
+        .login-box .login-btn span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            animation: btn-anim4 1.5s linear infinite;
+            animation-delay: 1.125s;
+        }
+
+        @keyframes btn-anim4 {
+            0% { bottom: -100%; }
+            50%, 100% { bottom: 100%; }
+        }
+
+        /* Additional Links */
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .form-footer a:hover {
+            color: #f97316;
+        }
+
+        .form-footer label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .form-footer label:hover {
+            color: #f97316;
+        }
+
+        .form-footer input[type="checkbox"] {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            accent-color: #f97316;
+        }
+
+        .login-box p:last-child {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .login-box a.a2 {
+            color: #f97316;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .signup-link a:hover {
-            color: #fff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        .login-box a.a2:hover {
+            color: #ea580c;
+            text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
         }
 
+<<<<<<< Updated upstream:src/view/signin.hbs
         @keyframes slideInScale {
             0% {
                 opacity: 0;
                 transform: scale(0.8) translateY(60px);
+=======
+        #message {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 16px 24px;
+            border-radius: 16px;
+            letter-spacing: 0.4px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        #message.success {
+            color: #f97316;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(249, 115, 22, 0.08) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            box-shadow: 0 6px 25px rgba(249, 115, 22, 0.15);
+        }
+
+        #message.error {
+            color: #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.08) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.15);
+        }
+
+        /* Loading State Enhanced */
+        .login-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .login-btn.loading span {
+            display: none;
+        }
+
+        .login-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Responsive Design Enhanced */
+        @media (max-width: 1024px) {
+            .left-side {
+                padding: 50px;
+>>>>>>> Stashed changes:src/view/login.hbs
             }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
+
+            .right-side {
+                padding: 50px 60px;
+            }
+
+            .fitness-illustration {
+                font-size: 160px;
+            }
+
+            .illustration h2 {
+                font-size: 42px;
             }
         }
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
             }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
+
+            .left-side {
+                flex: 0 0 35vh;
+                padding: 40px;
+            }
+
+            .wave-divider {
+                display: none;
+            }
+
+            .fitness-illustration {
+                font-size: 120px;
+            }
+
+            .illustration h2 {
+                font-size: 32px;
+            }
+
+            .illustration p {
+                font-size: 16px;
+            }
+
+            .right-side {
+                flex: 1;
+                padding: 50px 40px;
+            }
+
+            .decoration {
+                display: none;
+            }
+
+            .login-box {
+                width: 100%;
+                max-width: 420px;
+                padding: 50px 40px;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
         }
 
+<<<<<<< Updated upstream:src/view/signin.hbs
         @keyframes floatRandom {
             0%, 100% { 
                 transform: translateY(0px) rotate(0deg); 
@@ -386,11 +961,25 @@ chemicals            transition: left 0.5s;
             .signin-container {
                 width: 90%;
                 padding: 32px 24px;
+=======
+        @media (max-width: 480px) {
+            .fitness-illustration {
+                font-size: 100px;
+            }
+
+            .illustration h2 {
+                font-size: 28px;
+            }
+
+            .login-box p:first-child {
+                font-size: 2rem;
+>>>>>>> Stashed changes:src/view/login.hbs
             }
         }
     </style>
 </head>
 <body>
+<<<<<<< Updated upstream:src/view/signin.hbs
     <div class="fitness-bg">
         <div class="fitness-icon">💪</div>
         <div class="fitness-icon">🏃‍♂️</div>
@@ -499,6 +1088,170 @@ chemicals            transition: left 0.5s;
         document.addEventListener('mouseleave', function() {
             const container = document.querySelector('.signin-container');
             container.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+=======
+    <div class="split-container">
+        <!-- Left Side - Illustration -->
+        <div class="left-side">
+            <i class="fas fa-dumbbell fitness-illustration"></i>
+            <div class="illustration">
+                <h2>Mission Fitness</h2>
+                <p>Transform your body, transform your life. Start your fitness journey today.</p>
+            </div>
+            <i class="fas fa-heart decoration" style="top: 15%; left: 10%;"></i>
+            <i class="fas fa-running decoration" style="top: 25%; right: 10%;"></i>
+            <i class="fas fa-apple-alt decoration" style="bottom: 20%; left: 10%;"></i>
+            <i class="fas fa-fire decoration" style="bottom: 15%; right: 10%;"></i>
+        </div>
+
+        <!-- Wavy Divider -->
+        {{!-- <div class="wave-divider">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0,0 Q25,50 50,0 T100,0 V100 H0 Z" fill="currentColor">
+                    <animate attributeName="d" dur="10s" repeatCount="indefinite" values="
+                        M0,0 Q25,50 50,0 T100,0 V100 H0 Z;
+                        M0,0 Q30,60 50,10 T100,0 V100 H0 Z;
+                        M0,0 Q20,40 50,-10 T100,0 V100 H0 Z;
+                        M0,0 Q25,50 50,0 T100,0 V100 H0 Z
+                    " />
+                </path>
+            </svg>
+        </div> --}}
+
+        <!-- Right Side - Login Form -->
+        <div class="right-side">
+            <div class="login-container login-box">
+                <p>Welcome Back</p>
+                <form id="loginForm" method="post">
+                    <div class="user-box">
+                        <input required="" name="userName" type="text">
+                        <label><i class="fas fa-user"></i> Username</label>
+                    </div>
+                    <div class="user-box">
+                        <input required="" name="password" type="password" id="passwordInput">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <i class="fas fa-eye password-toggle" id="togglePassword" style="font-size: 14px;"></i>
+                    </div>
+                    <div class="form-footer">
+                        <a href="/forgot-password">Forgot Password?</a>
+                        <label>
+                            <input type="checkbox"> Remember Me
+                        </label>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Sign In
+                    </button>
+                    <div id="message"></div>
+                </form>
+                <p>Don't have an account? <a href="/signup" class="a2">Sign up now!</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Handle floating labels for autofill
+        function handleFloatingLabels() {
+            const userBoxes = document.querySelectorAll('.user-box');
+            userBoxes.forEach(box => {
+                const input = box.querySelector('input');
+                const label = box.querySelector('label');
+
+                function checkInput() {
+                    if (input.value.trim() !== '') {
+                        box.classList.add('filled');
+                    } else {
+                        box.classList.remove('filled');
+                    }
+                }
+
+                // Initial check
+                checkInput();
+
+                // Listen for input changes
+                input.addEventListener('input', checkInput);
+
+                // Handle autofill with MutationObserver
+                const observer = new MutationObserver(() => {
+                    checkInput();
+                });
+                observer.observe(input, { attributes: true, attributeFilter: ['value'] });
+
+                // Also check on focus out
+                input.addEventListener('blur', checkInput);
+            });
+        }
+
+        // Password Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('passwordInput');
+
+            if (togglePassword) {
+                togglePassword.addEventListener('click', function () {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    this.classList.toggle('fa-eye');
+                    this.classList.toggle('fa-eye-slash');
+                });
+            }
+
+            handleFloatingLabels();
+
+            const form = document.getElementById("loginForm");
+            const messageEl = document.getElementById("message");
+            const submitBtn = form.querySelector(".login-btn");
+
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const userName = form.querySelector("input[name='userName']").value;
+                const password = form.querySelector("input[name='password']").value;
+                const rememberMe = form.querySelector("input[type='checkbox']").checked;
+
+                // Add loading state
+                submitBtn.classList.add('loading');
+                messageEl.textContent = '';
+                messageEl.className = '';
+
+                try {
+                    const res = await axios.post('/auth/log-in', {
+                        userName: userName,
+                        password: password
+                    });
+
+                    messageEl.textContent = res.data.message || "Login successful! Welcome back!";
+                    messageEl.className = 'success';
+
+                    // Store the token
+                    const token = res.data.token;
+                    if (rememberMe) {
+                        localStorage.setItem('token', token);
+                    } else {
+                        sessionStorage.setItem('token', token);
+                    }
+
+                    form.reset();
+
+                    // Redirect to onboarding with token
+                    setTimeout(() => {
+                        const redirectUrl = res.data.redirectUrl || '/onboarding';
+                        window.location.href = `${redirectUrl}?token=${token}`;
+                    }, 500);
+
+                } catch (error) {
+                    submitBtn.classList.remove('loading');
+                    
+                    messageEl.textContent = error?.response?.data?.error || "Invalid username or password.";
+                    messageEl.className = 'error';
+                }
+            });
+>>>>>>> Stashed changes:src/view/login.hbs
         });
     </script>
 </body>

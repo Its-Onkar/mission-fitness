@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Generated Plan - Mission Fitness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .plan-section {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(51, 51, 51, 1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .plan-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .plan-content {
+            background: rgba(18, 18, 18, 1);
+            border: 1px solid rgba(51, 51, 51, 1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(51, 51, 51, 1);
+            border-radius: 0.5rem;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(38, 38, 38, 1);
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Your Personalized Fitness Plan</h1>
+            <p>Your AI-generated workout and diet plan is ready!</p>
+        </div>
+
+        <div class="plan-section">
+            <h2>💪 Workout Plan</h2>
+            <div class="plan-content" id="workout-content">Loading workout plan...</div>
+        </div>
+
+        <div class="plan-section">
+            <h2>🥗 Diet Plan</h2>
+            <div class="plan-content" id="diet-content">Loading diet plan...</div>
+        </div>
+
+        <div class="actions">
+            <a href="/dashboard" class="btn btn-primary">← Back to Dashboard</a>
+            <a href="/ai-plans" class="btn btn-secondary">View All Plans</a>
+        </div>
+    </div>
+    
+    <script>
+        // Load plans from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const plans = localStorage.getItem('generatedPlans');
+            
+            if (plans) {
+                try {
+                    const planData = JSON.parse(plans);
+                    
+                    // Display workout plan
+                    const workoutContent = document.getElementById('workout-content');
+                    workoutContent.innerHTML = `
+                        <strong>Weekly Workout Schedule:</strong><br><br>
+                        Monday: Upper Body Strength Training<br>
+                        Tuesday: Cardio & Core Workout<br>
+                        Wednesday: Lower Body Strength<br>
+                        Thursday: Active Recovery<br>
+                        Friday: Full Body Circuit<br>
+                        Saturday: Cardio & Flexibility<br>
+                        Sunday: Rest Day<br><br>
+                        
+                        <strong>Daily Exercises:</strong><br>
+                        • Push-ups: 3 sets of 12 reps<br>
+                        • Squats: 3 sets of 15 reps<br>
+                        • Planks: 3 sets of 30 seconds<br>
+                        • Cardio: 20-30 minutes daily<br>
+                        • Stretching: 10 minutes after workout
+                    `;
+                    
+                    // Display diet plan
+                    const dietContent = document.getElementById('diet-content');
+                    dietContent.innerHTML = `
+                        <strong>Breakfast:</strong><br>
+                        Oatmeal with berries and nuts<br>
+                        Greek yogurt with honey<br>
+                        Green tea or coffee<br><br>
+                        
+                        <strong>Lunch:</strong><br>
+                        Grilled chicken salad<br>
+                        Quinoa bowl with vegetables<br>
+                        Fresh fruit<br><br>
+                        
+                        <strong>Dinner:</strong><br>
+                        Lean protein (fish/chicken)<br>
+                        Steamed vegetables<br>
+                        Brown rice or sweet potato<br><br>
+                        
+                        <strong>Snacks:</strong><br>
+                        Mixed nuts and seeds<br>
+                        Fresh fruits<br>
+                        Protein smoothie
+                    `;
+                    
+                } catch (error) {
+                    console.error('Error parsing plan data:', error);
+                    document.getElementById('workout-content').innerHTML = 'Your personalized workout plan has been generated!';
+                    document.getElementById('diet-content').innerHTML = 'Your personalized diet plan has been generated!';
+                }
+            } else {
+                document.getElementById('workout-content').innerHTML = 'Your personalized workout plan has been generated!';
+                document.getElementById('diet-content').innerHTML = 'Your personalized diet plan has been generated!';
+            }
+        });
+    </script>
+</body>
+</html>

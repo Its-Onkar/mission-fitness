@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Onboarding - Mission Fitness</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0b0b0b;
+      background-image: linear-gradient(to bottom, rgba(66, 38, 19, 0.7), rgba(11, 11, 11)), url('images/image.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      overflow: hidden;
+      min-height: 150vh;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #ffffff;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-weight: 800;
+      font-size: 3.5rem;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .text-gray-300 {
+      font-weight: 300;
+    }
+
+    label {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      letter-spacing: 0.025em;
+    }
+
+    .input-field, select {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+    }
+
+    .gender-option span, .day-option span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-image-left, .bg-image-right {
+      position: fixed;
+      top: 0;
+      width: 45%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 2;
+      transition: opacity 0.3s ease;
+    }
+
+    .bg-image-left {
+      left: 0;
+    }
+
+    .bg-image-right {
+      right: 0;
+    }
+
+    /* Single overlay for all background images */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Separate darker overlay for step 5 background */
+    .step-5-overlay {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .step-5-overlay.active {
+      opacity: 1;
+    }
+
+    .step-6-overlay {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    } 
+    .step-6-overlay.active {
+      opacity: 1;
+    }
+    
+
+    .form-card {
+      background: rgba(26, 26, 26, 0.2);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(238, 109, 15, 0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      z-index: 10;
+    }
+
+    .input-field {
+      background: rgba(13, 13, 13, 0.3);
+      border: 1px solid rgba(238, 109, 15, 0.25);
+      color: #ffffff;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+    }
+
+    .input-field:focus {
+      border-color: rgb(238, 109, 15);
+      box-shadow: 0 0 0 3px rgba(238, 109, 15, 0.1), 0 10px 25px rgba(238, 109, 15, 0.05);
+      outline: none;
+      background: rgba(13, 13, 13, 0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, rgb(238, 109, 15) 0%, rgba(238, 109, 15, 0.85) 100%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(238, 109, 15, 0.2);
+      box-shadow: 0 4px 14px 0 rgba(238, 109, 15, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(238, 109, 15, 0.3);
+      background: linear-gradient(135deg, rgb(238, 109, 15) 0%, rgba(238, 109, 15, 0.9) 100%);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    #prev-btn {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(238, 109, 15, 0.2);
+      background: rgba(26, 26, 26, 0.8);
+    }
+
+    #prev-btn:hover:not(:disabled) {
+      background: rgba(238, 109, 15, 0.1);
+    }
+
+    #prev-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gender-option {
+      position: relative;
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .gender-option:hover {
+      border-color: rgba(238, 109, 15, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(238, 109, 15, 0.1);
+    }
+
+    .gender-radio:checked ~ .gender-option {
+      border-color: rgb(238, 109, 15);
+      box-shadow: 0 0 0 3px rgba(238, 109, 15, 0.15), 0 8px 25px rgba(238, 109, 15, 0.2);
+      transform: scale(1.02);
+    }
+
+    .gender-image {
+      width: 100%;
+      height: 390px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gender-option:hover .gender-image {
+      transform: scale(1.05);
+    }
+
+    .gender-option .absolute {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      padding: 0.5rem 0;
+    }
+
+    .progress-bar {
+      background: rgba(26, 26, 26, 0.8);
+      height: 4px;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .progress-fill {
+      background: linear-gradient(135deg, rgb(238, 109, 15) 0%, rgba(238, 109, 15, 0.8) 100%);
+      height: 100%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px rgba(238, 109, 15, 0.3);
+    }
+
+    .day-option {
+      background: rgba(13, 13, 13, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(238, 109, 15, 0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .day-option:hover {
+      background: rgba(238, 109, 15, 0.08);
+      border-color: rgba(238, 109, 15, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(238, 109, 15, 0.1);
+    }
+
+    .day-option.selected {
+      background: rgb(238, 109, 15);
+      border-color: rgb(238, 109, 15);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(238, 109, 15, 0.3);
+      transform: translateY(-1px);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23EE6D0F' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 1rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25em 1.25em;
+      padding-right: 3rem;
+      appearance: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    select:hover {
+      background: rgba(13, 13, 13, 0.4);
+      border-color: rgba(238, 109, 15, 0.4);
+    }
+
+    select:focus {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23EE6D0F' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    }
+
+    select option {
+      background: #1a1a1a;
+      color: #ffffff;
+      padding: 12px;
+      font-weight: 500;
+    }
+
+    select option:hover {
+      background: rgba(238, 109, 15, 0.2);
+    }
+
+    select option:checked {
+      background: linear-gradient(135deg, rgb(238, 109, 15) 0%, rgba(238, 109, 15, 0.85) 100%);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    select::-ms-expand {
+      display: none;
+    }
+
+    .grid-cols-2 > * {
+      transition: all 0.3s ease;
+    }
+
+    input[type="checkbox"] {
+      accent-color: rgb(238, 109, 15);
+    }
+
+    .permission-label {
+      background: rgba(13, 13, 13, 0.2) !important;
+    }
+
+    .permission-label:hover {
+      background: rgba(238, 109, 15, 0.05) !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="bg-image-left"></div>
+  <div class="bg-image-right"></div>
+  <div class="step-5-overlay" id="step-5-overlay"></div>
+  
+  <div class="container mx-auto px-4 py-8 relative z-10">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-2">
+        <h1 class="text-2xl leading-tight mb-2">
+          <span class="text-white">MISSION</span>
+          <span style="color: rgb(238, 109, 15);">FITNESS</span> 
+        </h1>
+      </div>
+       
+      <!-- Progress Bar -->
+      <div class="progress-bar mb-2">
+        <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+      </div>
+
+      <form id="fitness-form" class="form-card p-10 rounded-3xl space-y-6">
+        <!-- Step 1: Gender -->
+        <div class="step active" data-step="1">
+          <h2 class="text-xl font-semibold mb-6 text-center">Step 1: Select Gender</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <label class="block cursor-pointer relative">
+              <input type="radio" name="gender" value="male" class="sr-only gender-radio" required>
+              <div class="gender-option">
+                <img src="/images/male.png" alt="Male" class="gender-image">
+                <div class="absolute bottom-0 left-0 right-0 text-center">
+                  <span class="text-white font-medium block py-2">Male</span>
+                </div>
+              </div>
+            </label>
+            <label class="block cursor-pointer relative">
+              <input type="radio" name="gender" value="female" class="sr-only gender-radio" required>
+              <div class="gender-option">
+                <img src="/images/female.png" alt="Female" class="gender-image">
+                <div class="absolute bottom-0 left-0 right-0 text-center">
+                  <span class="text-white font-medium block py-2">Female</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 2: Personal Info -->
+        <div class="step" data-step="2">
+          <h2 class="text-2xl font-semibold text-white mb-8">Step 2: Personal Information</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2 text-white">Age</label>
+              <input type="number" name="age" class="input-field w-full p-4 rounded-xl" min="13" max="120" required>
+            </div>
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2 text-white">Height (cm)</label>
+              <input type="number" name="heightCm" class="input-field w-full p-4 rounded-xl" min="100" max="250" required>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2 text-white">Weight (kg)</label>
+              <input type="number" name="weightKg" class="input-field w-full p-4 rounded-xl" min="30" max="200" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Fitness Goals -->
+        <div class="step" data-step="3">
+          <h2 class="text-2xl font-semibold mb-8">Step 3: Fitness Goals</h2>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Fitness Goal</label>
+              <select name="goal" class="input-field w-full p-4 rounded-xl" required>
+                <option value="">Select Goal</option>
+                <option value="weight loss">Weight Loss</option>
+                <option value="muscle gain">Muscle Gain</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="balanced">Balanced</option>
+                <option value="weight gain">Weight Gain</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium mb-2">Fitness Level</label>
+                <select name="fitnessLevel" class="input-field w-full p-4 rounded-xl" required>
+                  <option value="">Select Level</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Activity Level</label>
+                <select name="activityLevel" class="input-field w-full p-4 rounded-xl" required>
+                  <option value="">Select Activity Level</option>
+                  <option value="mostly sitting">Mostly Sitting</option>
+                  <option value="lightly active">Lightly Active</option>
+                  <option value="moderately active">Moderately Active</option>
+                  <option value="very active">Very Active</option>
+                  <option value="super active">Super Active</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Preferences -->
+        <div class="step" data-step="4">
+          <h2 class="text-2xl font-semibold mb-8">Step 4: Workout Preferences</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2">Workout Preference</label>
+              <select name="workoutPreference" class="input-field w-full p-4 rounded-xl" required>
+                <option value="">Select Preference</option>
+                <option value="home">Home</option>
+                <option value="gym">Gym</option>
+                <option value="outdoor">Outdoor</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2">Preferred Workout Time</label>
+              <select name="preferredWorkoutTime" class="input-field w-full p-4 rounded-xl" required>
+                <option value="">Select Time</option>
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+                <option value="night">Night</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-2">
+            <label class="block text-sm font-medium mb-2">Available Equipment (comma separated)</label>
+            <input type="text" name="availableEquipment" class="input-field w-full p-4 rounded-xl" placeholder="e.g., dumbbells, yoga mat, resistance bands">
+          </div>
+        </div>
+
+        <!-- Step 5: Health & Diet -->
+        <div class="step" data-step="5">
+          <h2 class="text-2xl font-semibold mb-8">Step 5: Health & Diet</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2">Diet Preference</label>
+              <select name="dietPreference" class="input-field w-full p-4 rounded-xl" required>
+                <option value="">Select Diet</option>
+                <option value="none">No Restrictions</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="keto">Keto</option>
+                <option value="paleo">Paleo</option>
+                <option value="gluten-free">Gluten-Free</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="block text-sm font-medium mb-2">Exercise Frequency (times/week)</label>
+              <input type="number" name="timesPerWeek" class="input-field w-full p-4 rounded-xl" min="1" max="7" value="3" required>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-2">
+            <label class="block text-sm font-medium mb-2">Medical Conditions (comma separated, optional)</label>
+            <input type="text" name="medicalConditions" class="input-field w-full p-4 rounded-xl" placeholder="e.g., diabetes, asthma">
+          </div>
+        </div>
+
+        <!-- Step 6: Schedule & Permissions -->
+        <div class="step" data-step="6">
+          <h2 class="text-2xl font-semibold mb-8">Step 6: Schedule & Permissions</h2>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Preferred Workout Days</label>
+              <div class="grid grid-cols-7 gap-3">
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Monday" class="sr-only">
+                  <span class="text-sm font-medium">Mon</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Tuesday" class="sr-only">
+                  <span class="text-sm font-medium">Tue</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Wednesday" class="sr-only">
+                  <span class="text-sm font-medium">Wed</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Thursday" class="sr-only">
+                  <span class="text-sm font-medium">Thu</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Friday" class="sr-only">
+                  <span class="text-sm font-medium">Fri</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Saturday" class="sr-only">
+                  <span class="text-sm font-medium">Sat</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl cursor-pointer day-option">
+                  <input type="checkbox" name="preferredDays" value="Sunday" class="sr-only">
+                  <span class="text-sm font-medium">Sun</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <label class="block text-sm font-medium mb-2">Permissions</label>
+              <div class="space-y-3">
+                <label class="flex items-center p-3 rounded-xl bg-[rgba(13,13,13,0.2)] cursor-pointer hover:bg-[rgba(238,109,15,0.05)] transition-colors permission-label">
+                  <input type="checkbox" name="emailUpdates" class="mr-3 w-4 h-4 rounded" style="accent-color: rgb(238, 109, 15);">
+                  <span class="text-sm font-medium">Email Updates</span>
+                </label>
+                <label class="flex items-center p-3 rounded-xl bg-[rgba(13,13,13,0.2)] cursor-pointer hover:bg-[rgba(238,109,15,0.05)] transition-colors permission-label">
+                  <input type="checkbox" name="locationAccess" class="mr-3 w-4 h-4 rounded" style="accent-color: rgb(238, 109, 15);">
+                  <span class="text-sm font-medium">Location Access</span>
+                </label>
+                <label class="flex items-center p-3 rounded-xl bg-[rgba(13,13,13,0.2)] cursor-pointer hover:bg-[rgba(238,109,15,0.05)] transition-colors permission-label">
+                  <input type="checkbox" name="healthTracking" class="mr-3 w-4 h-4 rounded" style="accent-color: rgb(238, 109, 15);">
+                  <span class="text-sm font-medium">Health Tracking</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between pt-10 border-t mt-10" style="border-color: rgba(238, 109, 15, 0.15);">
+          <button type="button" id="prev-btn" class="px-8 py-2 rounded-xl text-white font-medium transition-all" style="background: rgba(26, 26, 26, 0.8);" disabled>Previous</button>
+          <button type="button" id="next-btn" class="px-8 py-2 btn-primary rounded-xl text-white font-medium">Next</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    // Background images for each step
+    const stepBackgrounds = {
+      1: {
+        left: 'images/firstpage.png',
+        right: 'images/firstpage2.png'
+      },
+      2: {
+        left: 'images/femalerunner.png',
+        right: 'images/malerunner.png'
+      },
+      3: {
+        left: 'images/workoutgirl.png',
+        right: 'images/workoutboy.png'
+      },
+      4: {
+        left: 'images/yogagirl.png',
+        right: 'images/workhard.png'
+      },
+      5: {
+        left: 'images/workhard.png',
+        right: 'images/workhard.png'
+      },
+      6: {
+        left: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1920&q=80',
+        right: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80'
+      }
+    };
+
+    // Animate background images
+    function animateBackgrounds(step) {
+      const leftBg = document.querySelector('.bg-image-left');
+      const rightBg = document.querySelector('.bg-image-right');
+      const step5Overlay = document.getElementById('step-5-overlay');
+      
+      if (step === 5) {
+        // Activate step 5 overlay
+        step5Overlay.classList.add('active');
+        
+        // Special case for full background image
+        gsap.to([leftBg, rightBg], {
+          opacity: 0,
+          duration: 0.6,
+          ease: 'power2.in',
+          onComplete: () => {
+            leftBg.style.display = 'none';
+            rightBg.style.width = '100%';
+            rightBg.style.left = '0';
+            rightBg.style.backgroundImage = "url('images/gym.png')";
+            rightBg.style.backgroundSize = 'cover';
+            rightBg.style.backgroundPosition = 'center';
+            rightBg.style.zIndex = '2';
+            gsap.to(rightBg, { opacity: 1, duration: 0.8, ease: 'power2.out' });
+          }
+        });
+        return;
+      }
+
+      // Deactivate step 5 overlay for other steps
+      step5Overlay.classList.remove('active');
+
+      // Reset for normal steps
+      rightBg.style.display = 'block';
+      leftBg.style.width = '45%';
+      leftBg.style.left = '0';
+      
+      const backgrounds = stepBackgrounds[step];
+      
+      // Animate out current images
+      gsap.to(leftBg, {
+        x: '-100%',
+        duration: 0.6,
+        ease: 'power2.in',
+        onComplete: () => {
+          leftBg.style.backgroundImage = `url('${backgrounds.left}')`;
+          if (step === 4) {
+            leftBg.style.backgroundSize = '70% auto';
+            leftBg.style.backgroundPosition = 'center center';
+          } else {
+            leftBg.style.backgroundSize = 'cover';
+            leftBg.style.backgroundPosition = 'center';
+          }
+          gsap.fromTo(leftBg, 
+            { x: '-100%' },
+            { x: '0%', duration: 0.8, ease: 'power2.out' }
+          );
+        }
+      });
+      
+      gsap.to(rightBg, {
+        x: '100%',
+        duration: 0.6,
+        ease: 'power2.in',
+        onComplete: () => {
+          rightBg.style.backgroundImage = `url('${backgrounds.right}')`;
+          rightBg.style.backgroundSize = 'cover';
+          rightBg.style.backgroundPosition = 'center';
+          gsap.fromTo(rightBg,
+            { x: '100%' },
+            { x: '0%', duration: 0.8, ease: 'power2.out' }
+          );
+        }
+      });
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const progress = (currentStep / totalSteps) * 100;
+      document.getElementById('progress-fill').style.width = progress + '%';
+    }
+
+    // Show step
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`[data-step="${step}"]`).classList.add('active');
+      currentStep = step;
+      updateProgress();
+
+      // Animate background images
+      animateBackgrounds(step);
+
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      
+      if (step === 1) {
+        prevBtn.disabled = true; 
+        prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        prevBtn.disabled = false;
+        prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+
+      if (step === totalSteps) {
+        nextBtn.textContent = 'Generate AI Fitness Plan';
+        nextBtn.type = 'submit';
+      } else {
+        nextBtn.textContent = 'Next';
+        nextBtn.type = 'button';
+      }
+    }
+
+    // Next/Prev handlers
+    document.getElementById('next-btn').addEventListener('click', function(e) {
+      // If this is the submit button, let form submission handle it
+      if (this.type === 'submit') {
+        return; // Let form submit naturally
+      }
+      
+      e.preventDefault();
+      
+      const currentStepEl = document.querySelector('.step.active');
+      let allValid = true;
+      
+      // Check radio buttons
+      const radioGroups = currentStepEl.querySelectorAll('input[type="radio"][required]');
+      const radioGroupNames = new Set();
+      radioGroups.forEach(radio => radioGroupNames.add(radio.name));
+      
+      radioGroupNames.forEach(groupName => {
+        const radios = currentStepEl.querySelectorAll(`input[name="${groupName}"]`);
+        const isChecked = Array.from(radios).some(radio => radio.checked);
+        if (!isChecked) allValid = false;
+      });
+      
+      // Check other required fields
+      const otherFields = currentStepEl.querySelectorAll('input[required]:not([type="radio"]), select[required]');
+      otherFields.forEach(field => {
+        if (!field.value.trim()) allValid = false;
+      });
+      
+      if (!allValid) {
+        alert('Please fill in all required fields before proceeding.');
+        return;
+      }
+      
+      if (currentStep < totalSteps) {
+        showStep(currentStep + 1);
+      }
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', function() {
+      if (currentStep > 1) {
+        showStep(currentStep - 1);
+      }
+    });
+
+    // Handle day selection
+    document.querySelectorAll('input[name="preferredDays"]').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const label = this.closest('label');
+        if (this.checked) {
+          label.classList.add('selected');
+        } else {
+          label.classList.remove('selected');
+        }
+      });
+    });
+
+    // Handle form submission
+    document.getElementById('fitness-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('next-btn');
+      const originalText = submitBtn.textContent;
+      
+      // Get token from URL parameter or backend
+      const urlParams = new URLSearchParams(window.location.search);
+      let serverToken = '{{token}}';
+      if (serverToken === '' || serverToken === '{{token}}') serverToken = null;
+      
+      const token = urlParams.get('token') || serverToken || localStorage.getItem('token');
+      console.log('Token from URL/backend:', token);
+      if (!token || token === '') {
+        alert('Please log in first');
+        window.location.href = '/login';
+        return;
+      }
+
+      try {
+        submitBtn.textContent = 'Generating AI Plan...';
+        submitBtn.disabled = true;
+
+        // Collect form data
+        const formData = new FormData(this);
+        const data = {};
+        
+        // Handle regular fields
+        for (let [key, value] of formData.entries()) {
+          if (key === 'preferredDays') {
+            if (!data.exerciseFrequency) data.exerciseFrequency = {};
+            if (!data.exerciseFrequency.preferredDays) data.exerciseFrequency.preferredDays = [];
+            data.exerciseFrequency.preferredDays.push(value);
+          } else if (key === 'timesPerWeek') {
+            if (!data.exerciseFrequency) data.exerciseFrequency = {};
+            data.exerciseFrequency.timesPerWeek = parseInt(value);
+          } else if (key === 'availableEquipment' || key === 'medicalConditions') {
+            data[key] = value ? value.split(',').map(s => s.trim()).filter(Boolean) : [];
+          } else if (key === 'emailUpdates' || key === 'locationAccess' || key === 'healthTracking') {
+            if (!data.permissions) data.permissions = {};
+            data.permissions[key] = this.querySelector(`input[name="${key}"]`).checked;
+          } else {
+            data[key] = value;
+          }
+        }
+
+        // Set defaults
+        if (!data.permissions) data.permissions = {};
+        if (typeof data.permissions.emailUpdates === 'undefined') data.permissions.emailUpdates = false;
+        if (typeof data.permissions.locationAccess === 'undefined') data.permissions.locationAccess = false;
+        if (typeof data.permissions.healthTracking === 'undefined') data.permissions.healthTracking = false;
+        
+        // Ensure exerciseFrequency has timesPerWeek
+        if (!data.exerciseFrequency) data.exerciseFrequency = {};
+        if (!data.exerciseFrequency.timesPerWeek) data.exerciseFrequency.timesPerWeek = 3;
+        
+        data.points = 0;
+        data.onboardingStep = 16;
+        data.isComplete = true;
+
+        console.log('Sending data:', data);
+
+        // Submit to API
+        const response = await fetch('/api/onboarding', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Store plans in localStorage
+          if (result.aiPlan) {
+            localStorage.setItem('aiPlan', JSON.stringify(result.aiPlan));
+          }
+          if (result.workoutPlan) {
+            localStorage.setItem('workoutPlan', JSON.stringify(result.workoutPlan));
+          }
+          if (result.dietPlan) {
+            localStorage.setItem('dietPlan', JSON.stringify(result.dietPlan));
+          }
+          
+          // Redirect to AI Plans page first
+          window.location.href = `/ai-plans?token=${encodeURIComponent(token)}`;
+        } else {
+          throw new Error(result.message || 'Failed to create fitness profile');
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Initial setup
+    updateProgress();
+    
+    // Set initial backgrounds
+    const leftBg = document.querySelector('.bg-image-left');
+    const rightBg = document.querySelector('.bg-image-right');
+    leftBg.style.backgroundImage = `url('${stepBackgrounds[1].left}')`;
+    rightBg.style.backgroundImage = `url('${stepBackgrounds[1].right}')`;
+    
+    // Initial animation on page load
+    gsap.from(leftBg, { x: '-100%', duration: 1, ease: 'power2.out' });
+    gsap.from(rightBg, { x: '100%', duration: 1, ease: 'power2.out' });
+  </script>
+</body>  
+</html>

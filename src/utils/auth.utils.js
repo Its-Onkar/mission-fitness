@@ -6,8 +6,13 @@ export const createPasswordHash = (originalPassword) => {
     return bcrypt.hashSync(originalPassword, 10);
 };
 
-export const comparePassword = (originalPassword, hashedPassword) => {
-    return bcrypt.compareSync(originalPassword, hashedPassword);
+export const comparePassword = async (originalPassword, hashedPassword) => {
+    try {
+        return await bcrypt.compare(originalPassword, hashedPassword);
+    } catch (error) {
+        console.error('Password comparison error:', error);
+        return false;
+    }
 };
 
 export const generateToken = (data, expiry) => {
@@ -21,7 +26,11 @@ export const generateToken = (data, expiry) => {
             throw new Error("Data must be an object");
         }
         const token = jwt.sign(data, JWT_SECRET, {
+<<<<<<< Updated upstream
             expiresIn: expiry || "1h",
+=======
+            expiresIn: expiry || "10h",
+>>>>>>> Stashed changes
         });
         if (!token) {
             throw new Error("Token generation failed");
@@ -37,7 +46,7 @@ export const generateToken = (data, expiry) => {
 export const verifyToken = (token) => {
     try {
         const secretKey = JWT_SECRET;
-        console.log("Secret Key:", secretKey);
+       
         const data = jwt.verify(token, secretKey);
         return data;
     } catch (error) {

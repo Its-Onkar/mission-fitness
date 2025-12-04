@@ -3,11 +3,22 @@ import { verifyToken } from "../utils/auth.utils.js";
 const performAuthorization = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      if (req.path.includes("/api")) {
+        return res.status(401).json({
+          message: "Token is missing in the authorization header",
+        });
+      } else {
+        return res.status(403).render("404");
+      }
+    }
+    
     const token = authHeader.split(" ")[1];
     if (!token) {
       if (req.path.includes("/api")) {
-        return res.status(403).send({
-          message: "Token is missing in the authorization header",
+        return res.status(401).json({
+          message: "Invalid token format",
         });
       } else {
         return res.status(403).render("404");

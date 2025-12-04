@@ -3,14 +3,16 @@ import { generateDietPlanFromAI } from "./aiPlans.service.js";
 
 export const createDietPlan = async (dietData, userData) => {
   const { _id } = userData;
-  const dietGoal = dietData.fitnessGoal || "balanced";
+  const dietGoal = dietData.fitnessGoal || dietData.goal || "balanced";
   const dietDuration = dietData.dietDuration || "week";
+  
+  console.log('Creating diet plan with preference:', dietData.dietPreference);
+  console.log('Full diet data:', dietData);
 
   const diet = await Diet.create({
-    userId: _id,
-    dietPlan: dietGoal,
-    dietDuration: dietDuration,
-    status: "pending",
+    user: _id,
+    fitnessProfile: dietData.fitnessProfile?._id || dietData._id,
+    goal: dietGoal,
   });
 
   const aiResponse = await generateDietPlanFromAI(dietData);
@@ -23,7 +25,12 @@ export const createDietPlan = async (dietData, userData) => {
  diet.mealDetails = mealDetails;
   diet.status = "in-progress";
   await diet.save();
-  return diet;
+  
+  // Return both the database object and the AI-generated plan
+  return {
+      dbPlan: diet,
+      aiPlan: dietPlan
+  };
 };
 
 export const getAllDietPlans = async () => {
@@ -36,7 +43,7 @@ export const getAllDietPlans = async () => {
 };
 
  export const getDietplanByUserId = async (userId) => {
-  const dietPlan = await Diet.findOne({ userId });
+  const dietPlan = await Diet.findOne({ user: userId });
   if (!dietPlan) {
     throw new Error("Diet plan not found for the user");
   }
