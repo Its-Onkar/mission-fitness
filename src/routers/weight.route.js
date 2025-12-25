@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { logWeightController, getWeightHistoryController, getWeightProgressController } from "../controllers/weight.controller.js";
+import { logWeightController, getWeightHistoryController, getWeightProgressController, getEnhancedWeightProgressController } from "../controllers/weight.controller.js";
 import { authenticateToken } from "../middleware/tokenAuth.js";
 
 const weightRouter = Router();
@@ -7,5 +7,6 @@ const weightRouter = Router();
 weightRouter.post("/log", authenticateToken, logWeightController);
 weightRouter.get("/history", authenticateToken, getWeightHistoryController);
 weightRouter.get("/progress", authenticateToken, getWeightProgressController);
+weightRouter.get("/enhanced-progress", authenticateToken, getEnhancedWeightProgressController);
 
 export default weightRouter;

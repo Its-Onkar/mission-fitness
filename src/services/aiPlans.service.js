@@ -1,7 +1,7 @@
 import { openAi } from "../openAI/openAi.js";
 import { enhanceDietPlanWithUSDA } from "./usda.service.js";
 
-<<<<<<< Updated upstream
+
 export const generateWorkoutPlanFromAI = async (onboardingData) => {
   const prompt = `
 You are a certified personal trainer with experience in creating safe, realistic, and personalized plans.
@@ -98,14 +98,16 @@ Return ONLY valid JSON inside a markdown code block like this:
   } catch (err) {
     console.error("❌ Failed to get or parse AI response:", err.message);
     throw new Error("AI returned invalid JSON. Try adjusting input and retry.");
-=======
+  }
+};
+
 const getUserSeed = (fitnessProfile) => {
   const str = JSON.stringify(fitnessProfile);
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = (hash << 5) - hash + str.charCodeAt(i);
     hash |= 0;
->>>>>>> Stashed changes
+
   }
   return Math.abs(hash % 1000) / 1000;
 };
@@ -425,126 +427,7 @@ Return ONLY valid JSON:
   }
 };
 
-export const generateWorkoutPlanFromAI = async (fitnessProfile) => {
-  const getWorkoutSchedule = () => {
-    const schedules = {
-      'beginner': { frequency: 3, duration: '30-45 min', restDays: 2 },
-      'intermediate': { frequency: 4, duration: '45-60 min', restDays: 1 },
-      'advanced': { frequency: 5, duration: '60-90 min', restDays: 1 }
-    };
-    return schedules[fitnessProfile.fitnessLevel?.toLowerCase()] || schedules.beginner;
-  };
 
-  const schedule = getWorkoutSchedule();
-  
-  const goalSpecificFocus = {
-    'weight loss': 'High-intensity cardio, circuit training, fat burning',
-    'fat loss': 'HIIT, cardio intervals, metabolic training',
-    'muscle gain': 'Progressive overload, compound movements, hypertrophy',
-    'weight gain': 'Strength training, compound lifts, muscle building',
-    'strength': 'Heavy compound lifts, powerlifting movements',
-    'endurance': 'Cardio intervals, stamina building, aerobic training',
-    'maintenance': 'Balanced strength and cardio',
-    'balanced': 'Full body workouts, varied training'
-  }[fitnessProfile.goal?.toLowerCase()] || 'Balanced training';
-
-  const prompt = `Create a 7-day workout plan for:
-- Gender: ${fitnessProfile.gender}
-- Goal: ${fitnessProfile.goal} (Focus: ${goalSpecificFocus})
-- Fitness Level: ${fitnessProfile.fitnessLevel} (${schedule.frequency}x/week, ${schedule.duration})
-- Workout Preference: ${fitnessProfile.workoutPreference}
-- Available Time: ${schedule.duration} per session
-
-STRICT REQUIREMENTS:
-1. Design for ${fitnessProfile.goal} with ${goalSpecificFocus}
-2. Match ${fitnessProfile.fitnessLevel} intensity and volume
-3. Include ${fitnessProfile.workoutPreference} exercises when possible
-4. Provide proper rest days and recovery
-5. Include warm-up and cool-down
-6. Estimate calories burned per exercise
-
-Return ONLY valid JSON:
-{
-  "workoutPlan": [
-    {
-      "day": "Monday",
-      "focus": "Upper Body",
-      "duration": "${schedule.duration}",
-      "intensity": "${fitnessProfile.fitnessLevel}",
-      "exercises": [
-        {
-          "name": "Exercise Name",
-          "sets": "3",
-          "reps": "12",
-          "rest": "60 sec",
-          "notes": "Form tips",
-          "estimatedCalories": 50
-        }
-      ],
-      "totalCaloriesBurned": 300,
-      "dailyProgress": {
-        "streakCount": 1,
-        "status": "Pending",
-        "motivation": "Start strong! 💪"
-      }
-    }
-  ]
-}`;
-
-  try {
-    console.time("Workout Plan Generation");
-    const completion = await openAi.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: "You are an expert personal trainer." },
-        { role: "user", content: prompt },
-      ],
-      temperature: 0.6 + getUserSeed(fitnessProfile) * 0.4,
-      max_tokens: 1500,
-    });
-    console.timeEnd("Workout Plan Generation");
-
-    const aiResponse = completion.choices[0].message.content.trim();
-    let rawJson = aiResponse;
-    const match = aiResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
-    if (match) rawJson = match[1].trim();
-    rawJson = rawJson.replace(/^```json?\s*|```\s*$/g, "").trim();
-    rawJson = rawJson.replace(/,\s*}/g, "}").replace(/,\s*]/g, "]");
-
-    try {
-      const parsed = JSON.parse(rawJson);
-      return parsed;
-    } catch (parseError) {
-      console.error("JSON Parse Error:", parseError.message);
-      return {
-        workoutPlan: [
-          {
-            day: "Monday",
-            focus: "Full Body",
-            exercises: [
-              {
-                name: "Push-ups",
-                sets: "3",
-                reps: "12",
-                rest: "60 sec",
-                notes: "Keep core tight",
-                estimatedCalories: 50,
-              },
-            ],
-            dailyProgress: {
-              streakCount: 1,
-              status: "Pending",
-              motivation: "Start strong! Every day adds to your streak 💪",
-            },
-          },
-        ],
-      };
-    }
-  } catch (err) {
-    console.error("❌ Failed to get or parse AI response:", err.message);
-    throw new Error("AI returned invalid JSON for workout plan.");
-  }
-};
 
 export const generateDailyDietPlan = async (fitnessProfile, dayName) => {
   console.log(`Generating daily diet plan for ${dayName}`);

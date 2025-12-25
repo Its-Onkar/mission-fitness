@@ -7,21 +7,6 @@
         z-index: 100;
     }
 
-    .wave-container {
-        position: relative;
-        width: 100%;
-        height: 60px;
-        overflow: hidden;
-        line-height: 0;
-        transform: translateY(1px); /* Fix potential gap */
-    }
-
-    .wave-container svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
-
     footer {
         width: 100%;
         background: #000;
@@ -71,6 +56,9 @@
 
     .subscribe-section {
         grid-column: span 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
     }
 
     .subscribe-title {
@@ -99,7 +87,8 @@
 
     .subscribe-form {
         position: relative;
-        max-width: 500px;
+        max-width: 350px;
+        margin-left: auto;
     }
 
     .subscribe-form input {
@@ -235,10 +224,6 @@
     }
 
     @media (max-width: 768px) {
-        .wave-container {
-            height: 50px;
-        }
-
         footer {
             padding: 25px 20px 15px;
         }
@@ -253,7 +238,7 @@
         }
 
         .subscribe-form input {
-            padding: 16px 24px;
+            padding: 16px 20px;
             padding-right: 24px;
             margin-bottom: 12px;
         }
@@ -261,7 +246,7 @@
         .subscribe-form button {
             position: static;
             transform: none;
-            width: 100%;
+            width: 80%;
         }
 
         .subscribe-form button:hover {
@@ -284,16 +269,6 @@
 </style>
 
 <div class="footer-wrapper">
-    <div class="wave-container">
-        <svg viewBox="0 0 1200 100" preserveAspectRatio="none">
-            <path d="M0,0 C100,53 200,13 300,53 C400,80 500,0 600,53 C700,80 800,13 900,53 C1000,53 1100,0 1200,40" 
-                  stroke="white" 
-                  stroke-width="2" 
-                  fill="none"
-                  vector-effect="non-scaling-stroke" />
-        </svg>
-    </div>
-
     <footer>
         <div class="footer-content">
             <div class="footer-section">

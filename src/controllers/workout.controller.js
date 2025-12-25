@@ -1,11 +1,7 @@
-<<<<<<< Updated upstream
-import { createWorkoutPlan,getAllWorkoutPlans,getWorkoutPlanByUserId,updateWorkoutPlanByUserName } from "../services/workoutPlan.service.js";
-
-=======
-import { createWorkoutPlan,getWorkoutPlanByUserId,updateWorkoutPlanByUserName } from "../services/workoutPlan.service.js";
+import { createWorkoutPlan, getAllWorkoutPlans, getWorkoutPlanByUserId, updateWorkoutPlanByUserName } from "../services/workoutPlan.service.js";
 import { generateWorkoutPlanFromAI } from "../services/aiPlans.service.js";
 import FitnessProfile from "../Schema/fitnessprofile.schema.js";
->>>>>>> Stashed changes
+
 export const createWorkoutPlanController = async (req, res) => {
     try {
     const userId = req.auth._id;

@@ -10,9 +10,10 @@ export const createDietPlan = async (dietData, userData) => {
   console.log('Full diet data:', dietData);
 
   const diet = await Diet.create({
-    user: _id,
-    fitnessProfile: dietData.fitnessProfile?._id || dietData._id,
-    goal: dietGoal,
+    userId: _id,
+    dietPlan: dietGoal,
+    dietDuration: dietDuration,
+    status: "pending"
   });
 
   const aiResponse = await generateDietPlanFromAI(dietData);

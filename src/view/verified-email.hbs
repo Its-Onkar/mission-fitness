@@ -603,14 +603,17 @@
                     </div>
                     <h2><span>WELCOME TO</span> THE MISSION</h2>
                     <p>Your email verification is complete. You now have full access to elite training programs, personalized workouts, and our exclusive fitness community.</p>
+                    <p class="timer" style="color: #f97316; font-weight: 600; margin-top: 10px;">
+                        <i class="fas fa-spinner fa-spin"></i> Redirecting to login in <span id="countdown">5</span> seconds...
+                    </p>
                 </div>
                 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <a href="/onboarding">
+                    <a href="/login">
                         <div class="flex items-center justify-center gap-3">
-                            <i class="fas fa-rocket"></i>
-                            START YOUR MISSION
+                            <i class="fas fa-sign-in-alt"></i>
+                            LOGIN TO YOUR ACCOUNT
                         </div>
                     </a>
                     <a href="/profile" class="secondary-btn">
@@ -683,18 +686,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Footer -->
-            <div class="footer">
-                <p>Questions? <a href="/support">CONTACT SUPPORT</a></p>
-                <div class="footer-links">
-                    <a href="/privacy">Privacy</a>
-                    <span>•</span>
-                    <a href="/terms">Terms</a>
-                    <span>•</span>
-                    <span>&copy; 2024 Mission Fitness</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -711,6 +702,18 @@
                 setTimeout(() => {
                     icon.style.animation = 'successScale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
                 }, 100);
+
+                // Auto-redirect logic
+                let count = 5;
+                const countdownEl = document.getElementById('countdown');
+                const interval = setInterval(() => {
+                    count--;
+                    if (countdownEl) countdownEl.textContent = count;
+                    if (count <= 0) {
+                        clearInterval(interval);
+                        window.location.href = '/login';
+                    }
+                }, 1000);
             } else {
                 const icon = document.querySelector('.error-icon svg');
                 if (icon) icon.style.animation = 'none'; // Reset
@@ -720,11 +723,19 @@
             }
         }
 
-        // Check for token in URL and verify automatically
+        // Check for token or success status in URL
         window.addEventListener('load', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
+            const successParam = urlParams.get('success');
             
+            // If success param is present (redirected from verification)
+            if (successParam !== null) {
+                showSection(successParam === 'true');
+                return;
+            }
+            
+            // If token is present, auto-verify
             if (token) {
                 // Call verification API
                 fetch(`/auth/verify-email?token=${token}`, {
@@ -743,7 +754,7 @@
                     showSection(false);
                 });
             } else {
-                // If no token, show invalid (error) state
+                // If no token and no success param, show invalid (error) state
                 showSection(false);
             }
         });

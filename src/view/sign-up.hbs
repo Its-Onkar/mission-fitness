@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         * {
             margin: 0;
@@ -16,170 +17,14 @@
         }
 
         body {
-<<<<<<< Updated upstream
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 60%, #000000 100%);
-            color: #f1f1f1;
-            font-family: 'Segoe UI', Arial, sans-serif;
-=======
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #3a3a3a 100%);
->>>>>>> Stashed changes
             display: flex;
             overflow: hidden;
             position: relative;
             min-height: 100vh;
         }
 
-<<<<<<< Updated upstream
-        /* Animated Background with Fitness Icons */
-        .fitness-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.25; /* Increased opacity for better visibility */
-            z-index: 1;
-        }
-
-        .fitness-icon {
-            position: absolute;
-            font-size: 2.8rem; /* Larger icons for prominence */
-            color: #777; /* Lighter gray for better contrast */
-            animation: floatRandom 12s infinite ease-in-out;
-        }
-
-        .fitness-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
-        .fitness-icon:nth-child(2) { top: 20%; left: 80%; animation-delay: -2s; }
-        .fitness-icon:nth-child(3) { top: 60%; left: 15%; animation-delay: -4s; }
-        .fitness-icon:nth-child(4) { top: 70%; left: 70%; animation-delay: -6s; }
-        .fitness-icon:nth-child(5) { top: 30%; left: 50%; animation-delay: -8s; }
-        .fitness-icon:nth-child(6) { top: 80%; left: 30%; animation-delay: -10s; }
-        .fitness-icon:nth-child(7) { top: 15%; left: 60%; animation-delay: -12s; }
-        .fitness-icon:nth-child(8) { top: 85%; left: 85%; animation-delay: -14s; }
-
-        /* Geometric Square Background */
-        .geometric-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(45deg, rgba(44, 44, 44, 0.35) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(44, 44, 44, 0.35) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(44, 44, 44, 0.35) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(44, 44, 44, 0.35) 75%);
-            background-size: 50px 50px;
-            animation: shiftPattern 25s linear infinite;
-            opacity: 0.9; /* Increased opacity for visibility */
-            z-index: 2;
-        }
-
-        @keyframes shiftPattern {
-            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-            100% { background-position: 100px 100px, 100px 100px, 100px 100px, 100px 100px; }
-        }
-
-        .geometric-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(100, 100, 100, 0.2), rgba(50, 50, 50, 0.3), rgba(100, 100, 100, 0.2), transparent);
-            background-size: 400%;
-            animation: rotateGradient 20s ease-in-out infinite;
-            pointer-events: none;
-            opacity: 0.5; /* Increased for visibility */
-        }
-
-        @keyframes rotateGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 400% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .geometric-bg::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-            background-size: 80px 80px;
-            opacity: 0.4; /* Increased for visibility */
-            pointer-events: none;
-            animation: floatParticles 35s linear infinite;
-        }
-
-        @keyframes floatParticles {
-            0% { background-position: 0 0; }
-            100% { background-position: 160px 160px; }
-        }
-
-        /* Floating Particles */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: linear-gradient(45deg, #444, #222); /* Darker gray particles */
-            border-radius: 50%;
-            animation: particleFloat 20s infinite ease-in-out;
-            z-index: 3;
-        }
-
-        .particle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-        .particle:nth-child(2) { top: 30%; left: 70%; animation-delay: -5s; }
-        .particle:nth-child(3) { top: 60%; left: 10%; animation-delay: -10s; }
-        .particle:nth-child(4) { top: 80%; left: 80%; animation-delay: -15s; }
-        .particle:nth-child(5) { top: 40%; left: 40%; animation-delay: -20s; }
-
-        /* Main Signup Container */
-        .signup-container {
-            background: linear-gradient(145deg, #000000 0%, #0f0f0f 60%, #000000 100%); /* Darker black gradient */
-            backdrop-filter: blur(12px);
-            border: 1px solid #1c1c1c; /* Darker gray border */
-            padding: 40px 32px;
-            border-radius: 20px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.8),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            position: relative;
-            z-index: 20;
-            animation: slideInScale 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .signup-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #444, #222, #444, #222); /* Darker gray glow border */
-            border-radius: 22px;
-            z-index: -1;
-            animation: borderGlow 3s ease-in-out infinite;
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 16px;
-            background: linear-gradient(135deg, #444 0%, #222 100%); /* Darker gray logo background */
-=======
         /* Radial gradient circles with orange glows */
         body::before {
             content: '';
@@ -187,7 +32,6 @@
             width: 800px;
             height: 800px;
             background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
->>>>>>> Stashed changes
             border-radius: 50%;
             top: -300px;
             left: -300px;
@@ -232,16 +76,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-<<<<<<< Updated upstream
-            font-size: 24px;
-            color: #fff;
-            animation: logoPulse 2s ease-in-out infinite;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-=======
             padding: 80px;
             position: relative;
             overflow: hidden;
->>>>>>> Stashed changes
         }
 
         .left-side::before {
@@ -267,13 +104,6 @@
         .illustration {
             max-width: 450px;
             text-align: center;
-<<<<<<< Updated upstream
-            font-weight: 700;
-            font-size: 28px;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #fff 0%, #bbb 100%); /* White to lighter gray text */
-            background-clip: text;
-=======
             animation: floatIllustration 4s ease-in-out infinite;
             position: relative;
             z-index: 2;
@@ -301,7 +131,6 @@
         .illustration h2 {
             font-size: 60px;
             background: linear-gradient(135deg, #f97316 0%, #ffffff 100%);
->>>>>>> Stashed changes
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -311,33 +140,17 @@
             text-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
         }
 
-<<<<<<< Updated upstream
-        .subtitle {
-            text-align: center;
-            color: #888; /* Darker gray subtitle */
-            font-size: 14px;
-            margin-bottom: 10px;
-            animation: fadeInUp 1s ease-out 0.5s both;
-=======
         .illustration p {
             font-size: 24px;
             color: #ffffff;
             font-weight: 400;
             line-height: 1.7;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
->>>>>>> Stashed changes
         }
 
         /* Enhanced Decorative Elements with Orange Icons */
         .decoration {
             position: absolute;
-<<<<<<< Updated upstream
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #444; /* Darker gray input icons */
-            font-size: 18px;
-=======
             opacity: 0.3;
             z-index: 1;
             color: #f97316;
@@ -376,27 +189,10 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Modern Wavy Divider with Orange Tint */
-        .wave-divider {
-            position: absolute;
-            right: -1px;
-            top: 0;
-            height: 100%;
-            width: 120px;
-            z-index: 10;
-            overflow: hidden;
-        }
-
-        .wave-divider svg {
-            height: 100%;
-            width: 100%;
-            fill: rgba(249, 115, 22, 0.05);
-        }
-
         /* Right Side - Enhanced Signup Form with Orange Accents */
         .right-side {
             flex: 1;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #3a3a3a 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #141414 50%, #202020 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -405,15 +201,14 @@
             position: relative;
         }
 
-        .login-container {
+        .signup-container {
             width: 100%;
             max-width: 480px;
             position: relative;
->>>>>>> Stashed changes
             z-index: 2;
         }
 
-        .login-box {
+        .signup-box {
             position: static;
             width: 100%;
             padding: 60px 50px;
@@ -430,7 +225,7 @@
             border: 1px solid rgba(249, 115, 22, 0.1);
         }
 
-        .login-box::before {
+        .signup-box::before {
             content: '';
             position: absolute;
             top: 0;
@@ -440,7 +235,7 @@
             background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
         }
 
-        .login-box p:first-child {
+        .signup-box p:first-child {
             margin: 0 0 50px;
             padding: 0;
             color: #ffffff;
@@ -452,7 +247,7 @@
             position: relative;
         }
 
-        .login-box p:first-child::after {
+        .signup-box p:first-child::after {
             content: '';
             position: absolute;
             bottom: -10px;
@@ -464,12 +259,12 @@
             border-radius: 2px;
         }
 
-        .login-box .user-box {
+        .signup-box .user-box {
             position: relative;
             margin-bottom: 45px;
         }
 
-        .login-box .user-box input {
+        .signup-box .user-box input {
             width: 100%;
             padding: 16px 0 16px 0;
             font-size: 16px;
@@ -482,63 +277,12 @@
             transition: all 0.3s ease;
         }
 
-<<<<<<< Updated upstream
-        .signup-container input {
-            background: linear-gradient(145deg, #000000 0%, #0a0a0a 100%); /* Near-pure black input background */
-            border: 1px solid #1c1c1c;
-            color: #f1f1f1;
-            padding: 16px 16px 16px 50px;
-            border-radius: 12px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 100%;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .signup-container input:focus {
-            border: 2px solid #444; /* Darker gray border on focus */
-            background: linear-gradient(145deg, #050505 0%, #0f0f0f 100%);
-            transform: translateY(-2px);
-            box-shadow: 
-                0 8px 16px rgba(0, 0, 0, 0.6),
-                inset 0 2px 4px rgba(0, 0, 0, 0.4),
-                0 0 20px rgba(68, 68, 68, 0.3);
-        }
-
-        .signup-container input:focus + .input-icon {
-            color: #888; /* Lighter gray on focus */
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .signup-container button {
-            background: linear-gradient(135deg, #222 0%, #0f0e0e 50%, #222 100%); /* Darker gray button */
-            color: #fff;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 1s ease-out 0.8s both;
-        }
-
-        .signup-container button::before {
-            content: '';
-=======
-        .login-box .user-box input:focus {
+        .signup-box .user-box input:focus {
             border-bottom-color: #f97316;
             box-shadow: 0 2px 10px rgba(249, 115, 22, 0.1);
         }
 
-        .login-box .user-box label {
->>>>>>> Stashed changes
+        .signup-box .user-box label {
             position: absolute;
             top: 0;
             left: 0;
@@ -549,9 +293,9 @@
             transition: all 0.3s ease;
         }
 
-        .login-box .user-box input:focus ~ label,
-        .login-box .user-box input:valid ~ label,
-        .login-box .user-box.filled label {
+        .signup-box .user-box input:focus ~ label,
+        .signup-box .user-box input:valid ~ label,
+        .signup-box .user-box.filled label {
             top: -28px;
             left: 0;
             color: #f97316;
@@ -561,49 +305,20 @@
             letter-spacing: 0.5px;
         }
 
-        .login-box .user-box label i {
+        .signup-box .user-box label i {
             margin-right: 8px;
             opacity: 0.6;
         }
 
-        .login-box .user-box input:focus ~ label i {
+        .signup-box .user-box input:focus ~ label i {
             opacity: 1;
         }
 
-        /* Password Toggle */
-        .password-toggle {
-            position: absolute;
-            right: 0;
-            top: 16px;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.4);
-            transition: color 0.3s ease;
-        }
-
-        .password-toggle:hover {
-            color: #f97316;
-        }
-
         /* Enhanced Button with Orange Gradient */
-        .login-box form .login-btn {
+        .signup-box form .signup-btn {
             position: relative;
             display: block;
             width: 100%;
-<<<<<<< Updated upstream
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.20), transparent);
-            transition: left 0.5s;
-        }
-
-        .signup-container button:hover::before {
-            left: 100%;
-        }
-
-        .signup-container button:hover {
-            background: linear-gradient(135deg, #060606 0%, #393535 50%, #141414 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
-=======
             padding: 18px 24px;
             font-weight: 700;
             color: #ffffff;
@@ -621,35 +336,23 @@
             box-shadow: 0 12px 35px rgba(249, 115, 22, 0.3);
         }
 
-        .login-box .login-btn:hover {
+        .signup-box .signup-btn:hover {
             background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
             box-shadow: 0 18px 45px rgba(249, 115, 22, 0.4);
             transform: translateY(-3px);
->>>>>>> Stashed changes
         }
 
-        .login-box .login-btn:active {
+        .signup-box .signup-btn:active {
             transform: translateY(-1px);
         }
 
-<<<<<<< Updated upstream
-        .signin-link {
-            text-align: center;
-            font-size: 14px;
-            color: #888; /* Darker gray link text */
-            animation: fadeInUp 1s ease-out 1s both;
-        }
-
-        .signin-link a {
-            color: #bbb; /* Lighter gray link */
-=======
-        .login-box .login-btn span {
+        .signup-box .signup-btn span {
             position: absolute;
             display: block;
             background: rgba(255, 255, 255, 0.2);
         }
 
-        .login-box .login-btn span:nth-child(1) {
+        .signup-box .signup-btn span:nth-child(1) {
             top: 0;
             left: -100%;
             width: 100%;
@@ -662,7 +365,7 @@
             50%, 100% { left: 100%; }
         }
 
-        .login-box .login-btn span:nth-child(2) {
+        .signup-box .signup-btn span:nth-child(2) {
             top: -100%;
             right: 0;
             width: 2px;
@@ -676,7 +379,7 @@
             50%, 100% { top: 100%; }
         }
 
-        .login-box .login-btn span:nth-child(3) {
+        .signup-box .signup-btn span:nth-child(3) {
             bottom: 0;
             right: -100%;
             width: 100%;
@@ -690,7 +393,7 @@
             50%, 100% { right: 100%; }
         }
 
-        .login-box .login-btn span:nth-child(4) {
+        .signup-box .signup-btn span:nth-child(4) {
             bottom: -100%;
             left: 0;
             width: 2px;
@@ -704,62 +407,21 @@
             50%, 100% { bottom: 100%; }
         }
 
-        /* Additional Links */
-        .form-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-            font-size: 14px;
-        }
-
-        .form-footer a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .form-footer a:hover {
-            color: #f97316;
-        }
-
-        .form-footer label {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .form-footer label:hover {
-            color: #f97316;
-        }
-
-        .form-footer input[type="checkbox"] {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-            accent-color: #f97316;
-        }
-
-        .login-box p:last-child {
+        .signup-box p:last-child {
             color: rgba(255, 255, 255, 0.4);
             font-size: 14px;
             text-align: center;
             margin-top: 40px;
         }
 
-        .login-box a.a2 {
+        .signup-box a.a2 {
             color: #f97316;
->>>>>>> Stashed changes
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .login-box a.a2:hover {
+        .signup-box a.a2:hover {
             color: #ea580c;
             text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
         }
@@ -791,17 +453,17 @@
         }
 
         /* Loading State Enhanced */
-        .login-btn.loading {
+        .signup-btn.loading {
             pointer-events: none;
             opacity: 0.8;
             position: relative;
         }
 
-        .login-btn.loading span {
+        .signup-btn.loading span {
             display: none;
         }
 
-        .login-btn.loading::after {
+        .signup-btn.loading::after {
             content: '';
             position: absolute;
             width: 22px;
@@ -848,10 +510,6 @@
                 padding: 40px;
             }
 
-            .wave-divider {
-                display: none;
-            }
-
             .fitness-illustration {
                 font-size: 120px;
             }
@@ -873,76 +531,13 @@
                 display: none;
             }
 
-            .login-box {
+            .signup-box {
                 width: 100%;
                 max-width: 420px;
                 padding: 50px 40px;
             }
-
-            .form-footer {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
         }
 
-<<<<<<< Updated upstream
-        @keyframes floatRandom {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg); 
-                opacity: 0.3; 
-            }
-            25% { 
-                transform: translateY(-15px) rotate(90deg); 
-                opacity: 0.5; 
-            }
-            50% { 
-                transform: translateY(-8px) rotate(180deg); 
-                opacity: 0.35; 
-            }
-            75% { 
-                transform: translateY(-20px) rotate(270deg); 
-                opacity: 0.6; 
-            }
-        }
-
-        @keyframes particleFloat {
-            0% { 
-                transform: translateY(0px) translateX(0px); 
-                opacity: 0; 
-            }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { 
-                transform: translateY(-80vh) translateX(80px); 
-                opacity: 0; 
-            }
-        }
-
-        @keyframes borderGlow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-
-        @keyframes logoPulse {
-            0%, 100% { 
-                transform: scale(1); 
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); 
-            }
-            50% { 
-                transform: scale(1.06); 
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6); 
-            }
-        }
-
-        @keyframes titleGlow {
-            0%, 100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); }
-            50% { text-shadow: 0 0 16px rgba(255, 255, 255, 0.5); }
-        }
-
-        /* Responsive Design */
-=======
->>>>>>> Stashed changes
         @media (max-width: 480px) {
             .fitness-illustration {
                 font-size: 100px;
@@ -952,7 +547,7 @@
                 font-size: 28px;
             }
 
-            .login-box p:first-child {
+            .signup-box p:first-child {
                 font-size: 2rem;
             }
         }
@@ -973,23 +568,9 @@
             <i class="fas fa-fire decoration" style="bottom: 15%; right: 10%;"></i>
         </div>
 
-        <!-- Wavy Divider -->
-        {{!-- <div class="wave-divider">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 Q25,50 50,0 T100,0 V100 H0 Z" fill="currentColor">
-                    <animate attributeName="d" dur="10s" repeatCount="indefinite" values="
-                        M0,0 Q25,50 50,0 T100,0 V100 H0 Z;
-                        M0,0 Q30,60 50,10 T100,0 V100 H0 Z;
-                        M0,0 Q20,40 50,-10 T100,0 V100 H0 Z;
-                        M0,0 Q25,50 50,0 T100,0 V100 H0 Z
-                    " />
-                </path>
-            </svg>
-        </div> --}}
-
         <!-- Right Side - Signup Form -->
         <div class="right-side">
-            <div class="login-container login-box">
+            <div class="signup-container signup-box">
                 <p>Create Account</p>
                 <form id="signupForm">
                     <div class="user-box">
@@ -1003,14 +584,13 @@
                     <div class="user-box">
                         <input required="" name="password" type="password" id="passwordInput">
                         <label><i class="fas fa-lock"></i> Password</label>
-                        <i class="fas fa-eye password-toggle" id="togglePassword" style="font-size: 14px;"></i>
                     </div>
-                    <button type="submit" class="login-btn">
+                    <button type="submit" class="signup-btn">
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
-                        Sign Up
+                        Create Account
                     </button>
                     <div id="message"></div>
                 </form>
@@ -1019,63 +599,6 @@
         </div>
     </div>
 
-<<<<<<< Updated upstream
-    <div class="geometric-bg"></div>
-
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-
-    <!-- Main Signup Form -->
-    <div class="signup-container">
-        <div class="logo-container">
-            <div class="logo-icon">💪</div>
-            <h2>Join Mission Fitness</h2>
-            <p class="subtitle">Transform your body, elevate your life</p>
-        </div>
-
-        <div class="input-group">
-            <input type="text" name="username" placeholder="Username" required>
-            <div class="input-icon">👤</div>
-        </div>
-
-        <div class="input-group">
-            <input type="email" name="email" placeholder="Email Address" required>
-            <div class="input-icon">📧</div>
-        </div>
-
-        <div class="input-group">
-            <input type="password" name="password" placeholder="Create Password" required>
-            <div class="input-icon">🔒</div>
-        </div>
-
-        <button onclick="handleSubmit()">Start Your Journey</button>
-
-        <div class="signin-link">
-            Already crushing it? <a href="#">Sign In</a>
-        </div>
-    </div>
-
-    <script>
-        // Enhanced form interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('.signup-container');
-            const inputs = form.querySelectorAll('input');
-            
-            // Add input focus animations
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'scale(1.02)';
-                    this.parentElement.style.zIndex = '21';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'scale(1)';
-                    this.parentElement.style.zIndex = '20';
-                });
-=======
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -1086,7 +609,6 @@
             userBoxes.forEach(box => {
                 const input = box.querySelector('input');
                 const label = box.querySelector('label');
->>>>>>> Stashed changes
 
                 function checkInput() {
                     if (input.value.trim() !== '') {
@@ -1111,84 +633,14 @@
                 // Also check on focus out
                 input.addEventListener('blur', checkInput);
             });
-<<<<<<< Updated upstream
-        });
-
-        // Form submission with animation
-        function handleSubmit() {
-            const form = document.querySelector('.signup-container');
-            const button = form.querySelector('button');
-            const originalText = button.textContent;
-            
-            button.style.background = 'linear-gradient( #060606 0%, #393535 50%, #141414 100%)';
-            button.textContent = 'Welcome to Mission Fitness! 🎉';
-            
-            // Create success animation
-            setTimeout(() => {
-                form.style.animation = 'slideInScale 1s cubic-bezier(0.4, 0, 0.2, 1) reverse';
-                setTimeout(() => {
-                    alert('Welcome to Mission Fitness! Your fitness journey starts now! 💪');
-                    button.textContent = originalText;
-                    button.style.background = '';
-                    form.style.animation = '';
-                }, 1000);
-            }, 1000);
         }
 
-        // Add random floating animation to background icons
-        setInterval(() => {
-            const icons = document.querySelectorAll('.fitness-icon');
-            icons.forEach(icon => {
-                const randomDelay = Math.random() * 2;
-                const randomDuration = 2.5 + Math.random() * 2;
-                icon.style.animationDuration = randomDuration + 's';
-                icon.style.animationDelay = randomDelay + 's';
-            });
-        }, 8000);
-
-        // Add mouse movement parallax effect
-        document.addEventListener('mousemove', function(e) {
-            const container = document.querySelector('.signup-container');
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-            
-            container.style.transform = `perspective(1000px) rotateY(${(x - 50) * 0.08}deg) rotateX(${(y - 50) * 0.08}deg)`;
-        });
-
-        // Reset transform when mouse leaves
-        document.addEventListener('mouseleave', function() {
-            const container = document.querySelector('.signup-container');
-            container.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-=======
-        }
-
-        // Password Toggle Functionality
         document.addEventListener('DOMContentLoaded', function () {
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('passwordInput');
-
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function () {
-                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordInput.setAttribute('type', type);
-                    this.classList.toggle('fa-eye');
-                    this.classList.toggle('fa-eye-slash');
-                });
-            }
-
             handleFloatingLabels();
-
-            const token = "{{token}}";
-
-            if (!token) {
-                alert("Missing token. Please refresh the page.");
-                document.getElementById("signupForm").style.display = "none";
-                return;
-            }
 
             const form = document.getElementById("signupForm");
             const messageEl = document.getElementById("message");
-            const submitBtn = form.querySelector(".login-btn");
+            const submitBtn = form.querySelector(".signup-btn");
 
             form.addEventListener("submit", async function (event) {
                 event.preventDefault();
@@ -1209,24 +661,23 @@
                         password: password
                     });
 
-                    messageEl.textContent = res.data.message || "Sign-up successful! Please check your email to verify your account.";
+                    messageEl.textContent = res.data.message || "Account created successfully! Please check your email.";
                     messageEl.className = 'success';
 
                     form.reset();
 
-                    // Redirect to verify-email page
+                    // Redirect to verify email page with email parameter
                     setTimeout(() => {
                         window.location.href = `/verify-email?email=${encodeURIComponent(email)}`;
-                    }, 2000);
+                    }, 1500);
 
                 } catch (error) {
                     submitBtn.classList.remove('loading');
                     
-                    messageEl.textContent = error?.response?.data?.error || "Something went wrong.";
+                    messageEl.textContent = error?.response?.data?.error || "Failed to create account.";
                     messageEl.className = 'error';
                 }
             });
->>>>>>> Stashed changes
         });
     </script>
 </body>

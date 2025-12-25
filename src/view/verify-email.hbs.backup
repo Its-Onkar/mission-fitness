@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email - Mission Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #3a3a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Radial gradient circles with orange glows */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+            
+            top: -300px;
+            left: -300px;
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            right: -200px;
+            pointer-events: none;
+            animation: pulse 10s ease-in-out infinite reverse;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+           
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 
+                        0 0 0 1px rgba(249, 115, 22, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            max-width: 450px;
+            width: 100%;
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1;
+            margin: 0 auto;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
+        }
+
+        .icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .icon i {
+            font-size: 32px;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .email {
+            color: #f97316;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-shadow: 0 1px 5px rgba(249, 115, 22, 0.3);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            color: #1a1a1a;
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(249, 115, 22, 0.4);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #f97316;
+        }
+
+        .secondary-btn:hover {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            color: #1a1a1a;
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(249, 115, 22, 0.1) 100%);
+            color: #f97316;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-box h3 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+            padding-left: 20px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        .timer {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 25px 30px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .action-btn {
+                padding: 14px 18px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body class=" relative overflow-hidden geometric-bg">
+    <!-- Floating Squares Background -->
+    <div class="floating-squares">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="flex justify-center items-center min-h-screen p-2 relative z-10">
+        <div class="glass-card rounded-2xl shadow-2xl max-w-md w-full  card-enter glow-effect">
+            
+            <!-- Header Section -->
+            <div class="text-center px-4 pt-4 pb-2">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-black text-white mb-2">
+                        <span class="text-white">MISSION</span>
+                        <span class="text-gray-400">FITNESS</span>
+                    </h1>
+                    <div class="w-20 h-1 bg-white mx-auto rounded-full"></div>
+                </div>
+            </div>
+            
+            <!-- Success State -->
+            {{#if success}}
+            <div class="px-4 pb-4">
+                <!-- Success Icon -->
+                <div class="flex justify-center mb-4">
+                    <div class="success-icon bg-white text-black rounded-full p-6 pulse-glow">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Success Content -->
+                <div class="text-center mb-4">
+                    <div class="status-badge bg-white text-black mx-auto mb-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        VERIFIED
+                    </div>
+                    <h2 class="text-3xl font-black text-white mb-2">
+                        <span class="text-gradient">WELCOME TO</span><br>
+                        <span class="text-white">THE MISSION</span>
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed text-md">
+                       Email Verified. Elite Access Unlocked.
+                    </p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="space-y-2">
+                    <a href="/dashboard" class="block w-full bg-white text-black py-4 px-6 rounded-xl font-bold text-center button-hover text-lg">
+                        <div class="flex items-center justify-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            START YOUR MISSION
+                        </div>
+                    </a>
+                    <a href="/profile" class="block w-full bg-transparent text-white py-2 px-4 rounded-xl font-semibold text-center border-2 border-white button-hover">
+                        COMPLETE PROFILE SETUP
+                    </a>
+                </div>
+                
+                <!-- Additional Info -->
+                <div class="mt-4 p-3 bg-gray-800/50 rounded-xl border border-gray-700">
+                    <div class="flex items-start">
+                        <div class="bg-white text-black rounded-full p-2 mr-4 flex-shrink-0">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-md font-bold text-white mb-2">WHAT'S NEXT?</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                Set your fitness goals, explore our AI-powered training programs, and connect with elite trainers to maximize your potential.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            
+            <!-- Error State -->
+            <div class="px-8 pb-8">
+                <!-- Error Icon -->
+                <div class="flex justify-center mb-4">
+                    <div class="error-shake bg-gray-800 border-2 border-white text-white rounded-full p-4">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Error Content -->
+                <div class="text-center mb-4">
+                    <div class="status-badge bg-gray-800 text-white border border-gray-600 mx-auto mb-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                        </svg>
+                        FAILED
+                    </div>
+                    <h2 class="text-3xl font-black text-white mb-8">
+                        <span class="text-gradient">VERIFICATION</span><br>
+                        <span class="text-white">FAILED</span>
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed text-md">
+                        Expired link—fresh one on its way.
+                    </p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="space-y-2">
+                    <button onclick="resendVerification()" class="w-full bg-white text-black py-4 px-6 rounded-xl font-bold button-hover text-lg" id="resendBtn">
+                        <div class="flex items-center justify-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            SEND NEW VERIFICATION
+                        </div>
+                    </button>
+                    <a href="/login" class="block w-full bg-transparent text-white py-3 px-4 rounded-xl font-semibold text-center border-2 border-white button-hover">
+                        BACK TO LOGIN
+                    </a>
+                </div>
+                
+                <!-- Troubleshooting -->
+                <div class="mt-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+                    <div class="flex items-start">
+                        <div class="bg-gray-700 text-white rounded-full p-2 mr-4 flex-shrink-0">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-md font-bold text-white mb-2">NEED ASSISTANCE?</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                               Need help? Check spam or email .
+                                <a href="mailto:support@missionfitness.com" class="text-white underline font-semibold">support@missionfitness.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            
+            <!-- Footer -->
+            
+<body>
+    <div class="container">
+        <div class="icon">
+            <i class="fas fa-envelope-open"></i>
+        </div>
+
+        <h1>Verify Your Email</h1>
+        <p class="subtitle">We've sent a verification link to</p>
+        <p class="email" id="userEmail">user@example.com</p>
+
+        <div class="success-message" id="successMessage">
+            Verification email sent successfully!
+        </div>
+
+        <button class="action-btn primary-btn" onclick="openGmail()">
+            <i class="fas fa-envelope"></i>
+            Open Gmail
+        </button>
+
+        <button class="action-btn secondary-btn" id="resendBtn" onclick="resendToken()">
+            <i class="fas fa-redo"></i>
+            Resend Verification Email
+        </button>
+
+        <div class="timer" id="timer"></div>
+
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle" style="color: #f97316; margin-right: 8px;"></i> Next Steps:</h3>
+            <ul>
+                <li>Click "Open Gmail" to check your inbox</li>
+                <li>Look for the verification email</li>
+                <li>Click the verification link in the email</li>
+                <li>Didn't receive it? Click "Resend" after 60 seconds</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+
+        // Resend verification function
+        async function resendVerification() {
+            const btn = document.getElementById('resendBtn');
+            const originalContent = btn.innerHTML;
+            
+            // Show loading state
+            btn.innerHTML = `
+                <div class="flex items-center justify-center gap-2">
+                    <svg class="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    SENDING...
+                </div>
+            `;
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Success state
+                btn.innerHTML = `
+                    <div class="flex items-center justify-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        EMAIL SENT!
+                    </div>
+                `;
+                btn.classList.remove('opacity-75');
+                btn.classList.add('pulse-glow');
+                
+            } catch (error) {
+                // Error state
+                btn.innerHTML = `
+                    <div class="flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        FAILED TO SEND
+                    </div>
+                `;
+                btn.classList.remove('opacity-75');
+                btn.classList.add('bg-gray-800', 'text-white', 'border-2', 'border-white');
+                btn.classList.remove('bg-white', 'text-black');
+            }
+            
+            // Reset button after 4 seconds
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                btn.className = 'w-full bg-white text-black py-4 px-6 rounded-xl font-bold button-hover text-md';
+            }, 4000);
+
+        let resendTimer = 0;
+        let timerInterval;
+
+        function openGmail() {
+            window.open('https://mail.google.com', '_blank');
+
+        }
+
+        function resendToken() {
+            if (resendTimer > 0) {
+                return;
+            }
+
+            const email = document.getElementById('userEmail').textContent;
+            const resendBtn = document.getElementById('resendBtn');
+            
+            // Disable button and show loading
+            resendBtn.disabled = true;
+            resendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Simulate API call to resend token (replace with actual API endpoint)
+            setTimeout(() => {
+                // Replace this with your actual API call
+                fetch('/api/resend-verification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Verification email sent:', data);
+                    showSuccess('Verification email sent! Check your inbox.');
+                    startTimer();
+                })
+                .catch(error => {
+                    console.error('Error sending email:', error);
+                    showSuccess('Verification email sent! Check your inbox.');
+                    startTimer();
+                });
+                
+                resendBtn.innerHTML = '<i class="fas fa-redo"></i> Resend Verification Email';
+            }, 1000);
+        }
+
+        function startTimer() {
+            const resendBtn = document.getElementById('resendBtn');
+            const timerDisplay = document.getElementById('timer');
+            
+            resendTimer = 60;
+            resendBtn.disabled = true;
+            
+            timerInterval = setInterval(() => {
+                resendTimer--;
+                timerDisplay.textContent = `You can resend in ${resendTimer} seconds`;
+                
+                if (resendTimer === 0) {
+                    clearInterval(timerInterval);
+                    resendBtn.disabled = false;
+                    timerDisplay.textContent = '';
+                }
+            }, 1000);
+        }
+
+        function showSuccess(message) {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = message;
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Check for token in URL (auto-verify)
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            const email = urlParams.get('email');
+            
+            // Set user email if provided in URL
+            if (email) {
+                document.getElementById('userEmail').textContent = email;
+            }
+            
+            // If token is present, auto-verify
+            if (token) {
+                // Call your verification API
+                fetch(`/auth/verify-email?token=${token}`, {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/verified-email?success=true';
+                    } else {
+                        window.location.href = '/verified-email?success=false';
+                    }
+                })
+                .catch(error => {
+                    console.error('Verification error:', error);
+                    window.location.href = '/verified-email?success=false';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

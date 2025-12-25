@@ -21,7 +21,7 @@ const userschema = new Schema({
     role: {
         type: String,
         enum: ['admin', 'user'],
-        default: "user"
+        default: 'user'
     },
     isVerified: {   
         type: Boolean,
@@ -36,25 +36,21 @@ const userschema = new Schema({
         type: Boolean,
         default: false
     },
+    resetPasswordToken: {
+        type: String,
+        required: false
+    },
+    resetPasswordExpires: {
+        type: Date,
+        required: false
+    },
 
-<<<<<<< Updated upstream
+
 
 }, {
     timestamps: true
 })
 
 const User = mongoose.model('User', userschema)
-=======
-    role: { type: String, enum: ["admin", "user"], default: "user" },
-    isVerified: { type: Boolean, default: false },
-    status: { type: String, enum: ["active", "inactive"], default: "active" },  
-
-    onboardingCompleted: { type: Boolean, default: false },
-    profileImage: { type: String, default: "" },
-    lastProfileUpdate: { type: Date, default: null },
-  },
-  { timestamps: true }
-);
->>>>>>> Stashed changes
 
 export default User;

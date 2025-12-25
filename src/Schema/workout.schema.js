@@ -6,8 +6,8 @@ const workoutPlanSchema = new mongoose.Schema({
   goal: { type: String }, // e.g. "Weight Loss"
   startDate: { type: Date, default: Date.now },
   createdByAI: { type: Boolean, default: true },
-<<<<<<< Updated upstream
-=======
+
+
 
   routines: [
     {
@@ -23,7 +23,7 @@ const workoutPlanSchema = new mongoose.Schema({
       ]
     }
   ]
->>>>>>> Stashed changes
+
 }, { timestamps: true });
 
 const WorkoutPlan = mongoose.model("WorkoutPlan", workoutPlanSchema);

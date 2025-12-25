@@ -36,7 +36,7 @@ export const signup = async (userData) => {
             token: token
         })
         
-        const verifyLink = `${BASE_URL}/verified-email?token=${token}`;
+        const verifyLink = `${BASE_URL}/verify-email?token=${token}`;
         const to = userData.email
         const subject = "Verify your email | " + userData.userName
         const body = `Hello ${userData.userName},\n\nWelcome to missionFitness! We're excited to have you on board.\n\nBest regards,\nThe missionFitness Team\n<h3>Verify your email</h3><p>Click below to verify your email:</p><a href="${verifyLink}">${verifyLink}</a>`
@@ -85,10 +85,6 @@ export const verifyEmailService = async (token) => {
 
 export const login = async (logindata) => {
     try {
-<<<<<<< Updated upstream
-        const { userName, password } = logindata
-        const user = await getUserByUserName(userName)
-=======
         const { userName, password } = logindata;
         
         if (!userName || !password) {
@@ -103,7 +99,7 @@ export const login = async (logindata) => {
         });
         
         console.log("User found:", user ? "Yes" : "No");
->>>>>>> Stashed changes
+
 
         if (!user) {
             throw new Error("Invalid username or password");
@@ -132,14 +128,14 @@ export const login = async (logindata) => {
         if (!token) {
             throw new Error("Token generation failed");
         }
-<<<<<<< Updated upstream
+
 console.log("token:", token);
         console.log("user:", user);
         console.log("mydata:",  {
             user, token
         });
-=======
->>>>>>> Stashed changes
+
+
        
         return { user, token };
 
@@ -150,50 +146,97 @@ console.log("token:", token);
 }
 
 
+import crypto from 'crypto';
+
 export const forgotPassword = async (email) => {
-    const user = await User.findOne({
-        email,
-    });
+    const user = await User.findOne({ email });
     if (!user) {
         throw new Error("User Not Found");
     }
-    const token = generateToken({ email, tokenType: "forgotPassword" }, "10m");
+
+    // Generate random token
+    const token = crypto.randomBytes(32).toString('hex');
+    const tokenExpiry = Date.now() + 3600000; // 1 hour
+
+    // Save token to DB
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = tokenExpiry;
+    await user.save();
+
+    const resetLink = `${BASE_URL}/reset-password?token=${token}`;
 
     await sendEmail({
-        subject: "Your password reset link",
+        subject: "Reset Your Password | Mission Fitness",
         body: `
-      <p>Click the link below to reset your password:</p>
-      <a href="http://localhost:6001/reset-password?token=${token}>
-        Reset Password 
-      </a>
-      `,
+            <h3>Password Reset Request</h3>
+            <p>You requested a password reset. Click the link below to set a new password:</p>
+            <a href="${resetLink}" style="display: inline-block; padding: 12px 24px; background-color: #f97316; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+            <p>If you didn't request this, please ignore this email.</p>
+            <p>This link will expire in 1 hour.</p>
+        `,
         to: email,
     });
 };
 
 export const resetPassword = async ({ token, newPassword }) => {
-    const data = verifyToken(token);
-    if (!data) {
-        throw new Error("Data not found");
+    const user = await User.findOne({
+        resetPasswordToken: token,
+        resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        throw new Error("Password reset token is invalid or has expired");
     }
-    const email = data.email;
 
     const newpwdhash = await createPasswordHash(newPassword);
 
-    await User.findOneAndUpdate(
-        {
-            email,
-        },
-        {
-            password: newpwdhash,
-        },
-        {
-            new: true,
-        },
-        
-    );
+    user.password = newpwdhash;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
     
+    await user.save();
 };
 
 
 
+export const resendVerification = async (email) => {
+    try {
+        const user = await User.findOne({ 
+            email: { $regex: new RegExp(`^${email}$`, 'i') }
+        });
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        if (user.isVerified) {
+            throw new Error("Email is already verified");
+        }
+
+        // Delete existing token if any
+        await VerifyToken.findOneAndDelete({ userId: user._id });
+
+        // Generate new token
+        const token = generateToken({
+            userName: user.userName,
+            email: user.email
+        }, 7 * 24 * 60 * 60);
+
+        // Save new token
+        await VerifyToken.create({
+            userId: user._id,
+            token: token
+        });
+
+        const verifyLink = `${BASE_URL}/verify-email?token=${token}`;
+        const to = user.email;
+        const subject = "Verify your email | " + user.userName;
+        const body = `Hello ${user.userName},\n\nHere is your new verification link.\n\nBest regards,\nThe missionFitness Team\n<h3>Verify your email</h3><p>Click below to verify your email:</p><a href="${verifyLink}">${verifyLink}</a>`;
+        
+        await sendEmail({ to, subject, body });
+
+        return { message: "Verification email sent successfully" };
+
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};

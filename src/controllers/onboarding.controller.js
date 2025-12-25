@@ -4,6 +4,7 @@ import { markOnboardingComplete } from "../services/user.services.js";
 import { createWorkoutPlan } from "../services/workoutPlan.service.js";
 import { getFitnessResponse } from "../utils/prompt.utils.js";
 import User from "../Schema/user.schema.js";
+import logger from "../utils/logger.js";
 
 
 export const getOnboardingDataController = async (req, res) => {
@@ -18,30 +19,36 @@ export const getOnboardingDataController = async (req, res) => {
 }
 
 export const createOnboardingController = async (req, res) => {
+    const startTime = Date.now();
+    
     try {
         const onboardingData = req.body;
         const userData = req.auth;
         
-        console.log('Creating onboarding for user:', userData._id);
-        console.log('Onboarding data received:', onboardingData);
+        logger.info(`Creating onboarding for user: ${userData._id}`);
+        logger.debug('Onboarding data received:', onboardingData);
         
         // Validate required fields for fitness profile
         if (!onboardingData.gender || !onboardingData.age || !onboardingData.heightCm || !onboardingData.weightKg) {
+            logger.warn(`Onboarding validation failed for user ${userData._id}: Missing required fields`);
             return res.status(400).json({ message: 'Missing required fields: gender, age, heightCm, weightKg' });
         }
         
         // Validate enum values for fitness profile
         const validGenders = ['male', 'female', 'other'];
         if (!validGenders.includes(onboardingData.gender)) {
+            logger.warn(`Onboarding validation failed for user ${userData._id}: Invalid gender value`);
             return res.status(400).json({ message: 'Invalid gender value' });
         }
         
         const validGoals = ['weight loss', 'muscle gain', 'maintenance', 'balanced', 'weight gain'];
         if (onboardingData.goal && !validGoals.includes(onboardingData.goal)) {
+            logger.warn(`Onboarding validation failed for user ${userData._id}: Invalid goal value`);
             return res.status(400).json({ message: 'Invalid goal value' });
         }
         
         // Create fitness profile
+        logger.info(`Creating fitness profile for user ${userData._id}`);
         const fitnessResult = await createFitness(onboardingData, userData);
         const fitnessProfile = fitnessResult.fitnessProfile;
         
@@ -53,34 +60,45 @@ export const createOnboardingController = async (req, res) => {
         
         let aiResponse = null;
         try {
-            console.log('Generating AI response...');
+            logger.info(`Generating AI response for user ${userData._id}`);
             aiResponse = await getFitnessResponse(
                 aiPlanData, 
                 `Create a personalized fitness plan based on my profile. Include weekly workout schedule and nutrition tips.`
             );
-            console.log('AI response generated successfully');
+            logger.info(`AI response generated successfully for user ${userData._id}`);
         } catch (aiError) {
-            console.error('AI generation failed:', aiError.message);
+            logger.error(`AI generation failed for user ${userData._id}:`, aiError.message);
             // Continue without AI plan if it fails
         }
         
         // Create traditional plans with diet preference validation
-        console.log('Diet preference from onboarding:', onboardingData.dietPreference);
-        console.log('Diet preference in fitness profile:', fitnessProfile.dietPreference);
+        logger.debug(`Diet preference from onboarding: ${onboardingData.dietPreference}`);
+        logger.debug(`Diet preference in fitness profile: ${fitnessProfile.dietPreference}`);
         
+        logger.info(`Creating diet and workout plans for user ${userData._id}`);
         const dietPlanResult = await createDietPlan(fitnessProfile, userData);
         const workoutPlanResult = await createWorkoutPlan(fitnessProfile, userData);
-        console.log (dietPlanResult, workoutPlanResult);
+        logger.debug(`Plans created for user ${userData._id}:`, { 
+            dietPlan: !!dietPlanResult, 
+            workoutPlan: !!workoutPlanResult 
+        });
         
         // Extract AI-generated plans from the services
         const aiWorkoutPlan = workoutPlanResult.aiPlan || null;
         const aiDietPlan = dietPlanResult.aiPlan || null;
         
-        // Mark onboarding complete
-        await markOnboardingComplete(userData._id);
+        // Use flow service to mark onboarding complete
+        logger.info(`Marking onboarding complete for user ${userData._id}`);
+        const { markFlowStepComplete } = await import('../services/flow.service.js');
         
-        // Update user's onboarding status
-        await User.findByIdAndUpdate(userData._id, { onboardingCompleted: true });
+        // Mark onboarding step complete (this updates Onboarding.isComplete)
+        await markFlowStepComplete(userData._id, 'onboarding');
+        
+        // Mark AI plans step complete (this updates User.onboardingCompleted)
+        await markFlowStepComplete(userData._id, 'ai_plans');
+        
+        const duration = Date.now() - startTime;
+        logger.info(`Onboarding completed successfully for user ${userData._id} (${duration}ms)`);
 
         res.status(201).json({
             message: "Fitness profile created, AI-powered plan generated",
@@ -98,7 +116,12 @@ export const createOnboardingController = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Onboarding error:', error);
+        const duration = Date.now() - startTime;
+        logger.error(`Onboarding error for user ${req.auth?._id} (${duration}ms):`, {
+            error: error.message,
+            stack: error.stack,
+            name: error.name
+        });
         
         // More specific error messages
         if (error.name === 'ValidationError') {

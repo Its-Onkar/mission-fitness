@@ -808,10 +808,10 @@ margin-left: 12px;
 <span>🔧</span>
 <span>Test Auth</span>
 </button>
-<a href="/main-dashboard" class="generate-btn" style="margin: 0;">
+<button id="continueToDashboard" class="generate-btn" style="margin: 0; border: none; cursor: pointer;">
 <span>Continue to Dashboard</span>
 <span class="btn-icon">→</span>
-</a>
+</button>
 </div>
 <header class="header">
 <h1 class="header-title">Your AI Fitness Plans</h1>
@@ -1084,23 +1084,82 @@ contentContainer.querySelector(`[data-day="${day}"]`).classList.add('active');
             DOM.noPlans.style.display = 'none';
             DOM.plansContainer.style.display = 'none';
 
-            // Use daily rotation system
-            const todaysWorkout = getDailyWorkout();
-            const todaysDiet = getDailyDiet('vegetarian');
-            
-            state.workout = [{
-                day: 'Today',
-                focus: 'Daily Rotation',
-                exercises: todaysWorkout
-            }];
-            
-            state.diet = [{
-                day: 'Today',
-                meals: todaysDiet,
-                waterIntake: '2500ml'
-            }];
+            // 1. Try LocalStorage first (immediate post-onboarding)
+            const localWorkout = localStorage.getItem('workoutPlan');
+            const localDiet = localStorage.getItem('dietPlan');
 
-            displayPlans();
+            if (localWorkout && localDiet) {
+                console.log('Loading plans from LocalStorage');
+                state.workout = JSON.parse(localWorkout);
+                state.diet = JSON.parse(localDiet);
+                
+                // Ensure array format
+                if (!Array.isArray(state.workout)) state.workout = [state.workout];
+                if (!Array.isArray(state.diet)) state.diet = [state.diet];
+                
+                displayPlans();
+                return;
+            }
+
+            // 2. Fetch from Backend (returning user)
+            console.log('Fetching plans from backend...');
+            
+            // Get token
+            const serverToken = "{{token}}";
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = serverToken && serverToken !== "{{token}}" ? serverToken : 
+                         urlParams.get('token') || 
+                         localStorage.getItem('token');
+
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
+
+            // We need userId. Let's get it from the token or a profile endpoint.
+            // For now, let's assume we can get it from a profile endpoint or the token payload if decoded (but we can't decode easily here without lib).
+            // Better approach: Use an endpoint that uses the token to identify the user, OR fetch profile first.
+            
+            // Let's fetch the user profile first to get the ID
+            const profileResponse = await fetch('/api/auth/me', { // Assuming this exists or similar
+                 headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            // Fallback: If /me doesn't exist, try to use the test-auth endpoint which returns user info
+             const authResponse = await fetch('/api/performance/test-auth', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            if (!authResponse.ok) throw new Error('Failed to authenticate');
+            const authData = await authResponse.json();
+            const userId = authData.user.id || authData.user._id;
+
+            // Now fetch plans
+            const [workoutRes, dietRes] = await Promise.all([
+                fetch(`/api/workout/workout/${userId}`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                fetch(`/api/diet/diet/${userId}`, { headers: { 'Authorization': `Bearer ${token}` } })
+            ]);
+
+            if (workoutRes.ok) {
+                const workoutData = await workoutRes.json();
+                // The backend now returns { ...plan, workoutPlan: [...] } or just the plan object
+                // We updated the service to return { ...workoutPlanObj, workoutPlan: [...] }
+                state.workout = workoutData.workoutPlan || []; 
+            }
+
+            if (dietRes.ok) {
+                const dietData = await dietRes.json();
+                // Diet service returns { dbPlan: ..., aiPlan: ... } usually, but let's check what the GET returns
+                // The GET /diet/:userId calls getDietPlanByUserId which returns the DB object.
+                // The DB object has `mealDetails.data` which is the plan array.
+                state.diet = dietData.mealDetails?.data || [];
+            }
+
+            if ((!state.workout || state.workout.length === 0) && (!state.diet || state.diet.length === 0)) {
+                showNoPlans();
+            } else {
+                displayPlans();
+            }
+
         } catch (error) {
             console.error('Error loading plans:', error);
             showNoPlans();
@@ -1593,6 +1652,7 @@ function handleGlobalClick(e) {
     if (e.target.closest('.day-btn')) handleDaySwitch(e.target.closest('.day-btn'));
     if (e.target.closest('.water-glass')) handleWaterGlassClick(e.target.closest('.water-glass'));
     if (e.target.closest('#testAuthBtn')) testAuthentication();
+    if (e.target.closest('#continueToDashboard')) handleContinueToDashboard();
 }
 
 // Debug function to check token
@@ -1607,7 +1667,7 @@ function debugToken() {
     console.log('URL token:', urlParams.get('token'));
     console.log('Local storage token:', localToken ? localToken.substring(0, 20) + '...' : 'null');
     console.log('Session storage token:', sessionToken ? sessionToken.substring(0, 20) + '...' : 'null');
-    console.log('==================');
+    console.log('====');
 }
 
 // Test authentication function
@@ -1660,10 +1720,51 @@ window.testAuth = testAuthentication;
 }
 document.addEventListener('DOMContentLoaded', init);
 
+// Handle continue to dashboard
+async function handleContinueToDashboard() {
+    try {
+        const btn = document.getElementById('continueToDashboard');
+        btn.disabled = true;
+        btn.innerHTML = '<span>Completing Setup...</span><span class="btn-icon">⏳</span>';
+        
+        const token = "{{token}}" !== "{{token}}" ? "{{token}}" : 
+                     new URLSearchParams(window.location.search).get('token') || 
+                     localStorage.getItem('token');
+        
+        if (!token) {
+            alert('Please login first');
+            window.location.href = '/login';
+            return;
+        }
+        
+        const response = await fetch('/api/flow/complete-onboarding', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            window.location.href = '/main-dashboard';
+        } else {
+            throw new Error(result.message || 'Failed to complete setup');
+        }
+    } catch (error) {
+        console.error('Error completing onboarding:', error);
+        alert('Error completing setup: ' + error.message);
+        const btn = document.getElementById('continueToDashboard');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Continue to Dashboard</span><span class="btn-icon">→</span>';
+    }
+}
+
 // Make functions available globally
 window.debugToken = debugToken;
 window.testAuth = testAuthentication;
+window.handleContinueToDashboard = handleContinueToDashboard;
 </script>
-    {{> footer}}
 </body>
 </html>

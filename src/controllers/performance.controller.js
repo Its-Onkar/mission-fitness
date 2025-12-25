@@ -37,31 +37,16 @@ export const testAuth = async (req, res) => {
 
 export const completeWorkout = async (req, res) => {
   try {
-    if (!req.auth || !req.auth._id) {
+    const user = req.user || req.auth;
+    if (!user || !user._id) {
       return res.status(401).json({ message: 'Authentication required' });
     }
     
-    const userId = req.auth._id;
+    const userId = user._id;
     console.log('Marking workout complete for user:', userId);
     
     const performance = await markWorkoutComplete(userId);
-    console.log('Workout marked complete:', {
-      userId,
-      streak: performance.streak,
-      score: performance.score,
-      workoutCompleted: performance.workoutCompleted,
-      dietCompleted: performance.dietCompleted
-    });
-    
-    // Send completion email if user has email notifications enabled
-    if (req.auth.permissions?.emailUpdates) {
-      try {
-        await sendCompletionEmail(req.auth, 'workout');
-        console.log('Completion email sent');
-      } catch (emailError) {
-        console.error('Email send error:', emailError);
-      }
-    }
+    console.log('Workout marked complete:', performance);
     
     res.status(200).json({
       message: "Workout marked as complete!",
@@ -77,25 +62,16 @@ export const completeWorkout = async (req, res) => {
 
 export const completeDiet = async (req, res) => {
   try {
-    if (!req.auth || !req.auth._id) {
+    const user = req.user || req.auth;
+    if (!user || !user._id) {
       return res.status(401).json({ message: 'Authentication required' });
     }
     
-    const userId = req.auth._id;
+    const userId = user._id;
     console.log('Marking diet complete for user:', userId);
     
     const performance = await markDietComplete(userId);
     console.log('Diet marked complete:', performance);
-    
-    // Send completion email if user has email notifications enabled
-    if (req.auth.permissions?.emailUpdates) {
-      try {
-        await sendCompletionEmail(req.auth, 'diet');
-        console.log('Completion email sent');
-      } catch (emailError) {
-        console.error('Email send error:', emailError);
-      }
-    }
     
     res.status(200).json({
       message: "Diet marked as complete!",
@@ -111,11 +87,12 @@ export const completeDiet = async (req, res) => {
 
 export const getPerformanceData = async (req, res) => {
   try {
-    if (!req.auth || !req.auth._id) {
+    const user = req.user || req.auth;
+    if (!user || !user._id) {
       return res.status(401).json({ message: 'Authentication required' });
     }
     
-    const userId = req.auth._id;
+    const userId = user._id;
     const days = parseInt(req.query.days) || 7;
     const performance = await getUserPerformance(userId, days);
     

@@ -24,6 +24,7 @@
       background: linear-gradient(135deg, #000 0%, #111 100%);
     }
 
+    /* --- FLOATING CARDS --- */
     .floating-card {
       position: absolute;
       background: #1a1a1a;
@@ -37,6 +38,7 @@
       display: block;
       visibility: visible;
       opacity: 1;
+      gap: 2rem;
     }
 
     .floating-card::before {
@@ -50,6 +52,7 @@
       border-radius: 24px;
       opacity: 0;
       transition: opacity 0.3s ease;
+      gap: 2rem;
     }
 
     .floating-card:hover::before {
@@ -68,39 +71,28 @@
     }
 
     .floating-card-1 { 
-      bottom: 20%; 
-      left: 22%; 
+      top: 30%; 
+      left: 18%; 
       animation-delay: 0s;
       border-radius: 30px 10px 30px 10px;
     }
     .floating-card-2 { 
-      bottom: 35%; 
-      left: 22%; 
+      bottom: 25%; 
+      left: 18%; 
       animation-delay: 0.7s;
       border-radius: 10px 30px 10px 30px;
     }
     .floating-card-3 { 
-      bottom: 18%; 
-      right: 16%; 
+      top: 30%; 
+      right: 14%; 
       animation-delay: 1.4s;
       border-radius: 10px 25px 10px 25px;
     }
     .floating-card-4 { 
-      bottom: 35%; 
-      right: 22%; 
+      bottom: 25%; 
+      right: 18%; 
       animation-delay: 2.1s;
       border-radius: 10px 30px 10px 30px;
-    }
-
-    .trainer-badge {
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 1.5rem;
-      animation: float 4s ease-in-out infinite;
-      animation-delay: 0.5s;
-      z-index: 15;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, 
-     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     .gradient-text {
@@ -124,14 +116,12 @@
       position: relative;
       z-index: 10;
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
+      filter: brightness(0.9);
     }
 
-    .glow-orange {
-      box-shadow: 0 0 10px rgba(249, 115, 22, 0.3), 0 0 80px rgba(249, 115, 22, 0.2);
-    }
-
+    /* --- MOBILE MENU --- */
     .mobile-menu {
       transform: translateX(100%);
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -162,11 +152,12 @@
       .floating-card { 
         padding: 0.75rem;
         font-size: 0.85rem;
+        transform: scale(0.8);
       }
-      .floating-card-1 { left: 5%; bottom: 15%; }
-      .floating-card-2 { left: 5%; bottom: 35%; }
-      .floating-card-3 { right: 5%; bottom: 15%; }
-      .floating-card-4 { right: 5%; bottom: 35%; }
+      .floating-card-1 { left: 10%; bottom: 10%; }
+      .floating-card-2 { left: 2%; bottom: 10%; }
+      .floating-card-3 { right: 15%; bottom: 10%; }
+      .floating-card-4 { right: 2%; bottom: 10%; }
     }
 
     .luxury-section {
@@ -174,23 +165,11 @@
       overflow: hidden;
     }
 
-    .luxury-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
+    /* --- MARQUEE --- */
     .marquee-bg {
       position: absolute;
       inset: 0;
       z-index: 1;
-      
     }
 
     .marquee-bg::before {
@@ -201,8 +180,8 @@
       transform: translate(-50%, -50%);
       width: 800px;
       height: 800px;
-      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
-      box-shadow: 0 0 40px rgba(246, 246, 246, 0.4), 0 0 80px rgba(255, 255, 255, 0.3);
+      background: radial-gradient(circle, rgba(26, 25, 25, 0.2) 0%, rgba(64, 63, 63, 0.1) 100%);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.7), 0 0 80px rgba(255, 255, 255, 0.7);
       border-radius: 50%;
       filter: blur(60px);
     }
@@ -219,10 +198,10 @@
 
     .marquee-text {
       display: inline-block;
-      font-size: 4rem;
-      font-weight: 900;
+      font-size: 6rem;
+      font-weight: 700;
       color: #fff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
       animation: marquee 40s linear infinite;
     }
 
@@ -237,40 +216,32 @@
       100% { transform: translateX(-50%); }
     }
 
-    .hero-button {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-    }
-
     .bottom-gradient {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 20%;
-      background: linear-gradient(to top, #000, transparent);
-      z-index: 10;
+      height: 25%;
+      background: linear-gradient(to top, #000 10%, transparent);
+      z-index: 25;
       pointer-events: none;
     }
 
+    /* --- NAVBAR --- */
     .nav-fixed {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #000;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
       z-index: 50;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
     .nav-container {
       max-width: 80rem;
       margin: 0 auto;
       padding: 0 1.5rem;
-     
-      
     }
 
     .nav-flex {
@@ -285,52 +256,13 @@
       font-weight: 700;
     }
 
-    .nav-logo-white {
-      color: #fff;
-    }
+    .nav-logo-white { color: #fff; }
+    .nav-logo-gradient { font-style: italic; color: #f97316; }
 
-    .nav-logo-gradient {
-      font-style: italic;
-      color: #f97316;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav-link {
-      color: #fff;
-      transition: all 0.3s;
-      font-weight: 500;
-      border-bottom: 2px solid transparent;
-      padding-bottom: 0.25rem;
-      text-decoration: none;
-    }
-
-    .nav-link:hover {
-      color: #fb923c;
-      border-color: #fb923c;
-    }
-
-    .nav-link-inactive {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .nav-buttons {
-      gap: 1rem;
-      display: flex;
-      
-      justify-items: end;
-    }
-
+    .nav-buttons { gap: 1rem; display: flex; justify-items: end; }
     @media (min-width: 768px) {
-      .nav-buttons {
-        display: flex;
-      }
-      .burger {
-        display: none;
-      }
+      .nav-buttons { display: flex; }
+      .burger { display: none; }
     }
 
     .nav-button {
@@ -343,21 +275,17 @@
       text-decoration: none;
       display: inline-block;
     }
-
     .nav-button:hover {
       border-color: rgba(255, 255, 255, 0.4);
       background-color: rgba(255, 255, 255, 0.1);
     }
-
     .nav-button-register {
       background-color: #dc2626;
       color: #fff;
       font-weight: 600;
+      border: none;
     }
-
-    .nav-button-register:hover {
-      background-color: #b91c1c;
-    }
+    .nav-button-register:hover { background-color: #b91c1c; }
 
     .burger {
       display: flex;
@@ -368,7 +296,6 @@
       border: none;
       cursor: pointer;
     }
-
     .burger-line {
       width: 1.5rem;
       height: 0.125rem;
@@ -376,6 +303,7 @@
       border-radius: 0.25rem;
     }
 
+    /* Mobile Menu details */
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -387,38 +315,18 @@
       padding: 5rem 1.5rem 0;
       z-index: 60;
     }
-
     .mobile-menu-flex {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
-
-    .mobile-link {
-      color: #fff;
-      transition: all 0.3s;
-      font-size: 1.125rem;
-      font-weight: 500;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 0.5rem;
-      text-decoration: none;
-    }
-
-    .mobile-link:hover {
-      color: #fb923c;
-      border-color: #fb923c;
-    }
-
-    .mobile-link-inactive {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
     .mobile-border-t {
       padding-top: 1.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       gap: 1rem;
+      display: flex;
+      flex-direction: column;
     }
-
     .mobile-button {
       width: 100%;
       color: #fff;
@@ -430,487 +338,683 @@
       text-align: center;
       text-decoration: none;
       display: block;
+      box-sizing: border-box;
     }
+    .mobile-register { background-color: #dc2626; border: none; }
 
-    .mobile-button:hover {
-      border-color: rgba(255, 255, 255, 0.4);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .mobile-register {
-      background-color: #dc2626;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .mobile-register:hover {
-      background-color: #b91c1c;
-    }
-
+    /* --- HERO SECTION --- */
     .hero-section {
-      min-height: 70vh;
+      min-height: 100vh;
       position: relative;
       overflow: hidden;
-      padding-top: 80px;
-      padding-bottom: 5rem;
+      padding-top: 0; 
+      padding-bottom: 0;
     }
 
     .hero-container {
-      max-width: 80rem;
+      max-width: 100%;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0;
     }
 
     .hero-relative {
       position: relative;
       width: 100%;
-      height: 80vh;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .hero-image-container {
-      max-width: 62.5rem;
-      width: 100%;
-      height: 100%;
+      width: 80%;
+      height: 90%;
       position: relative;
     }
 
-    .floating-card-content {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .floating-card-icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      color: #fff;
-    }
-
-    .floating-card-text-small {
-      font-size: 0.75rem;
-      color: #ccc;
-    }
-
-    .floating-card-text-medium {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .floating-card-heart-large {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #fff;
-    }
-
+    .floating-card-content { display: flex; align-items: center; gap: 0.5rem; }
+    .floating-card-icon { width: 1.5rem; height: 1.5rem; color: #fff; }
+    .floating-card-text-small { font-size: 0.75rem; color: #ccc; }
+    .floating-card-text-medium { font-size: 0.75rem; font-weight: 600; color: #fff; }
+    .floating-card-heart-large { font-size: 0.75rem; font-weight: 500; color: #fff; }
     .floating-card-calories-icon {
-      width: 3rem;
-      height: 3rem;
-      background: #1a1a1a;
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f97316;
+      width: 2rem; height: 2rem; background: #1a1a1a;
+      border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: #f97316;
     }
+    .floating-card-calories-text-large { font-size: 0.75rem; font-weight: 300; color: #f97316; }
 
-    .floating-card-calories-text-small {
-      font-size: 0.75rem;
-      color: #ccc;
-    }
-
-    .floating-card-calories-text-large {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #f97316;
-    }
-
-    .floating-card-flexibility-gap {
-      gap: 0.75rem;
-    }
-
-    .trainer-badge {
-      position: absolute;
-      bottom: -1.5rem;
-      right: -1.5rem;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .hero-button-container {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-    }
-
-    .hero-button-style {
-      background-color: #dc2626;
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 1rem;
-      font-size: 1.125rem;
-      font-weight: 500;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .hero-button-style:hover {
-      background-color: #b91c1c;
-    }
-
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-    }
-
-    .scroll-text {
-      color: #999;
-      font-size: 0.875rem;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .scroll-arrow {
-      width: 1.5rem;
-      height: 2.5rem;
-      border: 2px solid #333;
-      border-radius: 9999px;
-      margin: 0 auto;
+    .hero-overlay {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 15;
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding: 0.5rem;
+      padding-top: 8rem;
+      pointer-events: none;
     }
 
-    .scroll-dot {
-      width: 0.25rem;
-      height: 0.5rem;
-      background-color: #fb923c;
-      border-radius: 0.25rem;
-      animation: bounce 1s infinite;
-      animation-delay: 0.2s;
+    .hero-overlay-text {
+      text-align: center;
+      max-width: 60rem;
+      z-index: 10;
+      pointer-events: auto;
     }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
-    .programs-section {
-      padding: 8rem 0;
-      background: #000;
-    }
-
-    .programs-container {
-      max-width: 80rem;
-      margin: 0 auto;
+    /* --- HERO CTA BUTTONS --- */
+    .hero-cta-wrapper {
+      position: absolute;
+      bottom: 8%;
+      left: 0;
+      width: 100%;
+      z-index: 40;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 0 1.5rem;
     }
 
-    .programs-header {
-      text-align: center;
-      margin-bottom: 5rem;
+    .modern-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1rem 2rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
     }
 
-    .programs-badge {
-      display: inline-block;
-      margin-bottom: 1.5rem;
-    }
-
-    .programs-badge-text {
-      color: #fb923c;
-      font-weight: 700;
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      background: #2a1810;
-      padding: 0.5rem 1.5rem;
-      border-radius: 9999px;
-      border: 1px solid #4a2c1a;
-    }
-
-    .programs-title {
-      font-size: 3rem;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 1.5rem;
-      line-height: 1.1;
-    }
-
-    @media (min-width: 768px) {
-      .programs-title {
-        font-size: 4.5rem;
+    @media (min-width: 640px) {
+      .modern-cta-group {
+        flex-direction: row;
+        padding: 0.75rem 1rem;
+        border-radius: 9999px;
       }
     }
 
-    .programs-subtitle {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1.25rem;
-      max-width: 48rem;
-      margin: 0 auto;
-      line-height: 1.625;
+    .btn-mission-start {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, #f97316, #dc2626);
+      border-radius: 9999px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.125rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+      overflow: hidden;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
-    .programs-grid {
+    .btn-mission-start::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-mission-start:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.6);
+    }
+
+    .btn-mission-start:hover::before {
+      left: 100%;
+    }
+
+    .btn-watch-demo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 9999px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.125rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-watch-demo:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .play-icon-bg {
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .btn-watch-demo:hover .play-icon-bg {
+      transform: scale(1.1);
+      color: #dc2626;
+    }
+
+    /* --- PROGRAMS / GALLERY SECTION --- */
+    .programs-section { padding: 8rem 0; background: #000; }
+    .programs-container { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+    .programs-header { text-align: center; margin-bottom: 5rem; }
+    .programs-badge { display: inline-block; margin-bottom: 1.5rem; }
+    .programs-badge-text {
+      color: #fb923c; font-weight: 700; font-size: 0.875rem; text-transform: uppercase;
+      letter-spacing: 0.1em; background: #2a1810; padding: 0.5rem 1.5rem;
+      border-radius: 9999px; border: 1px solid #4a2c1a;
+    }
+    .programs-title { font-size: 3rem; font-weight: 900; color: #fff; margin-bottom: 1.5rem; line-height: 1.1; }
+    @media (min-width: 768px) { .programs-title { font-size: 4.5rem; } }
+    .programs-subtitle { color: rgba(255, 255, 255, 0.7); font-size: 1.25rem; max-width: 48rem; margin: 0 auto; line-height: 1.625; }
+
+    /* --- GALLERY LAYOUT --- */
+    .ex-gallery-container {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 2rem;
+      overflow: hidden;
+      min-height: 600px;
     }
 
-    @media (min-width: 768px) {
-      .programs-grid {
-        grid-template-columns: repeat(3, 1fr);
+    @media (min-width: 1024px) {
+      .ex-gallery-container {
+        grid-template-columns: 350px 1fr;
       }
     }
 
-    .program-card {
-      background: #181818;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1.5rem;
-      padding: 2.5rem;
-      transition: all 0.5s;
-      cursor: pointer;
-    }
-
-    .program-card:hover {
-      border-color: #f97316;
-      transform: scale(1.05);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(249, 115, 22, 0.2);
-    }
-
-    .program-icon {
-      width: 5rem;
-      height: 5rem;
-      background: linear-gradient(to bottom right, #f97316, #ea580c);
-      border-radius: 1.5rem;
+    /* Left Menu */
+    .ex-menu {
+      background: #0a0a0a;
+      padding: 2rem;
+      border-right: 1px solid #222;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      transition: all 0.3s;
+      flex-direction: column;
+      gap: 1rem;
+      overflow-y: auto;
     }
 
-    .program-icon:hover {
-      transform: scale(1.1) rotate(6deg);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-    }
-
-    .program-icon-svg {
-      width: 2.5rem;
-      height: 2.5rem;
-      color: #fff;
-    }
-
-    .program-image {
-      width: 100%;
-      height: 12rem;
-      background: #1f2937;
-      border-radius: 1rem;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-      transition: opacity 0.3s;
-    }
-
-    .program-image:hover {
-      opacity: 0.9;
-    }
-
-    .program-image-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .program-title {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-
-    .program-description {
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.625;
-      margin-bottom: 2rem;
-      font-size: 1.125rem;
-    }
-
-    .program-button {
-      color: #fb923c;
-      font-weight: 600;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .program-button:hover {
-      color: #f97316;
-      transform: translateX(0.5rem);
-    }
-
-    .program-arrow {
-      width: 1rem;
-      height: 1rem;
-      transition: all 0.3s;
-    }
-
-    .cta-section {
-      padding: 8rem 0;
-      background: linear-gradient(to bottom right, #dc2626, #ea580c, #c2410c);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-bg-elements {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .cta-bg-circle {
-      position: absolute;
-      width: 24rem;
-      height: 24rem;
-      background: rgba(42, 24, 16, 0.3);
-      border-radius: 9999px;
-      filter: blur(48px);
-      animation: pulse 2s infinite;
-    }
-
-    .cta-bg-circle-top {
-      top: 5rem;
-      left: 5rem;
-    }
-
-    .cta-bg-circle-bottom {
-      bottom: 5rem;
-      right: 5rem;
-      animation-delay: 1s;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-
-    .cta-container {
-      max-width: 64rem;
-      margin: 0 auto;
-      text-align: center;
-      padding: 0 1.5rem;
-      position: relative;
-      z-index: 10;
-    }
-
-    .cta-badge {
-      display: inline-block;
-      margin-bottom: 2rem;
-    }
-
-    .cta-badge-text {
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 700;
-      font-size: 0.875rem;
+    .ex-menu-title {
+      font-size: 0.85rem;
       text-transform: uppercase;
+      color: #666;
       letter-spacing: 0.1em;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 1rem;
+      font-weight: 700;
     }
 
-    .cta-title {
-      font-size: 3rem;
-      font-weight: 900;
+    .ex-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1.25rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 1rem;
+      color: #aaa;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ex-btn:hover {
+      background: rgba(255,255,255,0.05);
       color: #fff;
+    }
+
+    .ex-btn.active {
+      background: rgba(249, 115, 22, 0.1);
+      border-color: #f97316;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.1);
+    }
+
+    .ex-btn-arrow {
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      color: #f97316;
+    }
+
+    .ex-btn.active .ex-btn-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Right Display Area */
+    .ex-display {
+      position: relative;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.05), transparent 60%);
+    }
+
+    .ex-content {
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .ex-content.fade-out {
+      opacity: 0;
+    }
+
+    .ex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .ex-main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0;
+      color: #fff;
       line-height: 1.1;
     }
 
-    @media (min-width: 768px) {
-      .cta-title {
-        font-size: 4.5rem;
-      }
+    .ex-tags {
+      display: flex;
+      gap: 0.75rem;
     }
 
-    .cta-subtitle {
-      font-size: 1.5rem;
-      color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 3rem;
-      max-width: 48rem;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.625;
-    }
-
-    .cta-button {
-      background: #fff;
-      color: #dc2626;
-      padding: 1.5rem 4rem;
-      border-radius: 9999px;
-      font-size: 1.25rem;
+    .ex-tag {
+      font-size: 0.75rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      text-transform: uppercase;
       font-weight: 700;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.05em;
     }
 
-    .cta-button:hover {
-      background: rgba(255, 255, 255, 0.95);
+    .ex-tag-level { background: #333; color: #ccc; border: 1px solid #444; }
+    .ex-tag-muscle { background: rgba(249, 115, 22, 0.2); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3); }
+
+    .ex-visual-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .ex-visual-row { grid-template-columns: 1.2fr 1fr; }
+    }
+
+    .ex-image-wrapper {
+      position: relative;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .ex-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .ex-image-wrapper:hover .ex-image {
       transform: scale(1.05);
-      box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.3);
     }
 
-    .cta-features {
-      color: rgba(255, 255, 255, 0.9);
+    /* Steps */
+    .ex-steps-container {
+      background: rgba(255,255,255,0.03);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .ex-steps-title {
       font-size: 1rem;
-      font-weight: 500;
-      margin-top: 2rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1rem;
+    }
+
+    .ex-step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .ex-step-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .ex-step-num {
+      background: #f97316;
+      color: #000;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
     }
 
-    .cta-feature {
+    .ex-step-text {
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* --- IMPROVED & ANIMATED CTA SECTION --- */
+    .cta-section { 
+      padding: 10rem 0; 
+      position: relative; 
+      overflow: hidden; 
+      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
     }
 
-    .cta-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-      color: #fff;
+    .cta-bg-animate {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+      opacity: 0.6;
+    }
+    
+    .cta-aurora {
+      position: absolute;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(249, 115, 22, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(234, 88, 12, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.2) 0%, transparent 60%);
+      filter: blur(80px);
+      animation: auroraMove 20s infinite alternate ease-in-out;
     }
 
-    .footer {
-      background: #000;
-      padding: 2rem;
+    @keyframes auroraMove {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+      33% { transform: scale(1.1) rotate(2deg); opacity: 0.8; }
+      66% { transform: scale(0.9) rotate(-1deg); opacity: 0.7; }
+      100% { transform: scale(1.05) rotate(1deg); opacity: 0.6; }
+    }
+
+    .cta-container { 
+      max-width: 80rem; 
+      margin: 0 auto; 
+      padding: 0 1.5rem; 
+      position: relative; 
+      z-index: 10; 
+      width: 100%;
+    }
+
+    .cta-card {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 2px solid rgba(249, 115, 22, 0.3);
+      border-radius: 3rem;
+      padding: 5rem 3rem;
       text-align: center;
-      border-top: 1px solid #333;
-      color: rgba(255, 255, 255, 0.6);
+      box-shadow: 
+        0 50px 100px -20px rgba(0,0,0,0.9),
+        0 0 0 1px rgba(249, 115, 22, 0.1) inset,
+        0 0 50px rgba(249, 115, 22, 0.2);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
     }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 1), rgba(255, 140, 0, 0.8), rgba(249, 115, 22, 1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .cta-badge { 
+      display: inline-block; 
+      margin-bottom: 2.5rem; 
+      opacity: 0; 
+      transform: translateY(20px);
+      animation: pulse 2s infinite;
+    }
+    
+    .cta-badge-text {
+      color: #f97316; 
+      font-weight: 800; 
+      font-size: 0.9rem; 
+      text-transform: uppercase;
+      letter-spacing: 0.15em; 
+      background: rgba(249, 115, 22, 0.15); 
+      padding: 1rem 2rem;
+      border-radius: 9999px; 
+      border: 2px solid rgba(249, 115, 22, 0.4);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-badge-text::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: badgeShine 2s infinite;
+    }
+
+    @keyframes badgeShine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .cta-title { 
+      font-size: 3.5rem; 
+      font-weight: 900; 
+      color: #fff; 
+      margin-bottom: 2rem; 
+      line-height: 1.1; 
+      opacity: 0; 
+      transform: translateY(30px);
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    @media (min-width: 768px) { 
+      .cta-title { font-size: 6rem; } 
+    }
+
+    .cta-title-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.8);
+      background: linear-gradient(135deg, #fff 0%, #f3f4f6 100%);
+      -webkit-background-clip: text;
+      transition: all 0.8s ease;
+      display: inline-block;
+      animation: titleGlow 3s infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { -webkit-text-stroke: 2px rgba(255,255,255,0.8); }
+      100% { -webkit-text-stroke: 2px rgba(255,255,255,1); }
+    }
+
+    .cta-title-gradient {
+      
+      -webkit-background-clip: text;
+      -webkit-text-stroke: 0;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+      color: orangered;
+    }
+
+  
+    
+    .cta-subtitle { 
+      font-size: 1.4rem; 
+      color: rgba(255, 255, 255, 0.85); 
+      margin-bottom: 3.5rem; 
+      max-width: 45rem; 
+      margin-left: auto; 
+      margin-right: auto; 
+      line-height: 1.7; 
+      opacity: 0; 
+      transform: translateY(30px);
+      font-weight: 400;
+    }
+
+    .cta-btn-wrapper {
+      opacity: 0; 
+      transform: translateY(30px);
+      margin-bottom: 3rem;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); 
+      color: #000; 
+      padding: 1.75rem 5rem; 
+      border-radius: 9999px;
+      font-size: 1.4rem; 
+      font-weight: 800; 
+      border: 2px solid rgba(249, 115, 22, 0.5); 
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        0 10px 40px rgba(249, 115, 22, 0.3),
+        0 0 0 2px rgba(249, 115, 22, 0.2) inset;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 
+        0 20px 60px rgba(249, 115, 22, 0.5),
+        0 0 50px rgba(249, 115, 22, 0.4),
+        0 0 0 3px rgba(249, 115, 22, 0.3) inset;
+    }
+
+    .cta-button:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Enhanced shine effect */
+    .cta-button::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -200%;
+      width: 200%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.6), rgba(255, 255, 255, 0.9), rgba(255, 140, 0, 0.6), transparent);
+      transform: skewX(-25deg);
+      transition: 0.8s;
+    }
+
+    .cta-button:hover::after {
+      left: 200%;
+      transition: 1s ease-in-out;
+    }
+
+    .cta-features { 
+      color: rgba(255, 255, 255, 0.7); 
+      font-size: 1rem; 
+      font-weight: 600; 
+      margin-top: 3rem; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 3rem; 
+      flex-wrap: wrap;
+      opacity: 0; 
+      transform: translateY(20px);
+    }
+    
+    .cta-feature { 
+      display: flex; 
+      align-items: center; 
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .cta-feature:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(249, 115, 22, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .cta-icon { 
+      width: 1.25rem; 
+      height: 1.25rem; 
+      color: #f97316;
+      filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.5));
+    }
+    
+    .footer { background: #000; padding: 2rem; text-align: center; border-top: 1px solid #333; color: rgba(255, 255, 255, 0.6); }
+
   </style>
 </head>
 <body>
@@ -922,13 +1026,10 @@
           <span class="nav-logo-white">Mission</span><span class="nav-logo-gradient">Fitness</span>
         </div>
         
-        <!-- Desktop Menu -->
-       
-        
         <!-- Desktop Buttons -->
         <div class="nav-buttons">
           <a href="/login" class="nav-button">Login</a>
-          <a href="/register" class="nav-button nav-button-register">Sign Up</a>
+          <a href="/signup" class="nav-button nav-button-register">Sign Up</a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -943,7 +1044,6 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <div class="mobile-menu-flex">
-    
         <div class="mobile-border-t">
           <a href="/login" class="mobile-button">Login</a>
           <a href="/register" class="mobile-button mobile-register">Sign Up</a>
@@ -966,31 +1066,9 @@
           </div>
         </div>
 
-<<<<<<< Updated upstream
-    <div class="text-center px-4 relative z-10 max-w-6xl mx-auto">
-      <div class="floating mb-8">
-        <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">
-          <span class="block gradient-text">TRANSFORM</span>
-          <span class="block text-white">YOUR LIFE</span>
-        </h1>
-      </div>
-      <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto font-light">
-        Unleash your potential with cutting-edge fitness technology, personalized training, and a community that never gives up.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <button class="bg-white text-black px-8 py-4 text-lg font-bold hover:bg-gray-200 transition-all transform hover:scale-105 w-full sm:w-auto">
-          START YOUR MISSION
-        </button>
-        <button class="border-2 border-white text-white px-8 py-4 text-lg font-bold hover:bg-white hover:text-black transition-all transform hover:scale-105 w-full sm:w-auto">
-          WATCH DEMO
-        </button>
-      </div>
-      <div class="mt-16 pulse-animation">
-        <div class="w-8 h-8 border-2 border-white mx-auto animate-bounce"></div>
-      </div>
-    </div>
-  </section>
-=======
+        <!-- Hero Overlay Text (Only Titles) -->
+        <div class="hero-overlay"></div>
+
         <!-- Centered Hero Image -->
         <div class="hero-image hero-image-container">
           
@@ -1008,7 +1086,6 @@
               </div>
             </div>
           </div>
->>>>>>> Stashed changes
 
           <div class="floating-card floating-card-2">
             <div class="floating-card-content">
@@ -1051,39 +1128,36 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Image -->
           <img src="images/main.png" alt="Fitness Hero Image" class="hero-img">
 
-          <!-- Trainer Badge -->
-          <div class="trainer-badge">
-            <!-- Add trainer content here if needed -->
-          </div>
         </div>
         
-        <!-- Button -->
-        <div class="hero-button-container">
-          <button class="hero-button-style glow-orange">
-            Get Started Today
-          </button>
+        <!-- NEW MODERN BOTTOM BUTTONS -->
+        <div class="hero-cta-wrapper">
+          <div class="modern-cta-group">
+            <a href="/start" class="btn-mission-start">
+              <span>START YOUR MISSION</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            
+            <a href="/demo" class="btn-watch-demo">
+              <div class="play-icon-bg">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+              <span>WATCH DEMO</span>
+            </a>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator">
-      <div>
-        <div class="scroll-text">Explore More</div>
-        <div class="scroll-arrow">
-          <div class="scroll-dot"></div>
-        </div>
-      </div>
-    </div>
-
+      </div> <!-- Close hero-relative -->
+    </div> <!-- Close hero-container -->
+    
     <div class="bottom-gradient"></div>
-  </section>
+  </section> <!-- Close hero-section -->
 
-  <!-- Programs Section -->
+  <!-- Exercise Masterclass Gallery (Replaced Programs Section) -->
   <section id="program" class="programs-section luxury-section">
     <div class="programs-container">
       <div class="programs-header">
@@ -1091,164 +1165,93 @@
           <span class="programs-badge-text">Exercise Gallery</span>
         </div>
         <h2 class="programs-title">
-          Discover Essential <span class="luxury-gradient">Exercises</span>
+          Master The <span class="luxury-gradient">Fundamentals</span>
         </h2>
         <p class="programs-subtitle">
-          Browse through our curated collection of exercises designed to target every muscle group for a complete and effective workout.
+          Select an exercise to view the detailed step-by-step breakdown. Perfect form is the key to progress.
         </p>
       </div>
 
-      <div class="programs-grid">
-        <div class="program-card">
-          <div class="program-icon">
-            <svg class="program-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-          </div>
-          <div class="program-image">
-            <img src="https://source.unsplash.com/400x300/?squat,weightlifting" alt="Squats" class="program-image-img">
-          </div>
-          <h3 class="program-title">Squats</h3>
-          <p class="program-description">
-            Master the foundational lower body exercise to build strength and power in your legs and glutes.
-          </p>
-          <div class="program-button">
-            Learn More <svg class="program-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </div>
+      <!-- New Interactive Gallery Layout -->
+      <div class="ex-gallery-container">
+        <!-- Sidebar Selection -->
+        <div class="ex-menu">
+          <div class="ex-menu-title">Compound Movements</div>
+          <!-- Buttons generated by JS -->
+          <div id="exercise-list-container"></div>
         </div>
 
-        <div class="program-card">
-          <div class="program-icon">
-            <svg class="program-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-            </svg>
-          </div>
-          <div class="program-image">
-            <img src="https://source.unsplash.com/400x300/?pushup,bodyweight" alt="Push-ups" class="program-image-img">
-          </div>
-          <h3 class="program-title">Push-ups</h3>
-          <p class="program-description">
-            A classic bodyweight exercise targeting your chest, shoulders, and triceps for upper body strength.
-          </p>
-          <div class="program-button">
-            Learn More <svg class="program-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </div>
-        </div>
+        <!-- Main Display -->
+        <div class="ex-display">
+          <div id="ex-content-wrapper" class="ex-content">
+            <div class="ex-header">
+              <h3 class="ex-main-title" id="ex-title">Barbell Squats</h3>
+              <div class="ex-tags">
+                <span class="ex-tag ex-tag-level" id="ex-level">Intermediate</span>
+                <span class="ex-tag ex-tag-muscle" id="ex-muscle">Legs & Glutes</span>
+              </div>
+            </div>
 
-        <div class="program-card">
-          <div class="program-icon">
-            <svg class="program-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <div class="program-image">
-            <img src="https://source.unsplash.com/400x300/?deadlift,strength" alt="Deadlifts" class="program-image-img">
-          </div>
-          <h3 class="program-title">Deadlifts</h3>
-          <p class="program-description">
-            Unlock full posterior chain power with proper form to enhance overall strength and posture.
-          </p>
-          <div class="program-button">
-            Learn More <svg class="program-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </div>
-        </div>
-
-        <div class="program-card">
-          <div class="program-icon">
-            <svg class="program-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-          </div>
-          <div class="program-image">
-            <img src="https://source.unsplash.com/400x300/?plank,core" alt="Planks" class="program-image-img">
-          </div>
-          <h3 class="program-title">Planks</h3>
-          <p class="program-description">
-            Build core stability and endurance with this isometric hold that engages your entire midsection.
-          </p>
-          <div class="program-button">
-            Learn More <svg class="program-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </div>
-        </div>
-
-        <div class="program-card">
-          <div class="program-icon">
-            <svg class="program-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-            </svg>
-          </div>
-          <div class="program-image">
-            <img src="https://source.unsplash.com/400x300/?burpee,hiit" alt="Burpees" class="program-image-img">
-          </div>
-          <h3 class="program-title">Burpees</h3>
-          <p class="program-description">
-            Ignite your full-body with this high-intensity exercise that combines cardio and strength.
-          </p>
-          <div class="program-button">
-            Learn More <svg class="program-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </div>
-        </div>
-
-        <div class="program-card">
-          <div class="program-icon">
-            <svg class="program-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <div class="program-image">
-            <img src="https://source.unsplash.com/400x300/?lunge,legs" alt="Lunges" class="program-image-img">
-          </div>
-          <h3 class="program-title">Lunges</h3>
-          <p class="program-description">
-            Improve balance and unilateral strength in your legs with dynamic forward or reverse lunges.
-          </p>
-          <div class="program-button">
-            Learn More <svg class="program-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            <div class="ex-visual-row">
+              <div class="ex-image-wrapper">
+                <img src="" alt="Exercise" class="ex-image" id="ex-image">
+              </div>
+              <div class="ex-steps-container">
+                <div class="ex-steps-title">Execution Steps</div>
+                <ul class="ex-step-list" id="ex-steps-list">
+                  <!-- Steps injected via JS -->
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta-section luxury-section">
-    <div class="cta-bg-elements">
-      <div class="cta-bg-circle cta-bg-circle-top"></div>
-      <div class="cta-bg-circle cta-bg-circle-bottom"></div>
+  <!-- IMPROVED ANIMATED CTA SECTION -->
+  <section class="cta-section">
+    <div class="cta-bg-animate">
+      <div class="cta-aurora"></div>
     </div>
     
     <div class="cta-container">
-      <div class="cta-badge">
-        <span class="cta-badge-text">Limited Time Offer</span>
-      </div>
-      <h2 class="cta-title">
-        READY TO START YOUR<br>JOURNEY?
-      </h2>
-      <p class="cta-subtitle">
-        Join thousands of members who have transformed their lives with Mission Fitness's premium fitness experience.
-      </p>
-      <button class="cta-button">
-        GET STARTED TODAY
-      </button>
-      <div class="cta-features">
-        <div class="cta-feature">
-          <svg class="cta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-          14-day free trial
+      <div class="cta-card">
+        <div class="cta-badge">
+          <span class="cta-badge-text">Limited Time Offer</span>
         </div>
-        <div class="cta-feature">
-          <svg class="cta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-          No credit card required
+        <h2 class="cta-title">
+          <span class="cta-title-outline">READY TO START YOUR</span><br>
+          <span class="cta-title-gradient" style="font-family: 'Sakana', sans-serif; font-style: italic; text-transform: lowercase; letter-spacing: 0.05em;">journey?</span>
+        </h2>
+        <p class="cta-subtitle">
+          Join thousands of members who have transformed their lives with Mission Fitness's premium fitness experience.
+        </p>
+        <div class="cta-btn-wrapper">
+          <button class="cta-button">
+            GET STARTED TODAY
+          </button>
         </div>
-        <div class="cta-feature">
-          <svg class="cta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-          Premium Access
+        <div class="cta-features">
+          <div class="cta-feature">
+            <svg class="cta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            14-day free trial
+          </div>
+          <div class="cta-feature">
+            <svg class="cta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            No credit card required
+          </div>
+          <div class="cta-feature">
+            <svg class="cta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Premium Access
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  
+  {{> footer}}
 
   <script>
     // Mobile Menu Toggle
@@ -1269,36 +1272,178 @@
 
     // Hero Content
     gsap.from('.marquee-text', { opacity: 0, x: 100, duration: 1.5, delay: 0.4, ease: 'power4.out' });
-    gsap.from('.hero-button-container', { opacity: 0, y: 50, duration: 1.2, delay: 0.8, ease: 'power3.out' });
+    
+    // Animate New Bottom Buttons
+    gsap.from('.hero-cta-wrapper', { opacity: 0, y: 50, duration: 1.2, delay: 1.0, ease: 'power3.out' });
     
     // Floating Cards
-    gsap.from('.floating-card-1', { opacity: 100, x: -50, duration: 1.2, delay: 1, ease: 'power3.out' });
-    gsap.from('.floating-card-2', { opacity: 100, x: -50, duration: 1.2, delay: 1.2, ease: 'power3.out' });
-    gsap.from('.floating-card-3', { opacity: 100, x: 50, duration: 1.2, delay: 1.4, ease: 'power3.out' });
-    gsap.from('.floating-card-4', { opacity: 100, x: 50, duration: 1.2, delay: 1.6, ease: 'power3.out' });
-    
-    gsap.from('.trainer-badge', { opacity: 0, scale: 0.8, duration: 1.2, delay: 1.8, ease: 'back.out(1.7)' });
+    gsap.from('.floating-card-1', {  x: -50, duration: 1.2, delay: 1, ease: 'power3.out' });
+    gsap.from('.floating-card-2', {  x: -50, duration: 1.2, delay: 1.2, ease: 'power3.out' });
+    gsap.from('.floating-card-3', {  x: 50, duration: 1.2, delay: 1.4, ease: 'power3.out' });
+    gsap.from('.floating-card-4', {  x: 50, duration: 1.2, delay: 1.6, ease: 'power3.out' });
     
     // Hero Image
-    gsap.from('.hero-img', { opacity: 0, scale: 0.9, duration: 1.5, delay: 0.6, ease: 'power3.out' });
-    
-    // Scroll Indicator
-    gsap.from('.scroll-indicator', { opacity: 0, y: -20, duration: 1.2, delay: 2, ease: 'power3.out' });
+    gsap.from('.hero-img', {  scale: 0.9, duration: 1.5, delay: 0.6, ease: 'power3.out' });
 
-    // Programs Cards
-    gsap.from('.program-card', {
+    // Gallery Fade In
+    gsap.from('.ex-gallery-container', {
       scrollTrigger: {
-        trigger: '.programs-grid',
-        start: 'top 80%',
+        trigger: '.programs-section',
+        start: 'top 70%',
       },
-      opacity: 100,
       y: 50,
+      opacity: 0,
       duration: 1,
-      stagger: 0.2,
       ease: 'power3.out'
     });
 
-    // Smooth scroll
+    // --- NEW CTA SECTION ANIMATIONS ---
+    const ctaTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.cta-section',
+        start: 'top 60%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    ctaTl.to('.cta-card', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+         .to('.cta-badge', { opacity: 1, y: 0, duration: 0.5 }, '-=0.4')
+         .to('.cta-title', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+         .to('.cta-subtitle', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+         .to('.cta-btn-wrapper', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+         .to('.cta-features', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3');
+
+
+    // --- EXERCISE GALLERY LOGIC ---
+    const exercises = [
+      {
+        id: 'squat',
+        title: 'Barbell Squat',
+        level: 'Intermediate',
+        muscle: 'Legs & Glutes',
+        image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=1200&auto=format&fit=crop',
+        steps: [
+          'Stand with feet shoulder-width apart, toes slightly out.',
+          'Rest the barbell comfortably on your upper back (traps).',
+          'Keep chest up, engage core, and break at the hips.',
+          'Lower down as if sitting in a chair until thighs are parallel.',
+          'Drive through heels to return to start position.'
+        ]
+      },
+      {
+        id: 'deadlift',
+        title: 'Conventional Deadlift',
+        level: 'Advanced',
+        muscle: 'Posterior Chain',
+        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
+        steps: [
+          'Stand with mid-foot under the barbell.',
+          'Bend over and grab the bar with a shoulder-width grip.',
+          'Bend your knees until shins touch the bar.',
+          'Lift your chest up and straighten your back.',
+          'Pull the bar up dragging it against your shins.'
+        ]
+      },
+      {
+        id: 'pushup',
+        title: 'Perfect Push-up',
+        level: 'Beginner',
+        muscle: 'Chest & Triceps',
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1200&auto=format&fit=crop',
+        steps: [
+          'Start in a high plank position, hands slightly wider than shoulders.',
+          'Engage your core and squeeze your glutes.',
+          'Lower your body until chest nearly touches floor.',
+          'Keep elbows tucked at a 45-degree angle.',
+          'Push back up to starting position explosively.'
+        ]
+      },
+      {
+        id: 'lunge',
+        title: 'Walking Lunges',
+        level: 'Intermediate',
+        muscle: 'Legs & Balance',
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop',
+        steps: [
+          'Stand tall with feet hip-width apart.',
+          'Step forward with one leg, lowering hips until both knees are bent 90°.',
+          'Keep front knee directly above ankle.',
+          'Push off the back foot to bring it forward to meet the front.',
+          'Repeat on the opposite side.'
+        ]
+      },
+      {
+        id: 'plank',
+        title: 'Forearm Plank',
+        level: 'Beginner',
+        muscle: 'Core Stability',
+        image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?q=80&w=1200&auto=format&fit=crop',
+        steps: [
+          'Place forearms on floor, elbows under shoulders.',
+          'Extend legs back, balancing on toes.',
+          'Maintain a straight line from head to heels.',
+          'Tighten abs and glutes to prevent sagging.',
+          'Hold position while breathing rhythmically.'
+        ]
+      }
+    ];
+
+    const listContainer = document.getElementById('exercise-list-container');
+    const contentWrapper = document.getElementById('ex-content-wrapper');
+    const domTitle = document.getElementById('ex-title');
+    const domLevel = document.getElementById('ex-level');
+    const domMuscle = document.getElementById('ex-muscle');
+    const domImage = document.getElementById('ex-image');
+    const domList = document.getElementById('ex-steps-list');
+
+    function renderExerciseList() {
+      listContainer.innerHTML = '';
+      exercises.forEach((ex, index) => {
+        const btn = document.createElement('button');
+        btn.className = `ex-btn ${index === 0 ? 'active' : ''}`;
+        btn.innerHTML = `
+          <span>${ex.title}</span>
+          <svg class="ex-btn-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        `;
+        btn.onclick = () => loadExercise(index);
+        listContainer.appendChild(btn);
+      });
+    }
+
+    function loadExercise(index) {
+      // update buttons
+      const buttons = document.querySelectorAll('.ex-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      buttons[index].classList.add('active');
+
+      // fade out content
+      contentWrapper.classList.add('fade-out');
+
+      setTimeout(() => {
+        const data = exercises[index];
+        domTitle.textContent = data.title;
+        domLevel.textContent = data.level;
+        domMuscle.textContent = data.muscle;
+        domImage.src = data.image;
+        
+        // Render steps
+        domList.innerHTML = data.steps.map((step, i) => `
+          <li class="ex-step-item">
+            <span class="ex-step-num">${i + 1}</span>
+            <span class="ex-step-text">${step}</span>
+          </li>
+        `).join('');
+
+        // fade in
+        contentWrapper.classList.remove('fade-out');
+      }, 300);
+    }
+
+    // Initialize
+    renderExerciseList();
+    loadExercise(0); // Load first item
+
+    // Smooth scroll (existing logic)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1319,6 +1464,5 @@
       }
     });
   </script>
-    {{> footer}}
 </body>
 </html>

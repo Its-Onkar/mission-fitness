@@ -1,0 +1,35 @@
+{{!-- Handlebars Helper Functions --}}
+<script>
+// Register Handlebars helpers for conditional logic
+if (typeof Handlebars !== 'undefined') {
+    // Equality helper
+    Handlebars.registerHelper('eq', function(a, b) {
+        return a === b;
+    });
+    
+    // Greater than or equal helper
+    Handlebars.registerHelper('gte', function(a, b) {
+        return a >= b;
+    });
+    
+    // Less than helper
+    Handlebars.registerHelper('lt', function(a, b) {
+        return a < b;
+    });
+    
+    // Or helper
+    Handlebars.registerHelper('or', function(a, b) {
+        return a || b;
+    });
+    
+    // And helper
+    Handlebars.registerHelper('and', function(a, b) {
+        return a && b;
+    });
+    
+    // Not helper
+    Handlebars.registerHelper('not', function(a) {
+        return !a;
+    });
+}
+</script>

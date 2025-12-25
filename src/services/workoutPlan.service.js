@@ -76,9 +76,41 @@ export const getAllWorkoutPlans = async () => {
 export const getWorkoutPlanByUserId = async (userId) => {
     const workoutPlan = await WorkoutPlan.findOne({ user: userId }).populate("user", "name email");
     if (!workoutPlan) {
-        throw new Error("Workout plan not found for the user");
+        return null; // Return null instead of throwing error to handle "no plan" gracefully
     }
-    return workoutPlan;
+
+    // Fetch exercises for this plan
+    const exercises = await Exercise.find({ planId: workoutPlan._id });
+
+    // Group exercises by day
+    const workoutPlanObj = workoutPlan.toObject();
+    const daysMap = {};
+
+    exercises.forEach(exercise => {
+        if (!daysMap[exercise.day]) {
+            daysMap[exercise.day] = {
+                day: exercise.day,
+                focus: "Custom Focus", // You might want to store focus in DB or derive it
+                exercises: []
+            };
+        }
+        daysMap[exercise.day].exercises.push(exercise);
+    });
+
+    // Convert map to array and sort if needed (e.g. Day 1, Day 2...)
+    // For now, just returning the array
+    workoutPlanObj.exercises = Object.values(daysMap);
+    
+    // Also return the raw exercises list if needed, or structured as above
+    // The frontend expects an array of days with exercises
+    
+    // Let's try to match the AI structure:
+    // [ { day: "Day 1", focus: "...", exercises: [...] }, ... ]
+    
+    return {
+        ...workoutPlanObj,
+        workoutPlan: Object.values(daysMap)
+    };
 }
 
 export const updateWorkoutPlanByUserName = async (userName, updateData) => {

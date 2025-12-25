@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       background-color: #0b0b0b;
@@ -366,12 +367,163 @@
     .permission-label:hover {
       background: rgba(238, 109, 15, 0.05) !important;
     }
+    
+    /* Loading Overlay Styles */
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 11, 11, 0.95);
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+    }
+    
+    .loader-circle {
+      width: 150px;
+      height: 150px;
+      border: 4px solid rgba(238, 109, 15, 0.1);
+      border-top: 4px solid #ee6d0f;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .loader-circle::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 4px solid rgba(238, 109, 15, 0.1);
+      border-top: 4px solid #ee6d0f;
+      border-radius: 50%;
+      animation: spin 2s linear infinite reverse;
+    }
+    
+    .loader-circle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(238, 109, 15, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+    }
+    
+    .loading-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .loading-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 300px;
+    }
+    
+    .loading-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+    
+    .loading-step.active {
+      opacity: 1;
+      transform: translateX(10px);
+    }
+    
+    .loading-step.completed {
+      opacity: 0.6;
+      color: #ee6d0f;
+    }
+    
+    .step-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+    
+    .loading-step.active .step-icon {
+      border-color: #ee6d0f;
+      background: #ee6d0f;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(238, 109, 15, 0.5);
+    }
+    
+    .loading-step.completed .step-icon {
+      border-color: #ee6d0f;
+      color: #ee6d0f;
+    }
+    
+    .step-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body class="min-h-screen">
   <div class="bg-image-left"></div>
   <div class="bg-image-right"></div>
   <div class="step-5-overlay" id="step-5-overlay"></div>
+  
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loader-circle"></div>
+    <div class="loading-text">GENERATING YOUR PLAN</div>
+    <div class="loading-steps">
+      <div class="loading-step" id="step-analyze">
+        <div class="step-icon"><i class="fas fa-brain"></i></div>
+        <div class="step-text">Analyzing Profile Data</div>
+      </div>
+      <div class="loading-step" id="step-macros">
+        <div class="step-icon"><i class="fas fa-calculator"></i></div>
+        <div class="step-text">Calculating Macros & Calories</div>
+      </div>
+      <div class="loading-step" id="step-workout">
+        <div class="step-icon"><i class="fas fa-dumbbell"></i></div>
+        <div class="step-text">Building Workout Routine</div>
+      </div>
+      <div class="loading-step" id="step-finalize">
+        <div class="step-icon"><i class="fas fa-check"></i></div>
+        <div class="step-text">Finalizing Your Mission</div>
+      </div>
+    </div>
+  </div>
   
   <div class="container mx-auto px-4 py-8 relative z-10">
     <div class="max-w-2xl mx-auto">
@@ -824,8 +976,40 @@
       }
 
       try {
-        submitBtn.textContent = 'Generating AI Plan...';
-        submitBtn.disabled = true;
+        // Show Loading Overlay
+        const loadingOverlay = document.getElementById('loading-overlay');
+        loadingOverlay.style.display = 'flex';
+        
+        // Animate steps
+        const steps = ['step-analyze', 'step-macros', 'step-workout', 'step-finalize'];
+        let currentStepIndex = 0;
+        
+        const updateLoadingSteps = () => {
+          if (currentStepIndex < steps.length) {
+            const stepId = steps[currentStepIndex];
+            const stepEl = document.getElementById(stepId);
+            
+            // Mark previous as completed
+            if (currentStepIndex > 0) {
+              const prevStepId = steps[currentStepIndex - 1];
+              document.getElementById(prevStepId).classList.remove('active');
+              document.getElementById(prevStepId).classList.add('completed');
+              document.getElementById(prevStepId).querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+            }
+            
+            // Mark current as active
+            stepEl.classList.add('active');
+            currentStepIndex++;
+            
+            // Schedule next update
+            if (currentStepIndex < steps.length) {
+              setTimeout(updateLoadingSteps, 1500);
+            }
+          }
+        };
+        
+        // Start animation
+        updateLoadingSteps();
 
         // Collect form data
         const formData = new FormData(this);
@@ -890,16 +1074,28 @@
             localStorage.setItem('dietPlan', JSON.stringify(result.dietPlan));
           }
           
-          // Redirect to AI Plans page first
-          window.location.href = `/ai-plans?token=${encodeURIComponent(token)}`;
+          // Wait for animation to finish (at least 4.5 seconds total)
+          setTimeout(() => {
+             // Mark final step as completed
+             const finalStep = document.getElementById('step-finalize');
+             finalStep.classList.remove('active');
+             finalStep.classList.add('completed');
+             finalStep.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+             
+             // Redirect to AI Plans page
+             setTimeout(() => {
+                window.location.href = `/ai-plans?token=${encodeURIComponent(token)}`;
+             }, 500);
+          }, 4500);
+          
         } else {
           throw new Error(result.message || 'Failed to create fitness profile');
         }
 
       } catch (error) {
         console.error('Error:', error);
+        document.getElementById('loading-overlay').style.display = 'none';
         alert('Error: ' + error.message);
-      } finally {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
       }

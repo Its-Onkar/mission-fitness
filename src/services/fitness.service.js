@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import fitnessProfileSchema from "../Schema/fitnessprofile.schema.js";
 import workoutSchema from "../Schema/workout.schema.js";
 import dietSchema from "../Schema/diet.schema.js";
-import { getFitnessResponses } from "./chat.service.js";
+
 
 
 export const createFitness = async (payload, userData) => {
@@ -142,10 +142,11 @@ export const createFitness = async (payload, userData) => {
     }
     
     const dietPlan = await dietSchema.create([{
-      user: userData._id,
-      fitnessProfile: profile._id,
-      goal: profile.goal,
-      meals: meals
+      userId: userData._id,
+      dietPlan: profile.goal,
+      dietDuration: "4 weeks",
+      mealDetails: { meals: meals },
+      status: "pending"
     }]);
 
     // 5️⃣ Update FitnessProfile with plan references

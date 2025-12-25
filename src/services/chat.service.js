@@ -1,13 +1,95 @@
-<<<<<<< Updated upstream
-import { openAi } from "../oepnAI/openAi.js";
-import { fitnessprompt, systemPrompt } from "../utils/prompt.utils.js";
-=======
 import { openAi } from "../openAI/openAi.js";
-import {  getFitnessResponse } from "../utils/prompt.utils.js";
->>>>>>> Stashed changes
 
+const systemPrompt = `From now on, you are a Fully Automated Fitness AI Agent.
+Your job is to guide the user in Diet, Workout, Nutrition, Progress Tracking, and Consistency — automatically and intelligently — without waiting for instructions each time.
+You must think step-by-step, plan ahead, and take autonomous decisions.
 
-export const chatService = async (data,userMessage) => {
+🎯 Your Core Responsibilities (Must follow):
+1️⃣ Personalized Diet Planning
+• Analyze user details (age, gender, height, weight, lifestyle, medical condition, fitness goal).
+• Create a full-day diet plan with calories, macros (protein, carbs, fats).
+• Give Indian/Punjabi food options.
+• Auto-adjust diet every time the user progress changes.
+• Suggest healthy replacements when user eats unhealthy items.
+
+2️⃣ Workout Planning
+• Generate daily + weekly workout routine based on:
+• Goals (fat loss, muscle gain, strength, stamina, general fitness)
+• Fitness level
+• Available time
+• Equipment availability
+• Auto-increase difficulty weekly based on progress.
+• Give warm-up, main workout, cooldown, and rest-day suggestions.
+
+3️⃣ Progress Tracking + Analysis
+• Track weight, inches, calories, workout sessions, activity level.
+• Show improvement % every week.
+• Highlight weak areas and give fixes.
+• If user progress slow → auto-adjust diet/workout.
+
+4️⃣ Diet Consistency Score
+Calculate consistency using:
+• Meals completed
+• Daily calorie accuracy
+• Junk food intake
+• Hydration
+Give:
+• Score (0–100)
+• Reasons
+• Recovery strategy
+
+5️⃣ Workout Consistency Score
+Calculate using:
+• Completed sessions
+• Intensity level
+• Time spent
+• Missed days
+Give:
+• Weekly score
+• Motivation tips
+• Fixes to improve
+
+6️⃣ Daily & Weekly Summary
+Automatically generate:
+• Daily summary (diet + workout)
+• Weekly report (progress graph-style explanation)
+• Predictions for next week
+• Adjustments to improve performance
+
+7️⃣ Smart Alerts & Auto Suggestions
+If user gives any update (weight change, diet, activity), you must automatically:
+• Recalculate plan
+• Suggest improvements
+• Warn about mistakes
+• Boost motivation
+• Give precise guidance
+
+🔥 Your Agent Rules (Strictly Follow):
+• Always act automatically — without asking multiple questions.
+• Always think step-by-step and explain the logic.
+• Every answer must be structured, clean, and actionable.
+• Use science-based calculations (BMR, TDEE, calorie deficits, protein requirements).
+• Always store and use previous user updates to improve next output.
+• All plans must be practical, simple, Indian-friendly, and budget-friendly.
+• Be proactive — if user forgot something, you remind and generate.`;
+const fitnessprompt = (data, message) => {
+  const userContext = `
+User Profile:
+- Name: ${data.userName || 'User'}
+- Goal: ${data.goal || 'General Fitness'}
+- Current Weight: ${data.currentWeight || 'Not specified'} kg
+- Target Weight: ${data.targetWeight || 'Not specified'} kg
+- Workout Streak: ${data.workoutStreak || 0} days
+- Diet Preference: ${data.dietPreference || 'Vegetarian'}
+- Fitness Level: ${data.fitnessLevel || 'Beginner'}
+
+User Message: ${message}
+
+Please provide a comprehensive, actionable response based on the user's profile and current progress.`;
+  return userContext;
+};
+
+export const chatService = async (data, userMessage) => {
       const lowerMessage = userMessage.toLowerCase();
     const allowedKeywords = [
       "fitness", "diet", "workout", "exercise", "yoga", "plan",
@@ -41,56 +123,11 @@ export const chatService = async (data,userMessage) => {
       ],
     });
 
-<<<<<<< Updated upstream
-    console.log("OpenAI response:", response);
-    return response.choices[0].message.content;
-=======
+
     const aiText = response.choices[0].message.content;
+    console.log("OpenAI response:", aiText);
+    return aiText;
 
-    // Parse JSON response
-    try {
-      const jsonResponse = JSON.parse(aiText);
-
-      // Ensure schema-compatible keys
-      if (!jsonResponse.weeklyWorkoutPlan) jsonResponse.weeklyWorkoutPlan = {};
-      if (!jsonResponse.nutritionTips) jsonResponse.nutritionTips = [];
-
-      // Map JSON to schema format
-      const workoutPlanData = {
-        title: "7-Day AI Workout Plan",
-        routines: Object.entries(jsonResponse.weeklyWorkoutPlan).map(  
-          ([day, exercises]) => ({
-            day,
-            exercises: exercises.map((ex) => ({
-              name: ex.name || "",
-              sets: ex.sets || 3,
-              reps: ex.reps || 12,
-              duration: ex.duration || 30,
-              caloriesBurn: ex.caloriesBurn || 0
-            })),
-          })
-        ),
-      };
-
-      const dietPlanData = {
-        meals: jsonResponse.nutritionTips.map((meal) => ({
-          name: meal.name,
-          items: meal.items.map((item) => ({
-            food: item.food,
-            calories: item.calories,
-            protein: item.protein || 0,
-            carbs: item.carbs || 0,
-            fats: item.fats || 0,
-          })),
-        })),
-      };
-
-      return { workoutPlanData, dietPlanData };
-    } catch (parseError) {
-      console.warn("AI did not return valid JSON, returning raw text");
-      return { rawText: aiText };
-    }
->>>>>>> Stashed changes
   } catch (error) {
     console.error("Error in chatService:", error);
     throw Error(`Failed to get chat response: ${error.message}`);

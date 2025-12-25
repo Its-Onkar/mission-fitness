@@ -3,6 +3,15 @@ import FitnessProfile from "../Schema/fitnessprofile.schema.js";
 
 export const addWeight = async (userId, weight, notes = '') => {
   try {
+    // Validate inputs
+    if (!userId) {
+      throw new Error('User ID is required');
+    }
+    
+    if (!weight || isNaN(weight) || weight < 20 || weight > 300) {
+      throw new Error('Valid weight between 20-300 kg is required');
+    }
+    
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
@@ -15,7 +24,7 @@ export const addWeight = async (userId, weight, notes = '') => {
     if (existingEntry) {
       // Update existing entry
       existingEntry.weight = weight;
-      existingEntry.notes = notes;
+      existingEntry.notes = notes || '';
       await existingEntry.save();
       return await calculateProgress(userId, existingEntry);
     }
@@ -24,31 +33,46 @@ export const addWeight = async (userId, weight, notes = '') => {
     const lastEntry = await WeightHistory.findOne({ user: userId }).sort({ date: -1 });
     
     // Get starting weight from fitness profile
-    const fitnessProfile = await FitnessProfile.findOne({ user: userId });
+    let fitnessProfile = await FitnessProfile.findOne({ user: userId });
     
-    // Set starting weight if not already set (from onboarding)
-    if (!fitnessProfile.startWeight && fitnessProfile.weightKg) {
-      fitnessProfile.startWeight = fitnessProfile.weightKg;
+    // Create fitness profile if it doesn't exist
+    if (!fitnessProfile) {
+      fitnessProfile = new FitnessProfile({
+        user: userId,
+        weightKg: weight,
+        startWeight: weight,
+        targetWeight: weight,
+        gender: 'other',
+        age: 25,
+        heightCm: 170,
+        goal: 'maintenance'
+      });
       await fitnessProfile.save();
     }
     
-    const startWeight = fitnessProfile?.startWeight || fitnessProfile?.weightKg || weight;
+    // Set starting weight if not already set
+    if (!fitnessProfile.startWeight) {
+      fitnessProfile.startWeight = fitnessProfile.weightKg || weight;
+      await fitnessProfile.save();
+    }
     
+    const startWeight = fitnessProfile.startWeight || weight;
     const differenceFromLast = lastEntry ? weight - lastEntry.weight : 0;
     const totalProgress = startWeight - weight;
     
     const newEntry = new WeightHistory({
       user: userId,
-      weight,
+      weight: parseFloat(weight),
       date: today,
-      differenceFromLast,
-      totalProgress,
-      notes
+      differenceFromLast: parseFloat(differenceFromLast.toFixed(2)),
+      totalProgress: parseFloat(totalProgress.toFixed(2)),
+      notes: notes || ''
     });
     
     await newEntry.save();
     return await calculateProgress(userId, newEntry);
   } catch (error) {
+    console.error('Weight service error:', error);
     throw new Error(`Failed to add weight: ${error.message}`);
   }
 };
@@ -66,16 +90,19 @@ export const getWeightHistory = async (userId, limit = 30) => {
 export const getWeightProgress = async (userId) => {
   try {
     const history = await WeightHistory.find({ user: userId }).sort({ date: -1 }).limit(30);
+    const fitnessProfile = await FitnessProfile.findOne({ user: userId });
     
     if (history.length === 0) {
       return {
-        current: 0,
+        current: fitnessProfile?.weightKg || 0,
         previous: 0,
         difference: 0,
         totalProgress: 0,
         trend: 'stable',
         weeklyChange: 0,
-        monthlyChange: 0
+        monthlyChange: 0,
+        target: fitnessProfile?.targetWeight || 0,
+        startWeight: fitnessProfile?.startWeight || fitnessProfile?.weightKg || 0
       };
     }
     
@@ -107,6 +134,8 @@ export const getWeightProgress = async (userId) => {
       trend,
       weeklyChange,
       monthlyChange,
+      target: fitnessProfile?.targetWeight || current.weight,
+      startWeight: fitnessProfile?.startWeight || fitnessProfile?.weightKg || current.weight,
       entries: history.slice(0, 5)
     };
   } catch (error) {

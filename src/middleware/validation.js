@@ -11,7 +11,9 @@ export const validateOnboarding = async (req, res, next) => {
     activityLevel: yup.string().required(),
     workoutPreference: yup.string().required(),
     dietPreference: yup.string().required(),
-    timesPerWeek: yup.number().required().min(1).max(7)
+    exerciseFrequency: yup.object({
+      timesPerWeek: yup.number().required().min(1).max(7)
+    }).required()
   });
 
   try {

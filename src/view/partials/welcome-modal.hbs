@@ -1,0 +1,73 @@
+<!-- Welcome Modal for First-Time Users -->
+<div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{#unless isFirstTime}}hidden{{/unless}}">
+    <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center transform transition-all duration-300 scale-95 opacity-0" id="welcomeModalContent">
+        <div class="mb-6">
+            <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-3xl">🎯</span>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Welcome to Mission Fitness!</h2>
+            <p class="text-gray-600">Let's get you started on your personalized fitness journey</p>
+        </div>
+        
+        <div class="space-y-4 mb-6">
+            <div class="flex items-center gap-3 text-left">
+                <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                    <span class="text-sm">🤖</span>
+                </div>
+                <span class="text-sm text-gray-700">AI-powered personalized plans</span>
+            </div>
+            <div class="flex items-center gap-3 text-left">
+                <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                    <span class="text-sm">📊</span>
+                </div>
+                <span class="text-sm text-gray-700">Track your progress daily</span>
+            </div>
+            <div class="flex items-center gap-3 text-left">
+                <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                    <span class="text-sm">🏆</span>
+                </div>
+                <span class="text-sm text-gray-700">Achieve your fitness goals</span>
+            </div>
+        </div>
+        
+        <div class="flex gap-3">
+            <button onclick="closeWelcomeModal()" class="flex-1 py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                Skip for now
+            </button>
+            <button onclick="startOnboarding()" class="flex-1 py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+                Get Started
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function closeWelcomeModal() {
+    const modal = document.getElementById('welcomeModal');
+    const content = document.getElementById('welcomeModalContent');
+    
+    content.style.transform = 'scale(0.95)';
+    content.style.opacity = '0';
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+function startOnboarding() {
+    window.location.href = '/onboarding';
+}
+
+// Show modal with animation on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('welcomeModal');
+    const content = document.getElementById('welcomeModalContent');
+    
+    if (!modal.classList.contains('hidden')) {
+        setTimeout(() => {
+            content.style.transform = 'scale(1)';
+            content.style.opacity = '1';
+        }, 100);
+    }
+});
+</script>

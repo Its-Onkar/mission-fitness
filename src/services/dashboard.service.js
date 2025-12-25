@@ -70,4 +70,88 @@ export const getDashboardData = async (userId) => {
 
   // 5. Weekly Stats (Aggregation)
   const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  
+  const weeklyWorkouts = await WorkoutLog.countDocuments({ 
+    user: userId, 
+    date: { $gte: oneWeekAgo.toISOString().split('T')[0] } 
+  });
+  
+  const weeklyCalories = await WorkoutLog.aggregate([
+    { $match: { user: userId, date: { $gte: oneWeekAgo.toISOString().split('T')[0] } } },
+    { $group: { _id: null, total: { $sum: "$caloriesBurned" } } }
+  ]);
+
+  // 6. AI Summary Message
+  const readinessScore = Math.min(100, Math.round(
+    (dietLog.consistencyScore * 0.4) + 
+    (workoutLog.consistencyScore * 0.4) + 
+    (Math.min(100, (dietLog.waterIntake / 8) * 100) * 0.2)
+  ));
+
+  const aiMessage = readinessScore >= 80 ? "You're crushing it today! 🔥" :
+                   readinessScore >= 60 ? "Good momentum, keep it up! 💪" :
+                   readinessScore >= 40 ? "Let's get moving today! 🚀" :
+                   "Time to start your fitness journey! ✨";
+
+  return {
+    user: {
+      name: user.name,
+      email: user.email,
+      goal: fitnessProfile?.goal || 'maintenance',
+      currentWeight,
+      targetWeight: fitnessProfile?.targetWeight || currentWeight,
+      startWeight,
+      needsOnboarding: !fitnessProfile?.isComplete
+    },
+    summary: {
+      readinessScore,
+      message: aiMessage,
+      status: {
+        sleep: "7h 30m",
+        water: `${dietLog.waterIntake || 0}/8 glasses`,
+        steps: "6,500 steps"
+      }
+    },
+    diet: {
+      caloriesEaten: dietLog.caloriesEaten || 0,
+      caloriesTarget: dietLog.caloriesTarget || dailyCaloriesTarget,
+      proteinEaten: dietLog.proteinEaten || 0,
+      proteinTarget: Math.round((dailyCaloriesTarget * 0.25) / 4),
+      carbsEaten: dietLog.carbsEaten || 0,
+      carbsTarget: Math.round((dailyCaloriesTarget * 0.45) / 4),
+      fatsEaten: dietLog.fatsEaten || 0,
+      fatsTarget: Math.round((dailyCaloriesTarget * 0.30) / 9),
+      consistencyScore: dietLog.consistencyScore || 0,
+      message: "Follow your AI plan for best results!",
+      todaysPlan: dailyPlan?.diet?.meals || null
+    },
+    workout: {
+      completedDuration: workoutLog.duration || 0,
+      plannedDuration: workoutLog.targetDuration || 45,
+      caloriesBurned: workoutLog.caloriesBurned || 0,
+      consistencyScore: workoutLog.consistencyScore || 0,
+      todaysStatus: workoutLog.duration > 0 ? 'completed' : 'pending',
+      message: "Stay consistent!",
+      weeklyStats: {
+        completed: weeklyWorkouts,
+        planned: 7
+      },
+      weeklyProgress: [false, false, false, false, false, false, false]
+    },
+    dailyPlan,
+    weekly: {
+      totalWorkouts: weeklyWorkouts,
+      totalCalories: weeklyCalories[0]?.total || 0,
+      totalSteps: 45000
+    },
+    streaks: {
+      workout: 0,
+      water: 0,
+      badges: ["Beginner"]
+    },
+    calendar: {
+      today: ["Today's Workout - 6:00 PM"]
+    }
+  };
 };

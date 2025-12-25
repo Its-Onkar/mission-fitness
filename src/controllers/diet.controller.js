@@ -1,6 +1,6 @@
-<<<<<<< Updated upstream
+
 import {createDietPlan ,  getDietplanByUserId ,getAllDietPlans, updateDietPlanByUserName} from "../services/diet.services.js";
-=======
+
 // Simple food logging without complex comparison
 export const logFoodController = async (req, res) => {
   try {
@@ -42,7 +42,7 @@ export const getDietComparisonController = async (req, res) => {
 export const getDietPlanByUserIdController = async (req, res) => {
   res.status(200).json({ message: "Diet plan retrieved" });
 };
->>>>>>> Stashed changes
+
 
 export const createDietPlanController = async (req, res) => {
   res.status(200).json({ message: "Diet plan created" });
